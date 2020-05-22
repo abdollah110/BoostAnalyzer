@@ -1,6 +1,6 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
-#include "ggAnalysis/ggNtuplizer/interface/GenParticleParentage.h"
+#include "BoostTau/BoostAnalyzer/interface/GenParticleParentage.h"
 using namespace std;
 
 

@@ -111,8 +111,6 @@ void ggNtuplizer::branchesTaus(TTree* tree)
     tree->Branch("tauByTightIsolationMVArun2v1DBoldDMwLT", &tauByTightIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("tauByLooseIsolationMVArun2v1DBnewDMwLT", &tauByLooseIsolationMVArun2v1DBnewDMwLT_);
     tree->Branch("tauByLooseIsolationMVArun2v1DBoldDMwLT", &tauByLooseIsolationMVArun2v1DBoldDMwLT_);
-    tree->Branch("tauByVLooseIsolationMVArun2v1DBnewDMwLT", &tauByVLooseIsolationMVArun2v1DBnewDMwLT_);
-    tree->Branch("tauByVLooseIsolationMVArun2v1DBoldDMwLT", &tauByVLooseIsolationMVArun2v1DBoldDMwLT_);
     
     //Tau Kinematics
     tree->Branch("tauEta"  ,&tauEta_);
@@ -230,7 +228,6 @@ void ggNtuplizer::fillTaus(const edm::Event& e)
     
     edm::Handle<vector<pat::Tau> > tauHandle, tauHandle_v2;
     e.getByToken(tauCollection_, tauHandle);
-    e.getByToken(tauCollection_v2_, tauHandle_v2);
 
 
 

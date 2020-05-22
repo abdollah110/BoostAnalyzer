@@ -15,6 +15,8 @@ process.source = cms.Source("PoolSource",
 
 process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              boostedTauSrc    = cms.InputTag("slimmedTausBoosted"),
+                             tauSrc                    = cms.InputTag("slimmedTaus"),
+                             genParticleSrc       = cms.InputTag("prunedGenParticles"),
                               )
 
 process.TFileService = cms.Service("TFileService",

@@ -98,7 +98,6 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByTightMuonRejection3", &boostedTauByTightMuonRejection3_);
     
     tree->Branch("boostedTauByLooseCombinedIsolationDeltaBetaCorr3Hits", &boostedTauByLooseCombinedIsolationDeltaBetaCorr3Hits_);
-    tree->Branch("boostedTauByMediumCombinedIsolationDeltaBetaCorr3Hits", &boostedTauByMediumCombinedIsolationDeltaBetaCorr3Hits_);
     tree->Branch("boostedTauByTightCombinedIsolationDeltaBetaCorr3Hits", &boostedTauByTightCombinedIsolationDeltaBetaCorr3Hits_);
     tree->Branch("boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits", &boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_);
     
@@ -183,11 +182,8 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
 
     boostedTauByIsolationMVArun2v2DBoldDMwLTraw_.clear();
-    boostedTauByVTightIsolationMVArun2v2DBoldDMwLT_.clear();
     boostedTauByTightIsolationMVArun2v2DBoldDMwLT_.clear();
-    boostedTauByMediumIsolationMVArun2v2DBoldDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v2DBoldDMwLT_.clear();
-    boostedTauByVLooseIsolationMVArun2v2DBoldDMwLT_.clear();
     
     //Tau Kinematics
     boostedTauEta_.clear();

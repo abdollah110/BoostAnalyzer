@@ -17,6 +17,7 @@
 //
 
 
+
 #include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
 
 //
@@ -24,7 +25,9 @@
 //
 BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
  :
- boostedTauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("boostedTauSrc")))
+ boostedTauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("boostedTauSrc"))),
+ tauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("tauSrc"))),
+ genParticlesCollection_  = consumes<vector<reco::GenParticle> >             (iConfig.getParameter<edm::InputTag>("genParticleSrc")))
 {
   edm::Service<TFileService> fs;
   boostPt = fs->make<TH1F>("pt" , "pt" , 100 , 0 , 1000 );

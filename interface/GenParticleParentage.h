@@ -2,7 +2,7 @@
 #define __FSA_DATAALGOS_PHOTONPARENTAGE_H__
 
 #include <DataFormats/Common/interface/Ref.h>
-#include <BoostTau/BoostAnalyzer/interface/GenParticle.h>
+#include <DataFormats/HepMCCandidate/interface/GenParticle.h>
 
 // This class gets a GenLevel particle and spits out the information
 // it recurses down the information until 

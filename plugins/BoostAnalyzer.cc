@@ -19,26 +19,36 @@
 
 #include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
 
+//
+// constructors and destructor
+//
+BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
+ :
+ boostedTauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("boostedTauSrc")))
+{
+  edm::Service<TFileService> fs;
+  boostPt = fs->make<TH1F>("pt" , "pt" , 100 , 0 , 1000 );
+  tree_    = fs->make<TTree>("EventTree", "Event data");
+  branchesBoostedTaus(tree_);
+  branchesTaus(tree_);
+  branchesGenPart(tree_);
+
+}
+
+
+
+
 // ------------ method called for each event  ------------
 void
 BoostAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-    using namespace edm;
+
+    fillBoostedTaus(const edm::Event&);
+    fillTaus(iEvent);
+    fillGenPart(iEvent);
+
+    tree_->Fill();
     
-    
-    using namespace std;
-    edm::Handle<std::vector<pat::Tau> > boostedTauHandle;
-    iEvent.getByToken(boostedTauCollection_, boostedTauHandle);
-    for(vector<pat::Tau>::const_iterator itau = boostedTauHandle->begin(); itau != boostedTauHandle->end(); ++itau) {
-        
-        std::cout<<" boostPt "<<itau->pt()<<"\n";
-        boostPt->Fill(itau->pt());
-        fillBoostedTaus(iEvent);
-        
-        tree_->Fill();
-        
-        
-    }
     
 }
 

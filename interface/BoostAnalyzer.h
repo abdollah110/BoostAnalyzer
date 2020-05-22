@@ -1,3 +1,6 @@
+#ifndef BoostAnalyzer_h
+#define BoostAnalyzer_h
+
 // -*- C++ -*-
 //
 // Package:    BoostTau/BoostAnalyzer
@@ -56,7 +59,7 @@ using reco::DeDxHitInfo;
 class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
    public:
       explicit BoostAnalyzer(const edm::ParameterSet&);
-      ~BoostAnalyzer();
+//      ~BoostAnalyzer();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -65,12 +68,16 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
       virtual void beginJob() override;
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
       virtual void endJob() override;
+      
       void fillBoostedTaus(const edm::Event&);
+      void fillTaus(const edm::Event&);
+      void fillGenPart(const edm::Event&);
+      
       void branchesBoostedTaus(TTree*);
+      void branchesTaus(TTree*);
+      void branchesGenPart(TTree*);
 
       // ----------member data ---------------------------
-     // edm::EDGetTokenT<TrackCollection> tracksToken_;  //used to select what tracks to read from configuration file
-//	edm::EDGetTokenT<DeDxHitInfo> tracksToken_;  //used to select what tracks to read from configuration file
 
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollection_;
 TH1F * boostPt;
@@ -85,36 +92,20 @@ TTree * tree_;
 // static data member definitions
 //
 
+
+
+
+//BoostAnalyzer::~BoostAnalyzer()
+//{
 //
-// constructors and destructor
+//   // do anything here that needs to be done at desctruction time
+//   // (e.g. close files, deallocate resources etc.)
 //
-BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
- :
- boostedTauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("boostedTauSrc")))
-//  tracksToken_(consumes<TrackCollection>(iConfig.getUntrackedParameter<edm::InputTag>("tracks")))
-//tracksToken_(consumes<DeDxHitInfo>(iConfig.getUntrackedParameter<edm::InputTag>("isolatedTracks")))
- // boostedTauCollection_(consumes<std::vector<pat::Tau>(iConfig.getUntrackedParameter<edm::InputTag>("slimmedTausBoosted")))  
-{
-   //now do what ever initialization is needed
- // boostedTauCollection_      = consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("boostedTauSrc"));
-   edm::Service<TFileService> fs; 
-  boostPt = fs->make<TH1F>("pt" , "pt" , 100 , 0 , 1000 );
-  tree_    = fs->make<TTree>("EventTree", "Event data");
-  branchesBoostedTaus(tree_);
-
-}
-
-
-BoostAnalyzer::~BoostAnalyzer()
-{
-
-   // do anything here that needs to be done at desctruction time
-   // (e.g. close files, deallocate resources etc.)
-
-}
+//}
 
 
 //
 // member functions
 //
 
+#endif

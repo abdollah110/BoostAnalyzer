@@ -65,6 +65,8 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
       virtual void beginJob() override;
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
       virtual void endJob() override;
+      void fillBoostedTaus(const edm::Event&);
+      void branchesBoostedTaus(TTree*)
 
       // ----------member data ---------------------------
      // edm::EDGetTokenT<TrackCollection> tracksToken_;  //used to select what tracks to read from configuration file
@@ -98,6 +100,7 @@ BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
    edm::Service<TFileService> fs; 
   boostPt = fs->make<TH1F>("pt" , "pt" , 100 , 0 , 1000 );
   tree_    = fs->make<TTree>("EventTree", "Event data");
+  branchesBoostedTaus(tree_);
 
 }
 

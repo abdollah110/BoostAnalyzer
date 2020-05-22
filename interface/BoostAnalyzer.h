@@ -66,7 +66,7 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
       virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
       virtual void endJob() override;
       void fillBoostedTaus(const edm::Event&);
-      void branchesBoostedTaus(TTree*)
+      void branchesBoostedTaus(TTree*);
 
       // ----------member data ---------------------------
      // edm::EDGetTokenT<TrackCollection> tracksToken_;  //used to select what tracks to read from configuration file

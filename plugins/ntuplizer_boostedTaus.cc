@@ -18,7 +18,7 @@ vector<bool>   boostedTaupfTausDiscriminationByDecayModeFinding_;
 vector<bool>   boostedTaupfTausDiscriminationByDecayModeFindingNewDMs_;
 
 vector<bool>   boostedTauByMVA6LooseElectronRejection_;
-vector<bool>   boostedTauByMVA6VTightElectronRejection_;
+vector<bool>   boostedTauByMVA6TightElectronRejection_;
 
 vector<bool>   boostedTauByLooseMuonRejection3_;
 vector<bool>   boostedTauByTightMuonRejection3_;
@@ -181,9 +181,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
 
-    boostedTauByIsolationMVArun2v2DBoldDMwLTraw_.clear();
-    boostedTauByTightIsolationMVArun2v2DBoldDMwLT_.clear();
-    boostedTauByLooseIsolationMVArun2v2DBoldDMwLT_.clear();
     
     //Tau Kinematics
     boostedTauEta_.clear();

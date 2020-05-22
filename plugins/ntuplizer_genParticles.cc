@@ -40,7 +40,7 @@ Int_t            numGenTau;
 
 //using namespace std;
 
-std::vector<reco::Candidate::LorentzVector>  ggNtuplizer::buildGenTaus(const edm::Event& e) {
+std::vector<reco::Candidate::LorentzVector>  BoostAnalyzer::buildGenTaus(const edm::Event& e) {
     bool include_leptonic = false;
     std::vector< reco::Candidate::LorentzVector > genTauJets;
 
@@ -49,7 +49,7 @@ std::vector<reco::Candidate::LorentzVector>  ggNtuplizer::buildGenTaus(const edm
     e.getByToken(genParticlesCollection_, genParticlesHandle);
 
     if (!genParticlesHandle.isValid()) {
-      edm::LogWarning("ggNtuplizer") << "no reco::GenParticles in event";
+      edm::LogWarning("BoostAnalyzer") << "no reco::GenParticles in event";
 //      return 0;
     }
         
@@ -90,7 +90,7 @@ std::vector<reco::Candidate::LorentzVector>  ggNtuplizer::buildGenTaus(const edm
 }
 
 
-void ggNtuplizer::branchesGenPart(TTree* tree) {
+void BoostAnalyzer::branchesGenPart(TTree* tree) {
 
   tree->Branch("nMC",          &nMC_);
   tree->Branch("numGenTau",          &numGenTau);
@@ -133,7 +133,7 @@ void ggNtuplizer::branchesGenPart(TTree* tree) {
 }
 
 
-void ggNtuplizer::fillGenPart(const edm::Event& e) {
+void BoostAnalyzer::fillGenPart(const edm::Event& e) {
 
   // Fills tree branches with generated particle info.
 
@@ -177,7 +177,7 @@ void ggNtuplizer::fillGenPart(const edm::Event& e) {
   e.getByToken(genParticlesCollection_, genParticlesHandle);
 
   if (!genParticlesHandle.isValid()) {
-    edm::LogWarning("ggNtuplizer") << "no reco::GenParticles in event";
+    edm::LogWarning("BoostAnalyzer") << "no reco::GenParticles in event";
     return;
   }
   

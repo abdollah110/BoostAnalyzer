@@ -85,7 +85,7 @@ vector<bool>        tauByVLooseIsolationMVArun2v2DBoldDMwLT_;
 
 
 
-void ggNtuplizer::branchesTaus(TTree* tree)
+void BoostAnalyzer::branchesTaus(TTree* tree)
 {
     
     tree->Branch("nTau", &nTau_);
@@ -154,7 +154,7 @@ void ggNtuplizer::branchesTaus(TTree* tree)
    
 }
 
-void ggNtuplizer::fillTaus(const edm::Event& e)
+void BoostAnalyzer::fillTaus(const edm::Event& e)
 {
     
     // Tau Id & Isolation
@@ -233,7 +233,7 @@ void ggNtuplizer::fillTaus(const edm::Event& e)
 
 
     if (!tauHandle.isValid()) {
-        edm::LogWarning("ggNtuplizer") << "no pat::Tau in event";
+        edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event";
         return;
     }
     

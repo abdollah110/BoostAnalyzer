@@ -1,4 +1,4 @@
-#include "ggAnalysis/ggNtuplizer/interface/GenParticleParentage.h"
+#include "BoostTau/BoostAnalyzer/interface/GenParticleParentage.h"
 #include <iostream>
 
 using namespace std;

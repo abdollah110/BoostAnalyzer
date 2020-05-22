@@ -20,6 +20,16 @@
 
 #include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
 
+
+using namespace std;
+using namespace edm;
+
+void setbit(UShort_t& x, UShort_t bit) {
+  UShort_t a = 1;
+  x |= (a << bit);
+}
+
+
 //
 // constructors and destructor
 //

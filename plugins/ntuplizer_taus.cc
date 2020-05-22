@@ -299,18 +299,6 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         tauNumIsolationPFGammaCands_.push_back(itau->isolationGammaCands().size());
         tauNumIsolationPFCands_.push_back(itau->isolationCands().size());
         
-        edm::Handle<reco::VertexCollection> vertexs;
-        e.getByToken(vtxLabel_, vertexs);
-        
-        if (vertexs->size()>0) {
-            pat::PackedCandidate const* packedLeadTauCand = dynamic_cast<pat::PackedCandidate const*>(itau->leadChargedHadrCand().get());
-            taudz_.push_back(packedLeadTauCand->dz());
-            taudxy_.push_back(packedLeadTauCand->dxy());
-            tauLeadChargedHadronExists_.push_back(true);
-            tauLeadChargedHadronEta_.push_back(packedLeadTauCand->eta());
-            tauLeadChargedHadronPhi_.push_back(packedLeadTauCand->phi());
-            tauLeadChargedHadronPt_.push_back(packedLeadTauCand->pt());
-        }
         
         ++nTau_;
         

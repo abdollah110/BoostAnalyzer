@@ -156,13 +156,13 @@ void SkimerBoost::Loop(TString OutputFile)
 
             cout<<"test 3\n";
             
-//                if (boostedTauPt->at(ibtau) < 10 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
-////                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(ibtau) < 0.5 ) continue;
+                if (boostedTauPt->at(ibtau) < 10 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
+//                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(ibtau) < 0.5 ) continue;
 //                if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(ibtau) < 0.5 ) continue;
-//                
+//
 //                if (boostedTauByMVA6VLooseElectronRejection->at(ibtau) < 0.5) continue;
 //                if (boostedTauByLooseMuonRejection3->at(ibtau) < 0.5) continue;
-////                if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(ibtau) < 0) continue;
+//                if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(ibtau) < 0) continue;
                 
                 BoostLeadTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(ibtau),boostedTauEta->at(ibtau),boostedTauPhi->at(ibtau),boostedTauMass->at(ibtau));
                 cout<<"test 4\n";
@@ -174,18 +174,18 @@ void SkimerBoost::Loop(TString OutputFile)
                     
                     if (boostedTauPt->at(jbtau) < 10 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
     //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(jbtau) < 0.5 ) continue;
-                    if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(jbtau) < 0.5 ) continue;
-                    
-                    if (boostedTauByMVA6VLooseElectronRejection->at(jbtau) < 0.5) continue;
-                    if (boostedTauByLooseMuonRejection3->at(jbtau) < 0.5) continue;
+//                    if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(jbtau) < 0.5 ) continue;
+//
+//                    if (boostedTauByMVA6VLooseElectronRejection->at(jbtau) < 0.5) continue;
+//                    if (boostedTauByLooseMuonRejection3->at(jbtau) < 0.5) continue;
 //                    if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(jbtau) < 0) continue;
                     
                     BoostSubTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(jbtau),boostedTauEta->at(jbtau),boostedTauPhi->at(jbtau),boostedTauMass->at(jbtau));
                                 
 
                 if(BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) > 1.5 || BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) < 0.1) continue;
-                decayMode1 = boostedTauDecayMode->at(ibtau);
-                decayMode2 = boostedTauDecayMode->at(jbtau);
+//                decayMode1 = boostedTauDecayMode->at(ibtau);
+//                decayMode2 = boostedTauDecayMode->at(jbtau);
                 numTauTau++;
                 if (!foundApair){
                 leadtauIndex=ibtau;

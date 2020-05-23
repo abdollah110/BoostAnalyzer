@@ -129,6 +129,7 @@ void SkimerBoost::Loop(TString OutputFile)
     BoostTree->Branch("subtauIndex", &subtauIndex);
     BoostTree->Branch("dR_", &dR_);
     
+    cout<<"test 1\n";
     for (int jentry=0; jentry<nentries;jentry++) {
         
         Long64_t ientry = LoadTree(jentry);
@@ -137,6 +138,7 @@ void SkimerBoost::Loop(TString OutputFile)
         
         if(jentry % 10000 == 0) cout << "Processed " << jentry << " events out of " <<nentries<<endl;
         
+        cout<<"test 2\n";
         hcount->Fill(1);
 //        if (!isData)
 //            hcount->Fill(2,genWeight);
@@ -149,7 +151,7 @@ void SkimerBoost::Loop(TString OutputFile)
         auto dR(0);
         bool foundApair= false;
         
-            
+            cout<<"test 3\n";
             for (int ibtau = 0; ibtau < nBoostedTau; ++ibtau){
                 
                 if (boostedTauPt->at(ibtau) < 30 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
@@ -161,10 +163,12 @@ void SkimerBoost::Loop(TString OutputFile)
                 if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(ibtau) < 0) continue;
                 
                 BoostLeadTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(ibtau),boostedTauEta->at(ibtau),boostedTauPhi->at(ibtau),boostedTauMass->at(ibtau));
-                
+                cout<<"test 4\n";
                 
                 
                 for (int jbtau = ibtau+1; jbtau < nBoostedTau; ++jbtau){
+                    
+                    cout<<"test 5\n";
                     
                     if (boostedTauPt->at(jbtau) < 30 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
     //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(jbtau) < 0.5 ) continue;

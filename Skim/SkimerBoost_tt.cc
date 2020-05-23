@@ -146,7 +146,7 @@ void SkimerBoost::Loop(TString OutputFile)
         
         TLorentzVector BoostSubTau4Mom, BoostLeadTau4Mom,BoostSubTau4Momtmp, BoostLeadTau4Momtmp;
         auto numTauTau(0);
-        auto dR(0);
+        auto dR(0.0);
         bool foundApair= false;
         
 

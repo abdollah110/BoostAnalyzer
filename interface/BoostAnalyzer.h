@@ -54,7 +54,7 @@
 
 
 //using reco::TrackCollection;
-using reco::DeDxHitInfo;
+void setbit(UShort_t& x, UShort_t bit);
 
 class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
    public:
@@ -76,10 +76,14 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
       void branchesBoostedTaus(TTree*);
       void branchesTaus(TTree*);
       void branchesGenPart(TTree*);
+      std::vector<reco::Candidate::LorentzVector>  buildGenTaus (const edm::Event&);
+
 
       // ----------member data ---------------------------
 
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollection_;
+  edm::EDGetTokenT<std::vector<pat::Tau> >              tauCollection_;
+  edm::EDGetTokenT<std::vector<reco::GenParticle>>              genParticlesCollection_;
 TH1F * boostPt;
 TTree * tree_;
 };

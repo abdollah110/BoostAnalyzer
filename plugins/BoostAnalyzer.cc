@@ -35,9 +35,9 @@ void setbit(UShort_t& x, UShort_t bit) {
 //
 BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
  :
- boostedTauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("boostedTauSrc"))),
- tauCollection_(consumes<std::vector<pat::Tau> >             (iConfig.getParameter<edm::InputTag>("tauSrc"))),
- genParticlesCollection_  = consumes<vector<reco::GenParticle> >             (iConfig.getParameter<edm::InputTag>("genParticleSrc")))
+ boostedTauCollection_(consumes<std::vector<pat::Tau> >                   (iConfig.getParameter<edm::InputTag>("boostedTauSrc"))),
+ tauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrc"))),
+ genParticlesCollection_(consumes<vector<reco::GenParticle> >             (iConfig.getParameter<edm::InputTag>("genParticleSrc")))
 {
   edm::Service<TFileService> fs;
   boostPt = fs->make<TH1F>("pt" , "pt" , 100 , 0 , 1000 );
@@ -56,7 +56,7 @@ void
 BoostAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
-    fillBoostedTaus(const edm::Event&);
+    fillBoostedTaus(iEvent);
     fillTaus(iEvent);
     fillGenPart(iEvent);
 

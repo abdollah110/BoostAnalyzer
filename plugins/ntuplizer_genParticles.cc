@@ -225,16 +225,11 @@ for ( auto vec : genTaus ) {
        (    ip->pdgId()  == 25 && ip->isHardProcess()) ||
        (abs(ip->pdgId()) ==  6 && ip->isHardProcess()) || 
        (abs(ip->pdgId()) ==  5 && ip->isHardProcess()));
-    
-    bool newParticle = false;
-    for (size_t inp = 0; inp < newparticles_.size(); ++inp) {
-      if (abs(ip->pdgId()) == newparticles_[inp]) newParticle = true;
-    }
-    
-    if ( heavyParticle || photonOrLepton || quarks || newParticle ) {
+        
+    if ( heavyParticle || photonOrLepton || quarks) {
       
       const reco::Candidate *p = (const reco::Candidate*)&(*ip);
-      if (!runOnParticleGun_ && !p->mother()) continue;
+//      if (!runOnParticleGun_ && !p->mother()) continue;
 
       mcPID    .push_back(p->pdgId());
       mcVtx    .push_back(p->vx());
@@ -283,7 +278,8 @@ for ( auto vec : genTaus ) {
       float mcMomMass_  = -999.;
       float mcMomEta_   = -999.;
       float mcMomPhi_   = -999.;
-      if (!runOnSherpa_) {
+//      if (!runOnSherpa_) {
+      if (1) {
 	
 	      reco::GenParticleRef partRef = reco::GenParticleRef(genParticlesHandle, ip-genParticlesHandle->begin());
 	      genpartparentage::GenParticleParentage particleHistory(partRef);

@@ -1,0 +1,49 @@
+To make skimming over ggNtuples 6 files are needed:
+
+Skimmer.cc (the .cc code where the skimming is defined here)
+Skimmer.h (header file)
+Makefile (used to compile Skimmer.cc)
+InputSamples.txt  (where the list of all ggNtuples are stored, starting from /store)
+Template_Submit_batch.jdl  (where condor parameters are defined. Note: you need to change the location of the runPath!!)
+Template_Submit_run.sh   (instruct condor how to run the jobs)
+makeSubmissionPackage.py (you need to run this file with the appropriate argument to create .sh and .jdl files for condor submission)
+
+—————————————————————————————————————————————————
+No need to do it for current round of ggNtuple
+—————————————————————————————————————————————————
+Skimmer.h needs to get updated whenever there is a change in the definition of the tress in the ggNtuples (some changes might be foreseen in Skimmer.cc as well)
+To get the proper Skimmer.h one needs to run the latest ggNtuple on a test sample and save the output with ggtree_mc.root.
+
+root -l ggtree_mc.root
+TFile *_file0 = TFile::Open("ggtree_mc.root")
+_file0->cd(“ggNtuplizer”)
+EventTree->MakeClass(“Class”)
+
+The last command generates Class.h and Class.cc from TTree: EventTree
+
+Now all needed is to copy and paste 4 pieces from Class.h in the Skimmer.h
+
+ // Declaration of leaf types
+ // List of branches
+ // Set object pointer
+ // Set branch addresses and branch pointers
+
+Now check the Skimmer.C and decide which branches you want to save in the skimming ntuple and which to drop
+—————————————————————————————————————————————————
+
+ 
+Steps to skim the ggNtuple:
+1) Update the .cc file and add your filtering skim
+2) Compile the .cc file (just type make)
+3) List all samples you intend to make skim (from /store/.... )
+4) run the makeSubmissionPackage.py  script:
+	########
+	python makeSubmissionPackage.py -x SkimerBoost_mt -i InputSample.txt -n muTau_v1 -o /store/user/abdollah/NewSkimBoost/mt/v1
+	########
+
+More info about condor is here: http://www.uscms.org/uscms_at_work/computing/setup/batch_systems.shtml#condor_1
+
+at the end you have to hadd the root files:
+
+1) update the had_skim.py
+2) python had_skim.py

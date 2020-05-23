@@ -150,6 +150,8 @@ void SkimerBoost::Loop(TString OutputFile)
         bool foundApair= false;
         
 
+            if (nBoostedTau > 0) cout<<"  numBoostedTau "<<nBoostedTau <<"\n";
+            
             for (int ibtau = 0; ibtau < nBoostedTau; ++ibtau){
 
             cout<<"test 3\n";

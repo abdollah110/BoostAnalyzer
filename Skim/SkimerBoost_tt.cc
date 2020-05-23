@@ -90,7 +90,7 @@ void SkimerBoost::Loop(TString OutputFile)
     int leadtauIndex = -1;
     int subtauIndex= -1;
     int NumPair=0;
-    float dR_=0;
+    float dR_=-1.0;
     
     
 //    BoostTree->Branch("era", &era);
@@ -146,7 +146,7 @@ void SkimerBoost::Loop(TString OutputFile)
         
         TLorentzVector BoostSubTau4Mom, BoostLeadTau4Mom,BoostSubTau4Momtmp, BoostLeadTau4Momtmp;
         auto numTauTau(0);
-        auto dR(0.0);
+        auto dR(-1.0);
         bool foundApair= false;
         
 

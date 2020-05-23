@@ -25,20 +25,20 @@ void SkimerBoost::Loop(TString OutputFile)
     
     fChain->SetBranchStatus("*",0);
     fChain->SetBranchStatus("vt*",1);
-    fChain->SetBranchStatus("EventTag",1);
-    fChain->SetBranchStatus("run",1);
-    fChain->SetBranchStatus("event",1);
-    fChain->SetBranchStatus("lumis",1);
-    fChain->SetBranchStatus("isData",1);
-    fChain->SetBranchStatus("HLT*",1);
-    fChain->SetBranchStatus("gen*",1);
-    fChain->SetBranchStatus("pdf*",1);
-    fChain->SetBranchStatus("pthat",1);
-    fChain->SetBranchStatus("processID",1);
-    fChain->SetBranchStatus("rho*",1);
-    fChain->SetBranchStatus("pu*",1);
-    fChain->SetBranchStatus("mc*",1);
-    fChain->SetBranchStatus("pfMET*",1);
+//    fChain->SetBranchStatus("EventTag",1);
+//    fChain->SetBranchStatus("run",1);
+//    fChain->SetBranchStatus("event",1);
+//    fChain->SetBranchStatus("lumis",1);
+//    fChain->SetBranchStatus("isData",1);
+//    fChain->SetBranchStatus("HLT*",1);
+//    fChain->SetBranchStatus("gen*",1);
+//    fChain->SetBranchStatus("pdf*",1);
+//    fChain->SetBranchStatus("pthat",1);
+//    fChain->SetBranchStatus("processID",1);
+//    fChain->SetBranchStatus("rho*",1);
+//    fChain->SetBranchStatus("pu*",1);
+//    fChain->SetBranchStatus("mc*",1);
+//    fChain->SetBranchStatus("pfMET*",1);
     fChain->SetBranchStatus("n*",1);
 //    fChain->SetBranchStatus("jet*",1);
 //    fChain->SetBranchStatus("AK8*",1);
@@ -156,12 +156,12 @@ void SkimerBoost::Loop(TString OutputFile)
 
             cout<<"test 3\n";
             
-                if (boostedTauPt->at(ibtau) < 10 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
+                if (boostedTauPt->at(ibtau) < 30 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
 //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(ibtau) < 0.5 ) continue;
-//                if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(ibtau) < 0.5 ) continue;
-//
+                if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(ibtau) < 0.5 ) continue;
+                
 //                if (boostedTauByMVA6VLooseElectronRejection->at(ibtau) < 0.5) continue;
-//                if (boostedTauByLooseMuonRejection3->at(ibtau) < 0.5) continue;
+                if (boostedTauByLooseMuonRejection3->at(ibtau) < 0.5) continue;
 //                if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(ibtau) < 0) continue;
                 
                 BoostLeadTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(ibtau),boostedTauEta->at(ibtau),boostedTauPhi->at(ibtau),boostedTauMass->at(ibtau));
@@ -172,20 +172,20 @@ void SkimerBoost::Loop(TString OutputFile)
                     
                     cout<<"test 5\n";
                     
-                    if (boostedTauPt->at(jbtau) < 10 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
+                    if (boostedTauPt->at(jbtau) < 30 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
     //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(jbtau) < 0.5 ) continue;
-//                    if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(jbtau) < 0.5 ) continue;
-//
+                    if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(jbtau) < 0.5 ) continue;
+                    
 //                    if (boostedTauByMVA6VLooseElectronRejection->at(jbtau) < 0.5) continue;
-//                    if (boostedTauByLooseMuonRejection3->at(jbtau) < 0.5) continue;
+                    if (boostedTauByLooseMuonRejection3->at(jbtau) < 0.5) continue;
 //                    if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(jbtau) < 0) continue;
                     
                     BoostSubTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(jbtau),boostedTauEta->at(jbtau),boostedTauPhi->at(jbtau),boostedTauMass->at(jbtau));
                                 
 
                 if(BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) > 1.5 || BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) < 0.1) continue;
-//                decayMode1 = boostedTauDecayMode->at(ibtau);
-//                decayMode2 = boostedTauDecayMode->at(jbtau);
+                decayMode1 = boostedTauDecayMode->at(ibtau);
+                decayMode2 = boostedTauDecayMode->at(jbtau);
                 numTauTau++;
                 if (!foundApair){
                 leadtauIndex=ibtau;

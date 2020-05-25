@@ -226,7 +226,8 @@ for ( auto vec : genTaus ) {
        (abs(ip->pdgId()) ==  6 && ip->isHardProcess()) || 
        (abs(ip->pdgId()) ==  5 && ip->isHardProcess()));
         
-    if ( heavyParticle || photonOrLepton || quarks) {
+//    if ( heavyParticle || photonOrLepton || quarks) {
+    if (1) {
       
       const reco::Candidate *p = (const reco::Candidate*)&(*ip);
 //      if (!runOnParticleGun_ && !p->mother()) continue;

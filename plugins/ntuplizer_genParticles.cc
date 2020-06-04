@@ -207,24 +207,24 @@ for ( auto vec : genTaus ) {
     int status = ip->status();
     //bool stableFinalStateParticle = status == 1 && ip->pt() > 5.0;
     
-    bool quarks = abs(ip->pdgId())<7;
+//    bool quarks = abs(ip->pdgId())<7;
 
     // keep non-FSR photons with pT > 5.0 and all leptons with pT > 3.0;
-    bool photonOrLepton =
-      (ip->pdgId() == 22 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
-      (status == 1 && abs(ip->pdgId()) == 11 && (ip->isPromptFinalState() || ip->isLastCopy())) || 
-      (status == 1 && abs(ip->pdgId()) == 13 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
-      (status == 1 && (abs(ip->pdgId()) == 12 || abs(ip->pdgId()) == 14 || abs(ip->pdgId()) == 16)) ||
-      (status == 1 && ( abs(ip->pdgId()) >= 11 && abs(ip->pdgId()) <= 16 ) && ip->pt() > 3.0)  ||
-      (status < 10 && abs(ip->pdgId()) == 15 && ip->pt() > 3.0);
-      
-    // select also Z, W, H, top and b 
-    bool heavyParticle =
-      ((    ip->pdgId()  == 23 && ip->isHardProcess()) || 
-       (abs(ip->pdgId()) == 24 && ip->isHardProcess()) || 
-       (    ip->pdgId()  == 25 && ip->isHardProcess()) ||
-       (abs(ip->pdgId()) ==  6 && ip->isHardProcess()) || 
-       (abs(ip->pdgId()) ==  5 && ip->isHardProcess()));
+//    bool photonOrLepton =
+//      (ip->pdgId() == 22 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+//      (status == 1 && abs(ip->pdgId()) == 11 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+//      (status == 1 && abs(ip->pdgId()) == 13 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+//      (status == 1 && (abs(ip->pdgId()) == 12 || abs(ip->pdgId()) == 14 || abs(ip->pdgId()) == 16)) ||
+//      (status == 1 && ( abs(ip->pdgId()) >= 11 && abs(ip->pdgId()) <= 16 ) && ip->pt() > 3.0)  ||
+//      (status < 10 && abs(ip->pdgId()) == 15 && ip->pt() > 3.0);
+//
+//    // select also Z, W, H, top and b
+//    bool heavyParticle =
+//      ((    ip->pdgId()  == 23 && ip->isHardProcess()) ||
+//       (abs(ip->pdgId()) == 24 && ip->isHardProcess()) ||
+//       (    ip->pdgId()  == 25 && ip->isHardProcess()) ||
+//       (abs(ip->pdgId()) ==  6 && ip->isHardProcess()) ||
+//       (abs(ip->pdgId()) ==  5 && ip->isHardProcess()));
         
 //    if ( heavyParticle || photonOrLepton || quarks) {
     if (1) {

@@ -226,7 +226,7 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
     
     nTau_ = 0;
     
-    edm::Handle<vector<pat::Tau> > tauHandle, ;
+    edm::Handle<vector<pat::Tau> > tauHandle ;
     e.getByToken(tauCollection_, tauHandle);
     
     

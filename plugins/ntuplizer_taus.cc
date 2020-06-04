@@ -94,7 +94,7 @@ void BoostAnalyzer::branchesTaus(TTree* tree)
     tree->Branch("taupfTausDiscriminationByDecayModeFinding", &taupfTausDiscriminationByDecayModeFinding_);
     tree->Branch("taupfTausDiscriminationByDecayModeFindingNewDMs", &taupfTausDiscriminationByDecayModeFindingNewDMs_);
     
-
+    
     tree->Branch("tauByMVA6LooseElectronRejection", &tauByMVA6LooseElectronRejection_);
     tree->Branch("tauByMVA6TightElectronRejection", &tauByMVA6TightElectronRejection_);
     
@@ -151,7 +151,7 @@ void BoostAnalyzer::branchesTaus(TTree* tree)
     tree->Branch("tauphotonPtSumOutsideSignalCone"  ,&tauphotonPtSumOutsideSignalCone_);
     tree->Branch("taudz"  ,&taudz_);
     tree->Branch("taudxy"  ,&taudxy_);
-   
+    
 }
 
 void BoostAnalyzer::fillTaus(const edm::Event& e)
@@ -167,7 +167,7 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
     
     tauByLooseMuonRejection3_.clear();
     tauByTightMuonRejection3_.clear();
-
+    
     tauByLooseCombinedIsolationDeltaBetaCorr3Hits_.clear();
     tauByTightCombinedIsolationDeltaBetaCorr3Hits_.clear();
     tauCombinedIsolationDeltaBetaCorrRaw3Hits_.clear();
@@ -222,29 +222,38 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
     tauByIsolationMVArun2v2DBoldDMwLTraw_.clear();
     tauByTightIsolationMVArun2v2DBoldDMwLT_.clear();
     tauByLooseIsolationMVArun2v2DBoldDMwLT_.clear();
-
+    
     
     nTau_ = 0;
     
-    edm::Handle<vector<pat::Tau> > tauHandle, tauHandle_v2;
+    edm::Handle<vector<pat::Tau> > tauHandle, ;
     e.getByToken(tauCollection_, tauHandle);
-
-
-
-
+    
+    
+    edm::Handle<vector<pat::Tau> >  NewtauHandle_v2;
+    e.getByToken(NewtauCollection_, NewtauHandle_v2);
+    
+    
+    
     if (!tauHandle.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event";
         return;
     }
     
-    //startTaus Lvdp
+    if (!NewtauHandle_v2.isValid()) {
+        edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event NewtauHandle_v2";
+        return;
+    }
+    
+    
+    //startTaus
     for(vector<pat::Tau>::const_iterator itau = tauHandle->begin(); itau != tauHandle->end(); ++itau) {
         
         // Tau Id & Isolation
         taupfTausDiscriminationByDecayModeFinding_.push_back(itau->tauID("decayModeFinding"));
         taupfTausDiscriminationByDecayModeFindingNewDMs_.push_back(itau->tauID("decayModeFindingNewDMs"));
         
-
+        
         tauByMVA6LooseElectronRejection_.push_back(itau->tauID("againstElectronLooseMVA6"));
         tauByMVA6TightElectronRejection_.push_back(itau->tauID("againstElectronTightMVA6"));
         
@@ -261,7 +270,7 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         tauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
         tauByTightIsolationMVArun2v1DBnewDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBnewDMwLT"));
         tauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-
+        
         
         //Tau Kinematics
         tauEta_.push_back(itau->eta());
@@ -302,9 +311,18 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         
         ++nTau_;
         
-   
-   } // loop over tau candidates
-
-
- 
+        
+    } // loop over tau candidates
+    
+    
+    //startTaus
+    for(vector<pat::Tau>::const_iterator itau_v2 = NewtauHandle_v2->begin(); itau_v2 != NewtauHandle_v2->end(); ++itau_v2) {
+        tauByIsolationMVArun2v2DBoldDMwLTraw_.push_back(itau_v2->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
+        tauByVTightIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byVTightIsolationMVArun2017v2DBoldDMwLT2017"));
+        tauByTightIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byTightIsolationMVArun2017v2DBoldDMwLT2017"));
+        tauByMediumIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byMediumIsolationMVArun2017v2DBoldDMwLT2017"));
+        tauByLooseIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
+        tauByVLooseIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byVLooseIsolationMVArun2017v2DBoldDMwLT2017"));
+    }
+    
 }

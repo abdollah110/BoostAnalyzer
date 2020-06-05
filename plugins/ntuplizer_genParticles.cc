@@ -204,7 +204,7 @@ for ( auto vec : genTaus ) {
   for (vector<reco::GenParticle>::const_iterator ip = genParticlesHandle->begin(); ip != genParticlesHandle->end(); ++ip) {
     genIndex++;
 
-    int status = ip->status();
+//    int status = ip->status();
     //bool stableFinalStateParticle = status == 1 && ip->pt() > 5.0;
     
 //    bool quarks = abs(ip->pdgId())<7;

@@ -152,6 +152,9 @@ void BoostAnalyzer::branchesTaus(TTree* tree)
     tree->Branch("taudz"  ,&taudz_);
     tree->Branch("taudxy"  ,&taudxy_);
     
+    tree->Branch("tauByIsolationMVArun2v2DBoldDMwLTraw"  ,&tauByIsolationMVArun2v2DBoldDMwLTraw_);
+    
+    
 }
 
 void BoostAnalyzer::fillTaus(const edm::Event& e)

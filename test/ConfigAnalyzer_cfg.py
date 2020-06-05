@@ -17,24 +17,38 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              boostedTauSrc    = cms.InputTag("slimmedTausBoosted"),
                              tauSrc                    = cms.InputTag("slimmedTaus"),
                              genParticleSrc       = cms.InputTag("prunedGenParticles"),
-                             tauSrcNew                    = cms.InputTag("NewTauIDsEmbedded"),
+#                             tauSrcNew                    = cms.InputTag("NewTauIDsEmbedded"),
+                             tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
                               )
 
-from BoostTau.BoostAnalyzer.runTauIdMVA import *
-na = TauIDEmbedder(process, cms, # pass tour process object
-    debug=True,
-    toKeep = ["2017v2"] # pick the one you need: ["2017v1", "2017v2", "newDM2017v2", "dR0p32017v2", "2016v1", "newDM2016v1"]
-)
-na.runTauID()
+#from BoostTau.BoostAnalyzer.runTauIdMVA import *
+#na = TauIDEmbedder(process, cms, # pass tour process object
+#    debug=True,
+#    toKeep = ["2017v2"] # pick the one you need: ["2017v1", "2017v2", "newDM2017v2", "dR0p32017v2", "2016v1", "newDM2016v1"]
+#)
+#na.runTauID()
 
 
+
+updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
+import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
+tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
+                    updatedTauName = updatedTauName,
+                    toKeep = [ "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids
+                               "deepTau2017v1", #deepTau Tau-Ids
+                               "DPFTau_2016_v0", #D[eep]PF[low] Tau-Id
+                               ])
+tauIdEmbedder.runTauID()
+    
 
 process.TFileService = cms.Service("TFileService",
                                        fileName = cms.string('histodemo.root')
                                    )
 process.p = cms.Path(
-    process.rerunMvaIsolationSequence
-    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
+#    process.rerunMvaIsolationSequence
+#    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
+     process.rerunMvaIsolationSequence *
+     getattr(process,updatedTauName)
     * process.demo
 )
 

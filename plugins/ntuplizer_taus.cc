@@ -82,6 +82,7 @@ vector<bool>        tauByMediumIsolationMVArun2v2DBoldDMwLT_;
 vector<bool>        tauByLooseIsolationMVArun2v2DBoldDMwLT_;
 vector<bool>        tauByVLooseIsolationMVArun2v2DBoldDMwLT_;
 
+vector<float>       byDeepTau2017v1VSjetraw_;
 
 
 
@@ -152,7 +153,9 @@ void BoostAnalyzer::branchesTaus(TTree* tree)
     tree->Branch("taudz"  ,&taudz_);
     tree->Branch("taudxy"  ,&taudxy_);
     
+    
     tree->Branch("tauByIsolationMVArun2v2DBoldDMwLTraw"  ,&tauByIsolationMVArun2v2DBoldDMwLTraw_);
+    tree->Branch("byDeepTau2017v1VSjetraw"  ,&byDeepTau2017v1VSjetraw_);
     
     
 }
@@ -181,6 +184,8 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
     tauByTightIsolationMVArun2v1DBoldDMwLT_.clear();
     tauByLooseIsolationMVArun2v1DBnewDMwLT_.clear();
     tauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
+    
+    byDeepTau2017v1VSjetraw_.clear();
     
     //Tau Kinematics
     tauEta_.clear();
@@ -326,6 +331,8 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         tauByMediumIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byMediumIsolationMVArun2017v2DBoldDMwLT2017"));
         tauByLooseIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
         tauByVLooseIsolationMVArun2v2DBoldDMwLT_.push_back(itau_v2->tauID("byVLooseIsolationMVArun2017v2DBoldDMwLT2017"));
+        
+        byDeepTau2017v1VSjetraw_.push_back(itau_v2->tauID("byDeepTau2017v1VSjetraw"));
     }
     
 }

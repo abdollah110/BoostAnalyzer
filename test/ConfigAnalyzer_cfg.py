@@ -9,7 +9,8 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 process.source = cms.Source("PoolSource",
                                 # replace 'myfile.root' with the source file you want to use
                                 fileNames = cms.untracked.vstring(
-            'file:ZprimeToZhToZhadhtata_narrow_M-2000_94X.root'
+#            'file:ZprimeToZhToZhadhtata_narrow_M-2000_94X.root'
+            'fil:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/miniAOD-prod_PAT.root'
                 )
                             )
 
@@ -30,6 +31,10 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
 
 
 
+process.load("RecoTauTag.Configuration.boostedHPSPFTaus_cfi")
+
+
+
 updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
 import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
 tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
@@ -39,11 +44,13 @@ tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
                                "DPFTau_2016_v0", #D[eep]PF[low] Tau-Id
                                ])
 tauIdEmbedder.runTauID()
-    
+
+
 
 process.TFileService = cms.Service("TFileService",
-                                       fileName = cms.string('histodemo.root')
+                                       fileName = cms.string('histodemo_new.root')
                                    )
+#print process.dumpPython()
 process.p = cms.Path(
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

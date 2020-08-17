@@ -31,7 +31,8 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
 
 
 
-process.load("RecoTauTag.Configuration.boostedHPSPFTaus_cfi")
+process.load("RecoTauTag.Configuration.boostedHPSPFTaus_cff")
+process.ca8PFJetsCHSprunedForBoostedTaus.jetPtMin = cms.double(100.0)
 
 
 

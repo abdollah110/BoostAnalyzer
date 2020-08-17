@@ -33,7 +33,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
 
 process.load("RecoTauTag.Configuration.boostedHPSPFTaus_cff")
 process.ca8PFJetsCHSprunedForBoostedTaus.jetPtMin = cms.double(100.0)
-
+process.boostedTauSeeds.verbosity =1
 
 
 updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids

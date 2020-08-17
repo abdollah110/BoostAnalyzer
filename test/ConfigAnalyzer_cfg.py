@@ -54,6 +54,7 @@ process.TFileService = cms.Service("TFileService",
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
+     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
      process.rerunMvaIsolationSequence *

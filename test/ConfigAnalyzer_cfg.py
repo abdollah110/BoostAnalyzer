@@ -50,6 +50,7 @@ tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
                                ])
 tauIdEmbedder.runTauID()
 
+from PhysicsTools.PatAlgos.patTemplate_cfg import *
 
 
 process.TFileService = cms.Service("TFileService",

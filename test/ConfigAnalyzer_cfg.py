@@ -51,7 +51,6 @@ tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
 tauIdEmbedder.runTauID()
 
 from PhysicsTools.PatAlgos.patTemplate_cfg import *
-process.load("PhysicsTools.PatAlgos.patSequences_cff")
 
 
 process.TFileService = cms.Service("TFileService",
@@ -60,12 +59,13 @@ process.TFileService = cms.Service("TFileService",
 #print process.dumpPython()
 process.p = cms.Path(
 #    process.hpsPFRecoTauProducer *
-#     process.patDefaultSequence *
+#    process.patDefaultSequence *
+
 #     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
      process.rerunMvaIsolationSequence *
-     getattr(process,updatedTauName) *
-     process.demo
+     getattr(process,updatedTauName)
+    * process.demo
 )
 

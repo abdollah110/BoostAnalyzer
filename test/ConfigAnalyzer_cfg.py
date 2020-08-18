@@ -48,12 +48,14 @@ tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
 tauIdEmbedder.runTauID()
 
 
+process.load("PhysicsTools.PatAlgos.patSequences_cff")
 
 process.TFileService = cms.Service("TFileService",
                                        fileName = cms.string('histodemo_new.root')
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
+     process.patSequences_cff.py *
 #     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

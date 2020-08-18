@@ -50,12 +50,18 @@ tauIdEmbedder.runTauID()
 
 process.load("PhysicsTools.PatAlgos.patSequences_cff")
 
+#process.load("RecoTauTag.Configuration.​updateHPSPFTaus_cff")
+
+​process.load("RecoTauTag.Configuration.updateHPSPFTaus_cff")
+
 process.TFileService = cms.Service("TFileService",
                                        fileName = cms.string('histodemo_new.root')
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
-     process.patDefaultSequence *
+#    updateHPSPFTaus
+#     process.patDefaultSequence *
+     process.boostedHPSPFTausTask *
 #     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

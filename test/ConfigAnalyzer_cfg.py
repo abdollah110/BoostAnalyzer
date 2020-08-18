@@ -36,9 +36,6 @@ process.ca8PFJetsCHSprunedForBoostedTaus.jetPtMin = cms.double(100.0)
 #process.ca8PFJetsCHSprunedForBoostedTaus.jetCollInstanceName=cms.string("MyNewJetCollection_subJetsForSeedingBoostedTaus")
 process.boostedTauSeeds.verbosity =1
 
-process.load("RecoTauTag.RecoTau.HPSPFRecoTauProducer_cfi")
-process.hpsPFRecoTauProducer.tauPtThreshold= cms.double(1500.)
-#0033       tauPtThreshold         = cms.double(15.),
 
 updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
 import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
@@ -50,7 +47,6 @@ tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
                                ])
 tauIdEmbedder.runTauID()
 
-from PhysicsTools.PatAlgos.patTemplate_cfg import *
 
 
 process.TFileService = cms.Service("TFileService",
@@ -58,9 +54,6 @@ process.TFileService = cms.Service("TFileService",
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
-#    process.hpsPFRecoTauProducer *
-#    process.patDefaultSequence *
-
 #     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

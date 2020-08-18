@@ -55,7 +55,7 @@ process.TFileService = cms.Service("TFileService",
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
-     process.patSequences_cff.py *
+     process.patDefaultSequence *
 #     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

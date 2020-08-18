@@ -39,7 +39,6 @@ process.boostedTauSeeds.verbosity =1
 process.load("RecoTauTag.RecoTau.HPSPFRecoTauProducer_cfi")
 process.hpsPFRecoTauProducer.tauPtThreshold= cms.double(1500.)
 #0033       tauPtThreshold         = cms.double(15.),
-​
 
 updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
 import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig

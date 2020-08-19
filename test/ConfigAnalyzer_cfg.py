@@ -77,7 +77,7 @@ process.TFileService = cms.Service("TFileService",
 process.p = cms.Path(
 #    updateHPSPFTaus
 #     process.patDefaultSequence *
-     process.newTauIDsEmbedded *#     process.boostedTauSeeds *
+     process.newTauIDsEmbeddedBBB *#     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
      process.rerunMvaIsolationSequence *

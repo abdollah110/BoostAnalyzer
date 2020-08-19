@@ -23,8 +23,8 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                               )
                               
 process.newTau= cms.EDProducer('PATTauIDEmbedder',
-            src=cms.InputTag("slimmedTaus"),
-            tauIDSources=cms.ParameterSet("tauIDSources")
+            src = cms.InputTag("selectedPatTaus"),
+#            tauIDSources=ParameterSet("tauIDSources")
             )
 
 #from BoostTau.BoostAnalyzer.runTauIdMVA import *

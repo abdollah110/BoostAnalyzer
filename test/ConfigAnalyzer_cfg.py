@@ -63,6 +63,7 @@ process.TFileService = cms.Service("TFileService",
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
+     process.newTau *
 #    updateHPSPFTaus
 #     process.patDefaultSequence *
 #     process.boostedHPSPFTausTask *

@@ -22,11 +22,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
                               )
                               
-process.newTau= cms.EDProducer('PATTauIDEmbedder',
-            src=cms.InputTag("slimmedTaus"),
-            tauIDSources=ParameterSet("tauIDSources")
-            )
-
+                              
 # embed new id's into tau
 embedID = cms.EDProducer("PATTauIDEmbedder",
    src = cms.InputTag('slimmedTaus'),

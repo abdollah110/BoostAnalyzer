@@ -55,9 +55,8 @@ tauIdEmbedder.runTauID()
 
 process.load("PhysicsTools.PatAlgos.patSequences_cff")
 
-#process.load("RecoTauTag.Configuration.​updateHPSPFTaus_cff")
 
-​process.load("RecoTauTag.Configuration.updateHPSPFTaus_cff")
+process.load("RecoTauTag.Configuration.updateHPSPFTaus_cff")
 
 process.TFileService = cms.Service("TFileService",
                                        fileName = cms.string('histodemo_new.root')

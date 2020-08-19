@@ -23,9 +23,25 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                               )
                               
 process.newTau= cms.EDProducer('PATTauIDEmbedder',
-            src = cms.InputTag("selectedPatTaus"),
-#            tauIDSources=ParameterSet("tauIDSources")
+            src=cms.InputTag("slimmedTaus"),
+            tauIDSources=ParameterSet("tauIDSources")
             )
+
+# embed new id's into tau
+embedID = cms.EDProducer("PATTauIDEmbedder",
+   src = cms.InputTag('slimmedTaus'),
+   tauIDSources = cms.PSet(
+      byIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
+      byVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
+      byLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
+      byMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
+      byTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
+      byVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
+      byVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
+      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
+   ),
+)
+setattr(process, "newTauIDsEmbeddedBBB", embedID)
 
 #from BoostTau.BoostAnalyzer.runTauIdMVA import *
 #na = TauIDEmbedder(process, cms, # pass tour process object
@@ -63,11 +79,9 @@ process.TFileService = cms.Service("TFileService",
                                    )
 #print process.dumpPython()
 process.p = cms.Path(
-     process.newTau *
 #    updateHPSPFTaus
 #     process.patDefaultSequence *
-#     process.boostedHPSPFTausTask *
-#     process.boostedTauSeeds *
+     process.newTauIDsEmbedded *#     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
      process.rerunMvaIsolationSequence *

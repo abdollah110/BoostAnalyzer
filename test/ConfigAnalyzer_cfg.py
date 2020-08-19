@@ -22,18 +22,35 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
                               )
                               
-                              
+from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
+process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
+from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
+from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
+
+process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolationMVArun2v1raw.clone(
+  PATTauProducer = cms.InputTag('slimmedTaus'),
+  Prediscriminants = noPrediscriminants,
+  loadMVAfromDB = cms.bool(True),
+  # run with old MVA training
+  #mvaName = cms.string("RecoTauTag_tauIdMVADBoldDMwLTv1"),
+  # run with new MVA training
+  mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1"),
+  mvaOpt = cms.string("DBoldDMwLT"),
+  requireDecayMode = cms.bool(True),
+  verbosity = cms.int32(0)
+)
+
 # embed new id's into tau
 embedID = cms.EDProducer("PATTauIDEmbedder",
    src = cms.InputTag('slimmedTaus'),
    tauIDSources = cms.PSet(
       byIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
-      byVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
-      byLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
-      byMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
-      byTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
-      byVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
-      byVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
+#      byVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
+#      byLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
+#      byMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
+#      byTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
+#      byVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
+#      byVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
 #      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
    ),
 )
@@ -77,6 +94,7 @@ process.TFileService = cms.Service("TFileService",
 process.p = cms.Path(
 #    updateHPSPFTaus
 #     process.patDefaultSequence *
+     process.rerunDiscriminationByIsolationMVArun2v1raw *
      process.newTauIDsEmbedded *#     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

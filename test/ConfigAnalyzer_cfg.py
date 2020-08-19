@@ -34,10 +34,10 @@ embedID = cms.EDProducer("PATTauIDEmbedder",
       byTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
       byVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
       byVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
-      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
+#      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
    ),
 )
-setattr(process, "newTauIDsEmbeddedBBB", embedID)
+setattr(process, "newTauIDsEmbedded", embedID)
 
 #from BoostTau.BoostAnalyzer.runTauIdMVA import *
 #na = TauIDEmbedder(process, cms, # pass tour process object
@@ -77,7 +77,7 @@ process.TFileService = cms.Service("TFileService",
 process.p = cms.Path(
 #    updateHPSPFTaus
 #     process.patDefaultSequence *
-     process.newTauIDsEmbeddedBBB *#     process.boostedTauSeeds *
+     process.newTauIDsEmbedded *#     process.boostedTauSeeds *
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
      process.rerunMvaIsolationSequence *

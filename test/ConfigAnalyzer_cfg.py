@@ -20,6 +20,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              genParticleSrc       = cms.InputTag("prunedGenParticles"),
 #                             tauSrcNew                    = cms.InputTag("NewTauIDsEmbedded"),
                              tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
+                             tauSrcTest                    = cms.InputTag("NewTauIDsEmbedded"),
                               )
                               
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants

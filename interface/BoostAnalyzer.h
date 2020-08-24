@@ -85,6 +85,9 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
   edm::EDGetTokenT<std::vector<pat::Tau> >              tauCollection_;
   edm::EDGetTokenT<std::vector<reco::GenParticle>>              genParticlesCollection_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              NewtauCollection_;
+  edm::EDGetTokenT<std::vector<pat::Tau> >              NewtauCollectionTest_;
+  
+  
 TH1F * boostPt;
 TTree * tree_;
 };

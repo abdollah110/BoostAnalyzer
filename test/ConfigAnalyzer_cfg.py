@@ -87,7 +87,7 @@ embedID = cms.EDProducer("PATTauIDEmbedder",
       byTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
       byVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
       byVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
-      . . . (other discriminators like anti-electron),
+#      . . . (other discriminators like anti-electron),
       ),
    )
 setattr(process, "NewTauIDsEmbedded", embedID)

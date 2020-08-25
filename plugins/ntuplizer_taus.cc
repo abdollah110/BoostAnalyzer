@@ -251,8 +251,6 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
     e.getByToken(NewtauCollectionTest_, NewtauHandle_v3);
 
 
-    edm::Handle<vector<pat::Tau> >  NewtauHandle_v4;
-    e.getByToken(NewtauCollectionTest2_, NewtauHandle_v4);
 
     
     if (!tauHandle.isValid()) {
@@ -270,10 +268,6 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         return;
     }
 
-    if (!NewtauHandle_v4.isValid()) {
-        edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event NewtauHandle_v4";
-        return;
-    }
 
     
     //startTaus
@@ -363,8 +357,4 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         MybyVVTightIsolationMVArun2v1DBoldDMwLTNew_.push_back(itau_v3->tauID("MybyVVTightIsolationMVArun2v1DBoldDMwLTNew"));
     }
     
-
-    for(vector<pat::Tau>::const_iterator itau_v4 = NewtauHandle_v4->begin(); itau_v4 != NewtauHandle_v4->end(); ++itau_v4) {
-        std::cout<<"itau->tauID('chargedIsoPtSum') " << itau_v4->tauID("chargedIsoPtSum")<<"\n";
-    }
 }

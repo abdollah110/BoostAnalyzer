@@ -353,6 +353,17 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     
     for(vector<pat::Tau>::const_iterator ibtau_new = boostedTauHandleNew->begin(); ibtau_new != boostedTauHandleNew->end(); ++ibtau_new) {
         std::cout<<"itau->tauID('chargedIsoPtSum') " << ibtau_new->tauID("chargedIsoPtSum")<<"\n";
+        
+        std::cout<<itau->signalChargedHadrCands().size()<<"\n";
+        std::cout<<itau->signalNeutrHadrCands().size()<<"\n";
+        std::cout<<itau->signalGammaCands().size()<<"\n";
+        std::cout<<itau->signalCands().size()<<"\n";
+        
+        std::cout<<itau->isolationChargedHadrCands().size()<<"\n";
+        std::cout<<itau->isolationNeutrHadrCands().size()<<"\n";
+        std::cout<<itau->isolationGammaCands().size()<<"\n";
+        std::cout<<itau->isolationCands().size()<<"\n";
+
     }
 
     

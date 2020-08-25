@@ -98,6 +98,7 @@ setattr(process, "NewTauIDsEmbedded", embedID)
 # embed new id's into new tau collection
 embedTau = cms.EDProducer("PATTauEmbedder",
    src = cms.InputTag('slimmedTaus'),
+   pfcands = cms.InputTag('packedPFCandidates'),
    tauIDSources = cms.PSet(
       MybyIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
       MybyVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),

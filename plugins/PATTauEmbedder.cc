@@ -47,7 +47,7 @@ PATTauEmbedder::PATTauEmbedder(const edm::ParameterSet& cfg)
 //pf2pc_(mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("packedPFCandidates")))
 {
   src_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("src"));
-  pf2pc_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
+  pf2pc_ = mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("packedPFCandidates"));
   
 //  embedIsolationPFCands_ = cfg.getParameter<bool>( "embedIsolationPFCands" );
 //  embedIsolationPFChargedHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFChargedHadrCands" );

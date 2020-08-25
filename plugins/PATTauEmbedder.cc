@@ -114,7 +114,8 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
   auto out = std::make_unique<std::vector<pat::Tau>>();
   out->reserve(inputTaus->size());
   
-  for (View<pat::Tau>::const_iterator it = inputTaus->begin(), ed = inputTaus->end(); it != ed; ++it) {
+  
+  for (vector<pat::Tau>::const_iterator it = inputTaus->begin(), ed = inputTaus->end(); it != ed; ++it) {
     out->push_back(*it);
     pat::Tau &tau = out->back();
 

@@ -39,7 +39,8 @@ BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
  tauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrc"))),
  genParticlesCollection_(consumes<vector<reco::GenParticle> >             (iConfig.getParameter<edm::InputTag>("genParticleSrc"))),
  NewtauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcNew"))),
- NewtauCollectionTest_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcTest")))
+ NewtauCollectionTest_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcTest"))),
+ NewtauCollectionTest2_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcTest2")))
 
 {
   edm::Service<TFileService> fs;

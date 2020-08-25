@@ -21,6 +21,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
 #                             tauSrcNew                    = cms.InputTag("NewTauIDsEmbedded"),
                              tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
                              tauSrcTest                    = cms.InputTag("NewTauIDsEmbedded"),
+                             tauSrcTest2                    = cms.InputTag("NewTauEmbedded"),
                               )
                               
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
@@ -93,6 +94,22 @@ embedID = cms.EDProducer("PATTauIDEmbedder",
    )
 setattr(process, "NewTauIDsEmbedded", embedID)
 
+
+# embed new id's into new tau collection
+embedTau = cms.EDProducer("PATTauEmbedder",
+   src = cms.InputTag('slimmedTaus'),
+   tauIDSources = cms.PSet(
+      MybyIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
+      MybyVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
+      MybyLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
+      MybyMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
+      MybyTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
+      MybyVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
+      MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
+#      . . . (other discriminators like anti-electron),
+      ),
+   )
+setattr(process, "NewTauEmbedded", embedTau)
 
 
 
@@ -178,6 +195,8 @@ process.p = cms.Path(
 #     process.newTauIDsEmbedded *#     process.boostedTauSeeds *
     process.rerunMvaIsolation2SeqRun2 *
      getattr(process, "NewTauIDsEmbedded") *
+     getattr(process, "NewTauEmbedded") * # testing accessing tau iso/sig candidates
+     
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
      process.rerunMvaIsolationSequence *

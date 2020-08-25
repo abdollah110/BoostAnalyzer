@@ -121,8 +121,8 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 
 
     // clearing the pat isolation which is not used by taus
-    tau.isolations_.clear();
-    tau.isoDeposits_.clear();
+//    tau.isolations_.clear();
+//    tau.isoDeposits_.clear();
     
   
 //   if (linkToPackedPF_) {

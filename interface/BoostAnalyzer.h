@@ -36,6 +36,9 @@
  #include "DataFormats/TrackReco/interface/TrackFwd.h"
  #include "DataFormats/TrackReco/interface/DeDxHitInfo.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
+#include "DataFormats/Common/interface/RefToPtr.h"
+#include "DataFormats/Common/interface/Association.h"
+#include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"

@@ -37,10 +37,11 @@ private:
     
 //--- configuration parameters
 	edm::EDGetTokenT<pat::TauCollection> src_;
+    edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
 	typedef std::pair<std::string, edm::InputTag> NameTag;
 	std::vector<NameTag> tauIDSrcs_;
 	std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
-    const edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
+    
 };
 
 PATTauEmbedder::PATTauEmbedder(const edm::ParameterSet& cfg)

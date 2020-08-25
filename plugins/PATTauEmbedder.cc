@@ -107,7 +107,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    outputTaus->push_back(outputTau);
 //  }
   
-  Handle<edm::Association<pat::PackedCandidateCollection>> pf2pc;
+  edm::Handle<edm::Association<pat::PackedCandidateCollection>> pf2pc;
   evt.getByToken(pf2pc_, pf2pc);
 
 

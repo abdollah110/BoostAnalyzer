@@ -43,10 +43,12 @@ private:
     const edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
 };
 
-PATTauEmbedder::PATTauEmbedder(const edm::ParameterSet& cfg):
-pf2pc_(mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("packedPFCandidates")))
+PATTauEmbedder::PATTauEmbedder(const edm::ParameterSet& cfg)
+//pf2pc_(mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("packedPFCandidates")))
 {
   src_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("src"));
+  pf2pc_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
+  
 //  embedIsolationPFCands_ = cfg.getParameter<bool>( "embedIsolationPFCands" );
 //  embedIsolationPFChargedHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFChargedHadrCands" );
 //  embedIsolationPFNeutralHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFNeutralHadrCands" );

@@ -169,7 +169,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    }
 //  }
   
-  
+  }
   
 evt.put(std::move(out));
   

@@ -1,3 +1,4 @@
+
 #include "FWCore/Framework/interface/stream/EDProducer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/EventSetup.h"
@@ -6,6 +7,8 @@
 #include "DataFormats/PatCandidates/interface/PATTauDiscriminator.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "FWCore/Utilities/interface/transform.h"
+#include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
+
 
 class PATTauEmbedder : public edm::stream::EDProducer<>
 {
@@ -18,6 +21,20 @@ public:
 
 private:
 
+
+
+//    pfCands    = cms.InputTag("packedPFCandidates"), //In .py config file
+//    ...
+//     pfToken_(consumes<pat::PackedCandidateCollection>(iConfig.getParameter<edm::InputTag>("pfCands"))),
+//    ...
+//    edm::EDGetTokenT<pat::PackedCandidateCollection> pfToken_;
+//    ...
+//    edm::Handle<pat::PackedCandidateCollection> pfs;
+//    iEvent.getByToken(pfToken_, pfs);
+    
+    
+    
+    
 //--- configuration parameters
 	edm::EDGetTokenT<pat::TauCollection> src_;
 	typedef std::pair<std::string, edm::InputTag> NameTag;

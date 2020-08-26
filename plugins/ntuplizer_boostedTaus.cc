@@ -352,7 +352,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     } // loop over tau candidates
     
     for(vector<pat::Tau>::const_iterator ibtau_new = boostedTauHandleNew->begin(); ibtau_new != boostedTauHandleNew->end(); ++ibtau_new) {
-        std::cout<<"itau->tauID('chargedIsoPtSum') " << ibtau_new->tauID("chargedIsoPtSum")<<"\n";
+        std::cout<<"itau->tauID('chargedIsoPtSum') " << ibtau_new->tauID("chargedIsoPtSum")<< "  ibtau_new->pt() = "<<ibtau_new->pt()<< " ibtau_new->tauID(decayModeFinding) "<<ibtau_new->tauID("decayModeFinding")<< "\n";
         
         std::cout<<ibtau_new->signalChargedHadrCands().size()<<"\n";
         std::cout<<ibtau_new->signalNeutrHadrCands().size()<<"\n";

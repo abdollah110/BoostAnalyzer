@@ -127,7 +127,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    tau.isolations_.clear();
 //    tau.isoDeposits_.clear();
     
-  
+/*
 //   if (linkToPackedPF_) {
       reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
           isolationGammaPtrs;
@@ -174,6 +174,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
   
   }
   
+  */
 evt.put(std::move(out));
   
   //This is for Adding new tau Id

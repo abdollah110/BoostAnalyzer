@@ -171,10 +171,11 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
 //    }
 //  }
-  
-  }
-  
   */
+
+}
+  
+  
 evt.put(std::move(out));
   
   //This is for Adding new tau Id

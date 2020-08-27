@@ -129,13 +129,23 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
     
 
 //   if (linkToPackedPF_) {
-      reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
+      reco::CandidatePtrVector signalPtrs, signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
           isolationGammaPtrs;
           int nSig=0;
           int nIso=0;
 
-//      for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
-    for (const reco::PFCandidatePtr &p : tau.signalChargedHadrCands()) {
+
+
+      for (const reco::PFCandidatePtr &p : tau.signalCands()) {
+        std::cout<<" \t ###==> entering tau.signalCands()  \n";
+        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+      }
+//      tau.setSignalCands(signalPtrs);
+      
+      
+
+      for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
+//    for (const reco::PFCandidatePtr &p : tau.signalChargedHadrCands()) {
       std::cout<<" \t ==> entering tau.signalPFChargedHadrCands \n";
       if (nSig < 2){
         nSig++;

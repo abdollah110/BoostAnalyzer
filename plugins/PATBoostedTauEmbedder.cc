@@ -43,7 +43,7 @@ private:
 	typedef std::pair<std::string, edm::InputTag> NameTag;
 	std::vector<NameTag> tauIDSrcs_;
 	std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
-    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
+//    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
     
 };
 
@@ -76,8 +76,8 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
 }
 
 
-void PATBoostedTauEmbedder::setMySignalChargedHadrCands(const auto &ptrs)
-        { signalChargedHadrCandPtrs_ = ptrs;}
+//void PATBoostedTauEmbedder::setMySignalChargedHadrCands(const auto &ptrs)
+//        { signalChargedHadrCandPtrs_ = ptrs;}
 
 void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 {
@@ -149,7 +149,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         std::cout<<" \t ###==> entering tau.signalCands()  \n";
         signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
-      tau.setMySignalChargedHadrCands(signalPtrs);
+//      tau.setMySignalChargedHadrCands(signalPtrs);
       
       
 

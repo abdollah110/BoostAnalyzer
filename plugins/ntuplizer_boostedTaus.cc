@@ -352,6 +352,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         
         ++nBoostedTau_;
         
+        
     } // loop over tau candidates
     
     for(vector<pat::Tau>::const_iterator ibtau_new = boostedTauHandleNew->begin(); ibtau_new != boostedTauHandleNew->end(); ++ibtau_new) {

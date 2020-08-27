@@ -127,7 +127,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    tau.isolations_.clear();
 //    tau.isoDeposits_.clear();
     
-  
+/*
 //   if (linkToPackedPF_) {
       reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
           isolationGammaPtrs;
@@ -179,7 +179,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
 //    }
 //  }
-  
+  */
   }
   
 evt.put(std::move(out));

@@ -147,7 +147,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         
       for (auto &p : tau.signalCands()) {
         std::cout<<" \t ###==> entering tau.signalCands()  \n";
-        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+//        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
 //      tau.setMySignalChargedHadrCands(signalPtrs);
       

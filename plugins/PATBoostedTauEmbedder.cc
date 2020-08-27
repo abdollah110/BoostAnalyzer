@@ -154,7 +154,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
       }
 //      tau.setMySignalChargedHadrCands(signalPtrs);
       
-      
+   /*
 
       for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
 //    for (const reco::PFCandidatePtr &p : tau.signalChargedHadrCands()) {
@@ -208,7 +208,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
 //    }
 //  }
-  
+  */
   }
   
 evt.put(std::move(out));

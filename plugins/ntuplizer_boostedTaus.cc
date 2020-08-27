@@ -361,12 +361,12 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 //        std::cout<<ibtau_new->signalChargedHadrCands().size()<<"\n";
 //        std::cout<<ibtau_new->signalNeutrHadrCands().size()<<"\n";
 //        std::cout<<ibtau_new->signalGammaCands().size()<<"\n";
-        std::cout<<ibtau_new->signalCands().size()<<"\n";
+//        std::cout<<ibtau_new->signalCands().size()<<"\n";
         
 //        std::cout<<ibtau_new->isolationChargedHadrCands().size()<<"\n";
 //        std::cout<<ibtau_new->isolationNeutrHadrCands().size()<<"\n";
 //        std::cout<<ibtau_new->isolationGammaCands().size()<<"\n";
-        std::cout<<ibtau_new->isolationCands().size()<<"\n\n";
+//        std::cout<<ibtau_new->isolationCands().size()<<"\n\n";
 
     }
 

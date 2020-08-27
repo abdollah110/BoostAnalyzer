@@ -135,6 +135,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
           int nIso=0;
 
       for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
+      std::cout<<" \t ==> entering tau.signalPFChargedHadrCands \n";
       if (nSig < 2){
         nSig++;
         signalChHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
@@ -144,11 +145,13 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
       std::cout<<"\t\t signalChHPtrs = "<<signalChHPtrs.size()<<"\n\n";
       
       for (const reco::PFCandidatePtr &p : tau.signalPFNeutrHadrCands()) {
+        std::cout<<" \t ==> entering tau.signalPFNeutrHadrCands \n";
         signalNHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
       tau.setSignalNeutralHadrCands(signalNHPtrs);
 
       for (const reco::PFCandidatePtr &p : tau.signalPFGammaCands()) {
+        std::cout<<" \t ==> entering tau.signalPFGammaCands \n";
         signalGammaPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
       tau.setSignalGammaCands(signalGammaPtrs);
@@ -162,6 +165,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
       tau.setIsolationChargedHadrCands(isolationChHPtrs);
 
       for (const reco::PFCandidatePtr &p : tau.isolationPFNeutrHadrCands()) {
+        std::cout<<" \t ==> entering tau.isolationPFNeutrHadrCands \n"   ;
         isolationNHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
       tau.setIsolationNeutralHadrCands(isolationNHPtrs);

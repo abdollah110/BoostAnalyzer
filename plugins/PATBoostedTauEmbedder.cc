@@ -43,7 +43,7 @@ private:
 	typedef std::pair<std::string, edm::InputTag> NameTag;
 	std::vector<NameTag> tauIDSrcs_;
 	std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
-    auto signalChargedHadrCandPtrs_;
+    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
     
 };
 

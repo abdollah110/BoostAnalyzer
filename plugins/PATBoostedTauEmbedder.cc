@@ -134,7 +134,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
           int nSig=0;
           int nIso=0;
 
-      for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
+//      for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
+    for (const reco::PFCandidatePtr &p : tau.signalChargedHadrCands()) {
       std::cout<<" \t ==> entering tau.signalPFChargedHadrCands \n";
       if (nSig < 2){
         nSig++;

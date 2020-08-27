@@ -139,7 +139,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
       reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
           isolationGammaPtrs;
           
-        reco::CandidatePtrVector signalPtrs
+        reco::CandidatePtrVector signalPtrs;
         
           int nSig=0;
           int nIso=0;

@@ -127,7 +127,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    tau.isolations_.clear();
 //    tau.isoDeposits_.clear();
     
-/*
+
 //   if (linkToPackedPF_) {
       reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
           isolationGammaPtrs;
@@ -136,6 +136,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         signalChHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
       tau.setSignalChargedHadrCands(signalChHPtrs);
+      std::cout<<"\t\t signalChHPtrs = "<<signalChHPtrs.size()<<"\n\n";
 
       for (const reco::PFCandidatePtr &p : tau.signalPFNeutrHadrCands()) {
         signalNHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
@@ -161,6 +162,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         isolationGammaPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
       }
       tau.setIsolationGammaCands(isolationGammaPtrs);
+      std::cout<<"\t\t isolationGammaPtrs = "<<isolationGammaPtrs.size()<<"\n\n";
 //    }
 //    if (dropPiZeroRefs_) {
 //      tau.pfSpecific_[0].signalPiZeroCandidates_.clear();
@@ -171,7 +173,7 @@ void PATTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
 //    }
 //  }
-  */
+  
 
 }
   

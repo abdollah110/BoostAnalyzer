@@ -155,12 +155,12 @@ evt.getByToken(pf2pc_, pf2pc);
       }
       tau.setSignalChargedHadrCands(signalChHPtrs);
       
-      for (const reco::PFCandidatePtr &p : tau.signalNeutrHadrCands()) {
+      for (const reco::CandidatePtr &p : tau.signalNeutrHadrCands()) {
           signalNHPtrs.push_back(p);
       }
       tau.setSignalNeutralHadrCands(signalNHPtrs);
       
-      for (const reco::PFCandidatePtr &p : tau.signalGammaCands()) {
+      for (const reco::CandidatePtr &p : tau.signalGammaCands()) {
           signalGammaPtrs.push_back(p);
       }
       tau.setSignalGammaCands(signalGammaPtrs);
@@ -171,17 +171,17 @@ evt.getByToken(pf2pc_, pf2pc);
         isolationPtrs.push_back(p);
       }
 
-      for (const reco::PFCandidatePtr &p : tau.isolationChargedHadrCands()) {
+      for (const reco::CandidatePtr &p : tau.isolationChargedHadrCands()) {
           isolationChHPtrs.push_back(p);
       }
       tau.setIsolationChargedHadrCands(isolationChHPtrs);
       
-      for (const reco::PFCandidatePtr &p : tau.isolationNeutrHadrCands()) {
+      for (const reco::CandidatePtr &p : tau.isolationNeutrHadrCands()) {
           isolationNHPtrs.push_back(p);
       }
       tau.setIsolationNeutralHadrCands(isolationNHPtrs);
       
-      for (const reco::PFCandidatePtr &p : tau.isolationPFGammaCands()) {
+      for (const reco::CandidatePtr &p : tau.isolationPFGammaCands()) {
           isolationGammaPtrs.push_back(p);
       }
       tau.setIsolationGammaCands(isolationGammaPtrs);

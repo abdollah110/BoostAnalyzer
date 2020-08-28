@@ -39,7 +39,8 @@ private:
     
 //--- configuration parameters
 	edm::EDGetTokenT<pat::TauCollection> src_;
-    edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
+//    edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
+    edm::EDGetTokenT<pat::PackedCandidateCollection> pf2pc_;
 	typedef std::pair<std::string, edm::InputTag> NameTag;
 	std::vector<NameTag> tauIDSrcs_;
 	std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
@@ -51,7 +52,8 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
 //pf2pc_(mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("packedPFCandidates")))
 {
   src_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("src"));
-  pf2pc_ = mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("pfcands"));
+//  pf2pc_ = mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("pfcands"));
+  pf2pc_ = consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
   
 //  embedIsolationPFCands_ = cfg.getParameter<bool>( "embedIsolationPFCands" );
 //  embedIsolationPFChargedHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFChargedHadrCands" );
@@ -117,8 +119,11 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    outputTaus->push_back(outputTau);
 //  }
   
-  edm::Handle<edm::Association<pat::PackedCandidateCollection>> pf2pc;
-  evt.getByToken(pf2pc_, pf2pc);
+//  edm::Handle<edm::Association<pat::PackedCandidateCollection>> pf2pc;
+//  evt.getByToken(pf2pc_, pf2pc);
+
+edm::Handle<pat::PackedCandidateCollection> pf2pc;
+iEvent.getByToken(pf2pc_, pf2pc);
 
 
   auto out = std::make_unique<std::vector<pat::Tau>>();

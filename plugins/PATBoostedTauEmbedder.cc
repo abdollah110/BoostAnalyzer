@@ -202,6 +202,14 @@ evt.getByToken(pf2pc_, pf2pc);
       }// end of filling the new collection
 
       for (const reco::CandidatePtr &p : tau.isolationChargedHadrCands()) {
+      
+        bool isoChargeOv=false;
+        
+        for (const reco::CandidatePtr &q : isoCandidateOverLap) {
+        if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4)
+        isoChargeOv=true;
+        }
+        if (! isoChargeOv)
           isolationChHPtrs.push_back(p);
       }
       tau.setIsolationChargedHadrCands(isolationChHPtrs);

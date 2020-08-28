@@ -142,81 +142,53 @@ evt.getByToken(pf2pc_, pf2pc);
 
 //   if (linkToPackedPF_) {
       reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
-          isolationGammaPtrs;
-          
-        reco::CandidatePtrVector signalPtrs;
-        
-          int nSig=0;
-          int nIso=0;
+          isolationGammaPtrs, signalPtrs, isolationPtrs;
+                  
 
-
-
-        std::cout<<" \t  tau.signalCands() " << tau.signalCands().size()<< "\n";
-        
+     // sig candidates
       for (const reco::CandidatePtr &p : tau.signalCands()) {
-        std::cout<<" \t ###==> entering tau.signalCands()  \n";
-//        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
         signalPtrs.push_back(p);
       }
-//      tau.setSignalChargedHadrCands(signalPtrs);
-
-
-//            for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
-          for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
-            std::cout<<" \t ==> entering tau.signalPFChargedHadrCands \n";
-            if (nSig < 2){
-              nSig++;
-              signalChHPtrs.push_back(p);
-              }
-            }
-            tau.setSignalChargedHadrCands(signalChHPtrs);
-            std::cout<<"\t\t signalChHPtrs = "<<signalChHPtrs.size()<<"\n\n";
-
-
-   /*
-
-      for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
-//    for (const reco::PFCandidatePtr &p : tau.signalChargedHadrCands()) {
-      std::cout<<" \t ==> entering tau.signalPFChargedHadrCands \n";
-      if (nSig < 2){
-        nSig++;
-        signalChHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
-        }
+      
+      for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
+          signalChHPtrs.push_back(p);
       }
       tau.setSignalChargedHadrCands(signalChHPtrs);
-      std::cout<<"\t\t signalChHPtrs = "<<signalChHPtrs.size()<<"\n\n";
       
-      for (const reco::PFCandidatePtr &p : tau.signalPFNeutrHadrCands()) {
-        std::cout<<" \t ==> entering tau.signalPFNeutrHadrCands \n";
-        signalNHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+      for (const reco::PFCandidatePtr &p : tau.signalNeutrHadrCands()) {
+          signalNHPtrs.push_back(p);
       }
       tau.setSignalNeutralHadrCands(signalNHPtrs);
-
-      for (const reco::PFCandidatePtr &p : tau.signalPFGammaCands()) {
-        std::cout<<" \t ==> entering tau.signalPFGammaCands \n";
-        signalGammaPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+      
+      for (const reco::PFCandidatePtr &p : tau.signalGammaCands()) {
+          signalGammaPtrs.push_back(p);
       }
       tau.setSignalGammaCands(signalGammaPtrs);
+      
+      
+      // iso candidates
+      for (const reco::CandidatePtr &p : tau.isolationCands()) {
+        isolationPtrs.push_back(p);
+      }
 
-      for (const reco::PFCandidatePtr &p : tau.isolationPFChargedHadrCands()) {
-      if (nIso < 2){
-        nIso++;
-        isolationChHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
-        }
+      for (const reco::PFCandidatePtr &p : tau.isolationChargedHadrCands()) {
+          isolationChHPtrs.push_back(p);
       }
       tau.setIsolationChargedHadrCands(isolationChHPtrs);
-
-      for (const reco::PFCandidatePtr &p : tau.isolationPFNeutrHadrCands()) {
-        std::cout<<" \t ==> entering tau.isolationPFNeutrHadrCands \n"   ;
-        isolationNHPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+      
+      for (const reco::PFCandidatePtr &p : tau.isolationNeutrHadrCands()) {
+          isolationNHPtrs.push_back(p);
       }
       tau.setIsolationNeutralHadrCands(isolationNHPtrs);
-
+      
       for (const reco::PFCandidatePtr &p : tau.isolationPFGammaCands()) {
-        isolationGammaPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+          isolationGammaPtrs.push_back(p);
       }
       tau.setIsolationGammaCands(isolationGammaPtrs);
-      std::cout<<"\t\t isolationGammaPtrs = "<<isolationGammaPtrs.size()<<"\n\n";
+      
+      
+      
+      
 //    }
 //    if (dropPiZeroRefs_) {
 //      tau.pfSpecific_[0].signalPiZeroCandidates_.clear();
@@ -227,7 +199,7 @@ evt.getByToken(pf2pc_, pf2pc);
 //      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
 //    }
 //  }
-  */
+  
   }
   
 evt.put(std::move(out));

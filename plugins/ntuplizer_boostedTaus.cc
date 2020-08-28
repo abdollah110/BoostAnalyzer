@@ -237,7 +237,8 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     nBoostedTau_ = 0;
     
     edm::Handle<vector<pat::Tau> > boostedTauHandle;
-    e.getByToken(boostedTauCollection_, boostedTauHandle);
+//    e.getByToken(boostedTauCollection_, boostedTauHandle);
+    e.getByToken(boostedTauCollectionNew_, boostedTauHandle); // new for check
     
     if (!boostedTauHandle.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event";
@@ -245,7 +246,8 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     }
     
     edm::Handle<vector<pat::Tau> >  boostedTauHandleNew;
-    e.getByToken(boostedTauCollectionNew_, boostedTauHandleNew);
+//    e.getByToken(boostedTauCollectionNew_, boostedTauHandleNew);
+    e.getByToken(boostedTauCollection_, boostedTauHandleNew);
 
     if (!boostedTauHandleNew.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event boostedTauHandleNew";
@@ -351,14 +353,14 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 
 
         std::cout<<itau->signalChargedHadrCands().size()<<"\n";
-        std::cout<<itau->signalNeutrHadrCands().size()<<"\n";
-        std::cout<<itau->signalGammaCands().size()<<"\n";
-        std::cout<<itau->signalCands().size()<<"\n";
-        
-        std::cout<<itau->isolationChargedHadrCands().size()<<"\n";
-        std::cout<<itau->isolationNeutrHadrCands().size()<<"\n";
-        std::cout<<itau->isolationGammaCands().size()<<"\n";
-        std::cout<<itau->isolationCands().size()<<"\n\n";
+//        std::cout<<itau->signalNeutrHadrCands().size()<<"\n";
+//        std::cout<<itau->signalGammaCands().size()<<"\n";
+//        std::cout<<itau->signalCands().size()<<"\n";
+//
+//        std::cout<<itau->isolationChargedHadrCands().size()<<"\n";
+//        std::cout<<itau->isolationNeutrHadrCands().size()<<"\n";
+//        std::cout<<itau->isolationGammaCands().size()<<"\n";
+//        std::cout<<itau->isolationCands().size()<<"\n\n";
 
         
         ++nBoostedTau_;
@@ -369,15 +371,15 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     for(vector<pat::Tau>::const_iterator ibtau_new = boostedTauHandleNew->begin(); ibtau_new != boostedTauHandleNew->end(); ++ibtau_new) {
 //        std::cout<<"itau->tauID('chargedIsoPtSum') " << ibtau_new->tauID("chargedIsoPtSum")<< "  ibtau_new->pt() = "<<ibtau_new->pt()<< " ibtau_new->tauID(decayModeFinding) "<<ibtau_new->tauID("decayModeFinding")<< " ibtau_new->signalCands().size() "<<ibtau_new->signalCands().size() <<  "\n";
         
-        std::cout<<"\t"<<ibtau_new->signalChargedHadrCands().size()<<"\n";
-        std::cout<<"\t"<<ibtau_new->signalNeutrHadrCands().size()<<"\n";
-        std::cout<<"\t"<<ibtau_new->signalGammaCands().size()<<"\n";
-        std::cout<<"\t"<<ibtau_new->signalCands().size()<<"\n";
-        
+//        std::cout<<"\t"<<ibtau_new->signalChargedHadrCands().size()<<"\n";
+//        std::cout<<"\t"<<ibtau_new->signalNeutrHadrCands().size()<<"\n";
+//        std::cout<<"\t"<<ibtau_new->signalGammaCands().size()<<"\n";
+//        std::cout<<"\t"<<ibtau_new->signalCands().size()<<"\n";
+//
         std::cout<<"\t"<<ibtau_new->isolationChargedHadrCands().size()<<"\n";
-        std::cout<<"\t"<<ibtau_new->isolationNeutrHadrCands().size()<<"\n";
-        std::cout<<"\t"<<ibtau_new->isolationGammaCands().size()<<"\n";
-        std::cout<<"\t"<<ibtau_new->isolationCands().size()<<"\n\n";
+//        std::cout<<"\t"<<ibtau_new->isolationNeutrHadrCands().size()<<"\n";
+//        std::cout<<"\t"<<ibtau_new->isolationGammaCands().size()<<"\n";
+//        std::cout<<"\t"<<ibtau_new->isolationCands().size()<<"\n\n";
 
     }
 

@@ -203,29 +203,40 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         
         for (const reco::CandidatePtr &p : tau.isolationChargedHadrCands()) {
             
-            bool isoChargeOv=false;
-            
+            bool hasOverLap=false;
             for (const reco::CandidatePtr &q : isoCandidateOverLap) {
                 if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
-                    isoChargeOv=true;
-                    std::cout<<"\n\nfound overLap\n\n";
+                    hasOverLap=true;
                 }
             }
-            if (! isoChargeOv)
+            if (! hasOverLap)
                 isolationChHPtrs.push_back(p);
         }
         tau.setIsolationChargedHadrCands(isolationChHPtrs);
         
         for (const reco::CandidatePtr &p : tau.isolationNeutrHadrCands()) {
+        bool hasOverLap=false;
+        for (const reco::CandidatePtr &q : isoCandidateOverLap) {
+            if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
+                hasOverLap=true;
+            }
+        }
+        if (! hasOverLap)
             isolationNHPtrs.push_back(p);
         }
         tau.setIsolationNeutralHadrCands(isolationNHPtrs);
         
         for (const reco::CandidatePtr &p : tau.isolationGammaCands()) {
+        bool hasOverLap=false;
+        for (const reco::CandidatePtr &q : isoCandidateOverLap) {
+            if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
+                hasOverLap=true;
+            }
+        }
+        if (! hasOverLap)
             isolationGammaPtrs.push_back(p);
         }
-        tau.setIsolationGammaCands(isolationGammaPtrs);
-        
+        tau.setIsolationGammaCands(isolationGammaPtrs);        
         
     }
     //      }

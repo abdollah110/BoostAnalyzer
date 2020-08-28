@@ -158,8 +158,21 @@ evt.getByToken(pf2pc_, pf2pc);
 //        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
         signalPtrs.push_back(p);
       }
-//      tau.setMySignalChargedHadrCands(signalPtrs);
-      
+//      tau.setSignalChargedHadrCands(signalPtrs);
+
+
+//            for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {
+          for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
+            std::cout<<" \t ==> entering tau.signalPFChargedHadrCands \n";
+            if (nSig < 2){
+              nSig++;
+              signalChHPtrs.push_back(p);
+              }
+            }
+            tau.setSignalChargedHadrCands(signalChHPtrs);
+            std::cout<<"\t\t signalChHPtrs = "<<signalChHPtrs.size()<<"\n\n";
+
+
    /*
 
       for (const reco::PFCandidatePtr &p : tau.signalPFChargedHadrCands()) {

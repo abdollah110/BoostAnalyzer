@@ -180,7 +180,10 @@ evt.getByToken(pf2pc_, pf2pc);
       // No check if there is any overlap between this isocandidates and other signal candidates
       if (removeOverLap_) {
       
-      
+      auto out2 = std::make_unique<std::vector<pat::Tau>>();
+      out2->reserve(inputTaus->size());
+
+
       for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
         
         if (it2 == it) continue;

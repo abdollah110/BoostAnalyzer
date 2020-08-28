@@ -123,7 +123,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //  evt.getByToken(pf2pc_, pf2pc);
 
 edm::Handle<pat::PackedCandidateCollection> pf2pc;
-iEvent.getByToken(pf2pc_, pf2pc);
+evt.getByToken(pf2pc_, pf2pc);
 
 
   auto out = std::make_unique<std::vector<pat::Tau>>();

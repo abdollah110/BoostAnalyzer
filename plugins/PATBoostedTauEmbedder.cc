@@ -45,6 +45,7 @@ private:
 	std::vector<NameTag> tauIDSrcs_;
 	std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
 //    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
+    bool  removeOverLap_;
     
 };
 
@@ -59,6 +60,7 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
 //  embedIsolationPFChargedHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFChargedHadrCands" );
 //  embedIsolationPFNeutralHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFNeutralHadrCands" );
 //  embedIsolationPFGammaCands_ = cfg.getParameter<bool>( "embedIsolationPFGammaCands" );
+  removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
   
   // read the different tau ID names
   edm::ParameterSet idps = cfg.getParameter<edm::ParameterSet>("tauIDSources");
@@ -144,7 +146,7 @@ evt.getByToken(pf2pc_, pf2pc);
       reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
           isolationGammaPtrs, signalPtrs, isolationPtrs;
                   
-
+    // Store all of the signal Candidates
      // sig candidates
       for (const reco::CandidatePtr &p : tau.signalCands()) {
         signalPtrs.push_back(p);
@@ -166,10 +168,30 @@ evt.getByToken(pf2pc_, pf2pc);
       tau.setSignalGammaCands(signalGammaPtrs);
       
       
+      
+      
       // iso candidates
       for (const reco::CandidatePtr &p : tau.isolationCands()) {
         isolationPtrs.push_back(p);
       }
+
+
+
+      // No check if there is any overlap between this isocandidates and other signal candidates
+      if (removeOverLap_) {
+      
+      
+      for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
+        
+        if (it2 == it) continue;
+        
+        out2->push_back(*it2);
+        pat::Tau &tau2 = out2->back();
+        
+        if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+        
+
+      
 
       for (const reco::CandidatePtr &p : tau.isolationChargedHadrCands()) {
           isolationChHPtrs.push_back(p);
@@ -181,12 +203,14 @@ evt.getByToken(pf2pc_, pf2pc);
       }
       tau.setIsolationNeutralHadrCands(isolationNHPtrs);
       
-      for (const reco::CandidatePtr &p : tau.isolationPFGammaCands()) {
+      for (const reco::CandidatePtr &p : tau.isolationGammaCands()) {
           isolationGammaPtrs.push_back(p);
       }
       tau.setIsolationGammaCands(isolationGammaPtrs);
       
       
+      }
+      }
       
       
 //    }

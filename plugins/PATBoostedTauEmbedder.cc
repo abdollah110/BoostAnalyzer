@@ -155,7 +155,8 @@ evt.getByToken(pf2pc_, pf2pc);
         
       for (const reco::CandidatePtr &p : tau.signalCands()) {
         std::cout<<" \t ###==> entering tau.signalCands()  \n";
-        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+//        signalPtrs.push_back(edm::refToPtr((*pf2pc)[p]));
+        signalPtrs.push_back(p);
       }
 //      tau.setMySignalChargedHadrCands(signalPtrs);
       

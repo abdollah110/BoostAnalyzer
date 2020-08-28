@@ -199,27 +199,7 @@ evt.getByToken(pf2pc_, pf2pc);
             isoCandidateOverLap.push_back(p);
             }
         }
-      }
-
-
-      // No check if there is any overlap between this isocandidates and other signal candidates
-//      if (removeOverLap_) {
-      
-//      auto out2 = std::make_unique<std::vector<pat::Tau>>();
-//      out2->reserve(inputTaus->size());
-//
-//
-//      for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
-//
-//        if (it2 == it) continue;
-//
-//        out2->push_back(*it2);
-//        pat::Tau &tau2 = out2->back();
-//
-//        if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
-//
-
-      
+      }// end of filling the new collection
 
       for (const reco::CandidatePtr &p : tau.isolationChargedHadrCands()) {
           isolationChHPtrs.push_back(p);
@@ -238,7 +218,7 @@ evt.getByToken(pf2pc_, pf2pc);
       
       
         }
-      }
+//      }
       
       
 //    }
@@ -252,7 +232,7 @@ evt.getByToken(pf2pc_, pf2pc);
 //    }
 //  }
   
-  }
+//  }
   
 evt.put(std::move(out));
   

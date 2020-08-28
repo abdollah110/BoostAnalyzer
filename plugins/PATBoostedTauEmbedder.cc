@@ -8,7 +8,7 @@
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "FWCore/Utilities/interface/transform.h"
 #include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
-
+#include <Math/VectorUtil.h>
 
 class PATBoostedTauEmbedder : public edm::stream::EDProducer<>
 {

@@ -352,12 +352,12 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauIsolationPFGammaCands_.push_back(isoGamma);
 
 
-        std::cout<<itau->signalChargedHadrCands().size()<<"\n";
+//        std::cout<<itau->signalChargedHadrCands().size()<<"\n";
 //        std::cout<<itau->signalNeutrHadrCands().size()<<"\n";
 //        std::cout<<itau->signalGammaCands().size()<<"\n";
 //        std::cout<<itau->signalCands().size()<<"\n";
 //
-//        std::cout<<itau->isolationChargedHadrCands().size()<<"\n";
+        std::cout<<itau->isolationChargedHadrCands().size()<<"\n";
 //        std::cout<<itau->isolationNeutrHadrCands().size()<<"\n";
 //        std::cout<<itau->isolationGammaCands().size()<<"\n";
 //        std::cout<<itau->isolationCands().size()<<"\n\n";

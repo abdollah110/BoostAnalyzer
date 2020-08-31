@@ -100,7 +100,7 @@ setattr(process, "NewTauIDsEmbedded", embedID)
 embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
    src = cms.InputTag('slimmedTausBoosted'),
    pfcands = cms.InputTag('packedPFCandidates'),
-   removeOverLap = cms.bool(True),
+   removeOverLap = cms.bool(False),
 #    pfcands = cms.InputTag('packedCandidates'),
    tauIDSources = cms.PSet(
       MybyIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),

@@ -247,11 +247,6 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
     e.getByToken(NewtauCollection_, NewtauHandle_v2);
     
 
-    edm::Handle<vector<pat::Tau> >  NewtauHandle_v3;
-    e.getByToken(NewtauCollectionTest_, NewtauHandle_v3);
-
-
-
     
     if (!tauHandle.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event";
@@ -262,12 +257,6 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event NewtauHandle_v2";
         return;
     }
-
-    if (!NewtauHandle_v3.isValid()) {
-        edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event NewtauHandle_v3";
-        return;
-    }
-
 
     
     //startTaus
@@ -352,9 +341,4 @@ void BoostAnalyzer::fillTaus(const edm::Event& e)
         byDeepTau2017v1VSjetraw_.push_back(itau_v2->tauID("byDeepTau2017v1VSjetraw"));
     }
 
-    //startTaus New test
-    for(vector<pat::Tau>::const_iterator itau_v3 = NewtauHandle_v3->begin(); itau_v3 != NewtauHandle_v3->end(); ++itau_v3) {
-        MybyVVTightIsolationMVArun2v1DBoldDMwLTNew_.push_back(itau_v3->tauID("MybyVVTightIsolationMVArun2v1DBoldDMwLTNew"));
-    }
-    
 }

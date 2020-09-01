@@ -16,20 +16,35 @@ process.source = cms.Source("PoolSource",
                             )
 
 process.demo = cms.EDAnalyzer('BoostAnalyzer',
-                             boostedTauSrc    = cms.InputTag("slimmedTausBoosted"),
+                             boostedTauSrc             = cms.InputTag("slimmedTausBoosted"),
                              tauSrc                    = cms.InputTag("slimmedTaus"),
-                             genParticleSrc       = cms.InputTag("prunedGenParticles"),
-                             tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
-                             tauSrcTest                    = cms.InputTag("NewTauIDsEmbedded"),
-                             boostedTauNoOverLapSrc               = cms.InputTag("slimmedTausBoostedNoOverLap"),
+                             genParticleSrc            = cms.InputTag("prunedGenParticles"),
+                             tauSrcNew                 = cms.InputTag("slimmedTausNewID"),
+                             boostedTauNoOverLapSrc    = cms.InputTag("slimmedTausBoostedNoOverLap"),
+                             boostedTauNoOverLapIDUpdatedSrc    = cms.InputTag("slimmedTausBoostedNoOverLapIDUpdated"),
+                             
                               )
                               
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
 
+########################################################################################
+# A new boostedTau collection is made here and the overlap is removed
+########################################################################################
+embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
+   src = cms.InputTag('slimmedTausBoosted'),
+   pfcands = cms.InputTag('packedPFCandidates'),
+   removeOverLap = cms.bool(True),
+   )
+setattr(process, "slimmedTausBoostedNoOverLap", embedBoostedTau)
+
+
+########################################################################################
+# A new boostedTau collection is made here and the Id is updated
+########################################################################################
 process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolationMVArun2v1raw.clone(
-   PATTauProducer = cms.InputTag('slimmedTaus'),
+   PATTauProducer = cms.InputTag('slimmedTausBoostedNoOverLap'),
    Prediscriminants = noPrediscriminants,
    loadMVAfromDB = cms.bool(True),
    mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1"), # name of the training you want to use
@@ -39,7 +54,7 @@ process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolatio
 )
 
 process.rerunDiscriminationByIsolationMVArun2v1VLoose = patDiscriminationByIsolationMVArun2v1VLoose.clone(
-   PATTauProducer = cms.InputTag('slimmedTaus'),
+   PATTauProducer = cms.InputTag('slimmedTausBoostedNoOverLap'),
    Prediscriminants = noPrediscriminants,
    toMultiplex = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
    key = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw:category'),
@@ -77,30 +92,9 @@ process.rerunMvaIsolation2SeqRun2 = cms.Sequence(
    *process.rerunDiscriminationByIsolationMVArun2v1VVTight
 )
 
-
 # embed new id's into new tau collection
-embedID = cms.EDProducer("PATTauIDEmbedder",
-   src = cms.InputTag('slimmedTaus'),
-   tauIDSources = cms.PSet(
-      MybyIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
-      MybyVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
-      MybyLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
-      MybyMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
-      MybyTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
-      MybyVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
-      MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
-#      . . . (other discriminators like anti-electron),
-      ),
-   )
-setattr(process, "NewTauIDsEmbedded", embedID)
-
-
-# embed new id's into new tau collection
-embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
-   src = cms.InputTag('slimmedTausBoosted'),
-   pfcands = cms.InputTag('packedPFCandidates'),
-   removeOverLap = cms.bool(False),
-#    pfcands = cms.InputTag('packedCandidates'),
+embedBoostedTauID = cms.EDProducer("PATBoostedTauIDEmbedder",
+   src = cms.InputTag('slimmedTausBoostedNoOverLap'),
    tauIDSources = cms.PSet(
       MybyIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
       MybyVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
@@ -111,65 +105,12 @@ embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
       MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
       ),
    )
-setattr(process, "slimmedTausBoostedNoOverLap", embedBoostedTau)
+setattr(process, "slimmedTausBoostedNoOverLapIDUpdated", embedBoostedTauID)
 
 
-
-
-
-#
-#
-#
-#
-#from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
-#process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
-#from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
-#from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
-#
-#process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolationMVArun2v1raw.clone(
-#  PATTauProducer = cms.InputTag('slimmedTaus'),
-#  Prediscriminants = noPrediscriminants,
-#  loadMVAfromDB = cms.bool(True),
-#  # run with old MVA training
-#  #mvaName = cms.string("RecoTauTag_tauIdMVADBoldDMwLTv1"),
-#  # run with new MVA training
-#  mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1"),
-#  mvaOpt = cms.string("DBoldDMwLT"),
-#  requireDecayMode = cms.bool(True),
-#  verbosity = cms.int32(0)
-#)
-#
-## embed new id's into tau
-#embedID = cms.EDProducer("PATTauIDEmbedder",
-#   src = cms.InputTag('slimmedTaus'),
-#   tauIDSources = cms.PSet(
-#      byIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
-##      byVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
-##      byLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
-##      byMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
-##      byTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
-##      byVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
-##      byVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
-##      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
-#   ),
-#)
-#setattr(process, "newTauIDsEmbedded", embedID)
-#
-##from BoostTau.BoostAnalyzer.runTauIdMVA import *
-##na = TauIDEmbedder(process, cms, # pass tour process object
-##    debug=True,
-##    toKeep = ["2017v2"] # pick the one you need: ["2017v1", "2017v2", "newDM2017v2", "dR0p32017v2", "2016v1", "newDM2016v1"]
-##)
-##na.runTauID()
-
-
-
-process.load("RecoTauTag.Configuration.boostedHPSPFTaus_cff")
-process.ca8PFJetsCHSprunedForBoostedTaus.jetPtMin = cms.double(100.0)
-#process.ca8PFJetsCHSprunedForBoostedTaus.jetCollInstanceName=cms.string("MyNewJetCollection_subJetsForSeedingBoostedTaus")
-process.boostedTauSeeds.verbosity =1
-
-
+########################################################################################
+# A new Tau collection is made here
+########################################################################################
 updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
 import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
 tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
@@ -181,28 +122,22 @@ tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
 tauIdEmbedder.runTauID()
 
 
-process.load("PhysicsTools.PatAlgos.patSequences_cff")
-
-
-process.load("RecoTauTag.Configuration.updateHPSPFTaus_cff")
-
+########################################################################################
+# Output name
+########################################################################################
 process.TFileService = cms.Service("TFileService",
-                                       fileName = cms.string('histodemo_new.root')
+                                       fileName = cms.string('ntuple.root')
                                    )
+########################################################################################
+# path
+########################################################################################
 #print process.dumpPython()
 process.p = cms.Path(
-#    updateHPSPFTaus
-#     process.patDefaultSequence *
-#     process.rerunDiscriminationByIsolationMVArun2v1raw *
-#     process.newTauIDsEmbedded *#     process.boostedTauSeeds *
-    process.rerunMvaIsolation2SeqRun2 *
-     getattr(process, "NewTauIDsEmbedded") *
-     getattr(process, "slimmedTausBoostedNoOverLap") * # testing accessing tau iso/sig candidates
-     
-#    process.rerunMvaIsolationSequence
-#    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")
+     getattr(process, "slimmedTausBoostedNoOverLap") *
+     process.rerunMvaIsolation2SeqRun2 *
+     getattr(process, "slimmedTausBoostedNoOverLapIDUpdated") *
      process.rerunMvaIsolationSequence *
-     getattr(process,updatedTauName)
-    * process.demo
+     getattr(process,updatedTauName) *
+     process.demo
 )
 

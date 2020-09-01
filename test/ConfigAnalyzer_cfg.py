@@ -19,10 +19,9 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              boostedTauSrc    = cms.InputTag("slimmedTausBoosted"),
                              tauSrc                    = cms.InputTag("slimmedTaus"),
                              genParticleSrc       = cms.InputTag("prunedGenParticles"),
-#                             tauSrcNew                    = cms.InputTag("NewTauIDsEmbedded"),
                              tauSrcNew                    = cms.InputTag("slimmedTausNewID"),
                              tauSrcTest                    = cms.InputTag("NewTauIDsEmbedded"),
-                             boostedTauSrcNew               = cms.InputTag("NewBoostedTauEmbedded"),
+                             boostedTauNoOverLapSrc               = cms.InputTag("slimmedTausBoostedNoOverLap"),
                               )
                               
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
@@ -112,7 +111,7 @@ embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
       MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
       ),
    )
-setattr(process, "NewBoostedTauEmbedded", embedBoostedTau)
+setattr(process, "slimmedTausBoostedNoOverLap", embedBoostedTau)
 
 
 
@@ -198,7 +197,7 @@ process.p = cms.Path(
 #     process.newTauIDsEmbedded *#     process.boostedTauSeeds *
     process.rerunMvaIsolation2SeqRun2 *
      getattr(process, "NewTauIDsEmbedded") *
-     getattr(process, "NewBoostedTauEmbedded") * # testing accessing tau iso/sig candidates
+     getattr(process, "slimmedTausBoostedNoOverLap") * # testing accessing tau iso/sig candidates
      
 #    process.rerunMvaIsolationSequence
 #    * process.NewTauIDsEmbedded # *getattr(process, "NewTauIDsEmbedded")

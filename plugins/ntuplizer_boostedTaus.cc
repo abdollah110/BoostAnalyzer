@@ -238,7 +238,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     
     edm::Handle<vector<pat::Tau> > boostedTauHandle;
     e.getByToken(boostedTauCollection_, boostedTauHandle);
-//    e.getByToken(boostedTauCollectionNew_, boostedTauHandle); // new for check
+//    e.getByToken(boostedTauCollectionNoOverLap_, boostedTauHandle); // new for check
     
     if (!boostedTauHandle.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event";
@@ -246,7 +246,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     }
     
     edm::Handle<vector<pat::Tau> >  boostedTauHandleNew;
-    e.getByToken(boostedTauCollectionNew_, boostedTauHandleNew);
+    e.getByToken(boostedTauCollectionNoOverLap_, boostedTauHandleNew);
 //    e.getByToken(boostedTauCollection_, boostedTauHandleNew);
 
     if (!boostedTauHandleNew.isValid()) {

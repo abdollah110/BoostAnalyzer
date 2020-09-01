@@ -53,13 +53,7 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
 //pf2pc_(mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("packedPFCandidates")))
 {
     src_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("src"));
-    //  pf2pc_ = mayConsume<edm::Association<pat::PackedCandidateCollection> >(cfg.getParameter<edm::InputTag>("pfcands"));
     pf2pc_ = consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
-    
-    //  embedIsolationPFCands_ = cfg.getParameter<bool>( "embedIsolationPFCands" );
-    //  embedIsolationPFChargedHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFChargedHadrCands" );
-    //  embedIsolationPFNeutralHadrCands_ = cfg.getParameter<bool>( "embedIsolationPFNeutralHadrCands" );
-    //  embedIsolationPFGammaCands_ = cfg.getParameter<bool>( "embedIsolationPFGammaCands" );
     removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
     
     // read the different tau ID names

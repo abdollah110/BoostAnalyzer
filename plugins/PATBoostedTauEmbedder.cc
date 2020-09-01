@@ -41,9 +41,9 @@ private:
     edm::EDGetTokenT<pat::TauCollection> src_;
     //    edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
     edm::EDGetTokenT<pat::PackedCandidateCollection> pf2pc_;
-    typedef std::pair<std::string, edm::InputTag> NameTag;
-    std::vector<NameTag> tauIDSrcs_;
-    std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
+//    typedef std::pair<std::string, edm::InputTag> NameTag;
+//    std::vector<NameTag> tauIDSrcs_;
+//    std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
     //    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
     bool  removeOverLap_;
     
@@ -56,19 +56,19 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
     pf2pc_ = consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
     removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
     
-    // read the different tau ID names
-    edm::ParameterSet idps = cfg.getParameter<edm::ParameterSet>("tauIDSources");
-    std::vector<std::string> names = idps.getParameterNamesForType<edm::InputTag>();
-    for (std::vector<std::string>::const_iterator it = names.begin(), ed = names.end(); it != ed; ++it) {
-        tauIDSrcs_.push_back(NameTag(*it, idps.getParameter<edm::InputTag>(*it)));
-    }
-    // but in any case at least once
-    if (tauIDSrcs_.empty()) throw cms::Exception("Configuration") <<
-        "PATTauProducer: id addTauID is true, you must specify:\n" <<
-        "\tPSet tauIDSources = { \n" <<
-        "\t\tInputTag <someName> = <someTag>   // as many as you want \n " <<
-        "\t}\n";
-    patTauIDTokens_ = edm::vector_transform(tauIDSrcs_, [this](NameTag const & tag){return mayConsume<pat::PATTauDiscriminator>(tag.second);});
+//    // read the different tau ID names
+//    edm::ParameterSet idps = cfg.getParameter<edm::ParameterSet>("tauIDSources");
+//    std::vector<std::string> names = idps.getParameterNamesForType<edm::InputTag>();
+//    for (std::vector<std::string>::const_iterator it = names.begin(), ed = names.end(); it != ed; ++it) {
+//        tauIDSrcs_.push_back(NameTag(*it, idps.getParameter<edm::InputTag>(*it)));
+//    }
+//    // but in any case at least once
+//    if (tauIDSrcs_.empty()) throw cms::Exception("Configuration") <<
+//        "PATTauProducer: id addTauID is true, you must specify:\n" <<
+//        "\tPSet tauIDSources = { \n" <<
+//        "\t\tInputTag <someName> = <someTag>   // as many as you want \n " <<
+//        "\t}\n";
+//    patTauIDTokens_ = edm::vector_transform(tauIDSrcs_, [this](NameTag const & tag){return mayConsume<pat::PATTauDiscriminator>(tag.second);});
     
     produces<std::vector<pat::Tau> >();
 }

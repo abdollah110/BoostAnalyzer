@@ -74,7 +74,7 @@ void PATBoostedTauIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es
     evt.getByToken(src_, inputTaus);
     
     
-     This part is to add new Tau Id
+//     This part is to add new Tau Id
     
       auto outputTaus = std::make_unique<std::vector<pat::Tau> >();
       outputTaus->reserve(inputTaus->size());

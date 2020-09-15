@@ -135,7 +135,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         //    tau.isolations_.clear();
         //    tau.isoDeposits_.clear();
         
-        tau.setisolationPFChargedHadrCandsPtSum(100);
+//        tau.setisolationPFChargedHadrCandsPtSum(100);
         
         //   if (linkToPackedPF_) {
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
@@ -250,8 +250,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    0097     applyOccupancyCut = False,
 //    0098     applySumPtCut = True,
 //    0099 )
-//    
-//    
+//
+//
 //     hpsPFTauDiscriminationByLooseIsolation = pfRecoTauDiscriminationByIsolation.clone(
 //    0071     PFTauProducer = cms.InputTag("hpsPFTauProducer"),
 //    0072     Prediscriminants = requireDecayMode.clone(),
@@ -295,8 +295,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    0031     qualityCuts = PFTauQualityCuts,
 //    0032     PVProducer = PFTauQualityCuts.primaryVertexSrc  # need for Q cuts
 //    0033 )
-//    
-//    
+//
+//
 //    021     isolationQualityCuts = cms.PSet(
 //    0022         minTrackPt                   = cms.double(1.0),
 //    0023         maxTrackChi2                 = cms.double(100.),
@@ -308,8 +308,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    0029         minGammaEt                   = cms.double(1.5),
 //    0030         #useTracksInsteadOfPFHadrons  = cms.bool(False),
 //    0031     ),
-//    
-//    
+//
+//
     
     //      }
     

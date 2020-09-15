@@ -33,7 +33,7 @@ vector<bool>   boostedTauByTightIsolationMVArun2v1DBnewDMwLT_;
 vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLT_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_;
-//vector<bool>   MybyVVTightIsolationMVArun2v1DBoldDMwLTNew_;
+vector<bool>   MyNewPtSum_;
 
 
 //Tau Kinematics
@@ -109,7 +109,7 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLT", &boostedTauByTightIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBnewDMwLT", &boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLT", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_);
-//    tree->Branch("MybyVVTightIsolationMVArun2v1DBoldDMwLTNew", &MybyVVTightIsolationMVArun2v1DBoldDMwLTNew_);
+    tree->Branch("MyNewPtSum", &MyNewPtSum_);
     
     
     //Tau Kinematics
@@ -184,7 +184,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
-//    MybyVVTightIsolationMVArun2v1DBoldDMwLTNew_.clear();
+    MyNewPtSum_.clear();
 
     
     //Tau Kinematics
@@ -280,7 +280,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
         boostedTauByTightIsolationMVArun2v1DBnewDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBnewDMwLT"));
         boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-//        MybyVVTightIsolationMVArun2v1DBoldDMwLTNew_.push_back(itau->tauID("MybyVVTightIsolationMVArun2v1DBoldDMwLTNew));
+        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
     
         
         //Tau Kinematics

@@ -55,6 +55,10 @@ process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolatio
    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumdR03'),
 )
 
+#0028 patDiscriminationByIsolationMVArun2v1VLoose = patTauDiscriminantCutMultiplexer.clone()
+#0013 patTauDiscriminantCutMultiplexer = cms.EDProducer(
+#https://cmssdt.cern.ch/lxr/source/RecoTauTag/RecoTau/python/PATTauDiscriminantCutMultiplexer_cfi.py?v=CMSSW_9_4_16
+
 process.rerunDiscriminationByIsolationMVArun2v1VLoose = patDiscriminationByIsolationMVArun2v1VLoose.clone(
    PATTauProducer = cms.InputTag('slimmedTausBoostedNoOverLap'),
    Prediscriminants = noPrediscriminants,
@@ -105,7 +109,7 @@ embedBoostedTauID = cms.EDProducer("PATBoostedTauIDEmbedder",
       MybyTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
       MybyVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
       MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
-      MyNewPtSum = cms.InputTag('hpsPFTauChargedIsoPtSum'),
+      MyNewPtSum = cms.InputTag('chargedIsoPtSum'),
       ),
    )
 setattr(process, "slimmedTausBoostedNoOverLapIDUpdated", embedBoostedTauID)

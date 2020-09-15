@@ -51,8 +51,8 @@ process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolatio
    mvaOpt = cms.string("DBoldDMwLT"), # option you want to use for your training (i.e., which variables are used to compute the BDT score)DBoldDMwLTwGJ
    requireDecayMode = cms.bool(True),
    verbosity = cms.int32(0),
-   srcChargedIsoPtSum = self.cms.string('chargedIsoPtSumdR03'),
-   srcNeutralIsoPtSum = self.cms.string('neutralIsoPtSumdR03'),
+   srcChargedIsoPtSum = cms.string('chargedIsoPtSumdR03'),
+   srcNeutralIsoPtSum = cms.string('neutralIsoPtSumdR03'),
 )
 
 process.rerunDiscriminationByIsolationMVArun2v1VLoose = patDiscriminationByIsolationMVArun2v1VLoose.clone(

@@ -50,7 +50,7 @@ process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolatio
    mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1"), # name of the training you want to use RecoTauTag_tauIdMVAIsoDBoldDMdR0p3wLT2017v2
    mvaOpt = cms.string("DBoldDMwLT"), # option you want to use for your training (i.e., which variables are used to compute the BDT score)DBoldDMwLTwGJ
    requireDecayMode = cms.bool(True),
-   verbosity = cms.int32(0)
+   verbosity = cms.int32(0),
    srcChargedIsoPtSum = self.cms.string('chargedIsoPtSumdR03'),
    srcNeutralIsoPtSum = self.cms.string('neutralIsoPtSumdR03'),
 )

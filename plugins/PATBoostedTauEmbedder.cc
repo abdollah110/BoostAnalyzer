@@ -135,6 +135,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         //    tau.isolations_.clear();
         //    tau.isoDeposits_.clear();
         
+        tau.setisolationPFChargedHadrCandsPtSum(100);
         
         //   if (linkToPackedPF_) {
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
@@ -235,6 +236,80 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             
         }
     }
+
+//
+//    boostedTauChargedIsoPtSum_.push_back(itau->tauID("chargedIsoPtSum") );
+//    boostedTauNeutralIsoPtSum_.push_back(itau->tauID("neutralIsoPtSum")  );
+//
+//
+//    0092 hpsPFTauDiscriminationByLooseIsolationDBSumPtCorr = hpsPFTauDiscriminationByLooseIsolation.clone(
+//    0093     deltaBetaPUTrackPtCutOverride = cms.double(0.5),
+//    0094     applyDeltaBetaCorrection = True,
+//    0095     isoConeSizeForDeltaBeta = 0.8,
+//    0096     deltaBetaFactor = "%0.4f"%(0.0123/0.1687),
+//    0097     applyOccupancyCut = False,
+//    0098     applySumPtCut = True,
+//    0099 )
+//    
+//    
+//     hpsPFTauDiscriminationByLooseIsolation = pfRecoTauDiscriminationByIsolation.clone(
+//    0071     PFTauProducer = cms.InputTag("hpsPFTauProducer"),
+//    0072     Prediscriminants = requireDecayMode.clone(),
+//    0073     ApplyDiscriminationByTrackerIsolation = False,
+//    0074     ApplyDiscriminationByECALIsolation = True,
+//    0075     applyOccupancyCut = True
+//    0076 )
+//
+//
+//
+//    0001 import FWCore.ParameterSet.Config as cms
+//    0002
+//    0003 from RecoTauTag.RecoTau.PFRecoTauQualityCuts_cfi import PFTauQualityCuts
+//    0004 from RecoTauTag.RecoTau.TauDiscriminatorTools import requireLeadPion
+//    0005 from RecoTauTag.RecoTau.PFRecoTauDiscriminationByIsolation_cfi import pfRecoTauDiscriminationByIsolation
+//    0006
+//    0007 # Cut on sum pt < 8GeV  isolation tracks.
+//    0008
+//    0009 pfRecoTauDiscriminationByIsolationChargedSumPt = pfRecoTauDiscriminationByIsolation.clone(
+//    0010     PFTauProducer = cms.InputTag('pfRecoTauProducer'),
+//    0011
+//    0012     # Require leading pion ensures that: theee is at least one track above
+//    0013     # threshold (0.5 GeV) in the signal cone a track in the signal cone has
+//    0014     # pT > 5 GeV
+//    0015     Prediscriminants = requireLeadPion,
+//    0016
+//    0017     # Select which collections to use for isolation.
+//    0018     ApplyDiscriminationByECALIsolation = cms.bool(False),
+//    0019     ApplyDiscriminationByTrackerIsolation = cms.bool(True),
+//    0020
+//    0021     applyOccupancyCut = cms.bool(False),
+//    0022     maximumOccupancy = cms.uint32(1),
+//    0023
+//    0024     applySumPtCut = cms.bool(True),
+//    0025     maximumSumPtCut = cms.double(8.0),
+//    0026
+//    0027     applyRelativeSumPtCut = cms.bool(False),
+//    0028     relativeSumPtCut = cms.double(0.0),
+//    0029
+//    0030     # Set the standard quality cuts on the isolation candidates
+//    0031     qualityCuts = PFTauQualityCuts,
+//    0032     PVProducer = PFTauQualityCuts.primaryVertexSrc  # need for Q cuts
+//    0033 )
+//    
+//    
+//    021     isolationQualityCuts = cms.PSet(
+//    0022         minTrackPt                   = cms.double(1.0),
+//    0023         maxTrackChi2                 = cms.double(100.),
+//    0024         maxTransverseImpactParameter = cms.double(0.03),
+//    0025         maxDeltaZ                    = cms.double(0.2),
+//    0026         minTrackVertexWeight         = cms.double(-1.),    # Tracks weight in vertex
+//    0027         minTrackPixelHits            = cms.uint32(0),
+//    0028         minTrackHits                 = cms.uint32(8),
+//    0029         minGammaEt                   = cms.double(1.5),
+//    0030         #useTracksInsteadOfPFHadrons  = cms.bool(False),
+//    0031     ),
+//    
+//    
     
     //      }
     

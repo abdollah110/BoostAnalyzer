@@ -4,7 +4,7 @@ process = cms.Process("Demo")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(500) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(5000) )
 
 process.source = cms.Source("PoolSource",
                                 # replace 'myfile.root' with the source file you want to use
@@ -109,7 +109,7 @@ embedBoostedTauID = cms.EDProducer("PATBoostedTauIDEmbedder",
       MybyTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
       MybyVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
       MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
-      MyNewPtSum = cms.InputTag('chargedIsoPtSum'),
+#      MyNewPtSum = cms.InputTag('chargedIsoPtSum'),
       ),
    )
 setattr(process, "slimmedTausBoostedNoOverLapIDUpdated", embedBoostedTauID)

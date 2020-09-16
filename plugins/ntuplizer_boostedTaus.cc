@@ -280,7 +280,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
         boostedTauByTightIsolationMVArun2v1DBnewDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBnewDMwLT"));
         boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
+//        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
     
         
         //Tau Kinematics

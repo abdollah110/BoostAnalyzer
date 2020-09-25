@@ -40,6 +40,8 @@
 #include "DataFormats/Common/interface/Association.h"
 #include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 
+#include "DataFormats/VertexReco/interface/Vertex.h"
+
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "TH1.h"
@@ -90,6 +92,7 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
   edm::EDGetTokenT<std::vector<pat::Tau> >              NewtauCollection_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollectionNoOverLap_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollectionNoOverLapIDUpdated_;
+  edm::EDGetTokenT<reco::VertexCollection>              vtxLabel_;
   
   
 

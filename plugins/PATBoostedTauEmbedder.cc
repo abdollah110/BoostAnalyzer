@@ -82,6 +82,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
     edm::Handle<pat::TauCollection> inputTaus;
     evt.getByToken(src_, inputTaus);
     
+    edm::Handle<reco::VertexCollection> vertices;
+    evt.getByToken("vtxLabel_", vertices);
     
     // This part is to add new Tau Id
     

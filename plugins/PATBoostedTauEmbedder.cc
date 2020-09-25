@@ -131,6 +131,10 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         pat::Tau &tau = out->back();
         
         
+        float chargedPtIsoSum = chargedPtIsoSum03 = neutralPtIsoSum = neutralPtIsoSum03 = chargedPUPtIsoSum = 0;
+
+        
+        
         // clearing the pat isolation which is not used by taus
         //    tau.isolations_.clear();
         //    tau.isoDeposits_.clear();
@@ -239,12 +243,12 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     //q-cuts
                     if (charged->pt() <= 0.5) continue;
                     if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
-                    reco::Track *track = charged->bestTrack();
+                    const reco::Track *track = charged->bestTrack();
                     if (track == nullptr) continue;
                     if (track->normChi2() >= 100) continue;
                     if (track->numberOfHits() < 3) continue;
                     double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
-                    double dR = deltaR(charged->p4(), theTau.p4());
+                    double dR = deltaR(charged->p4(), tau.p4());
                     if (dz < 0.2) {//from tau vertex
                       //iso cone
                       if (dR < 0.5)
@@ -295,7 +299,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                      //q-cuts
                      if (gamma->pt() <= 1.) continue;
                      //iso cone
-                     double dR = deltaR(gamma->p4(), theTau.p4());
+                     double dR = deltaR(gamma->p4(), tau.p4());
                      if (dR < 0.5)
                        neutralPtIsoSum += gamma->pt();
                      if (dR < 0.3)

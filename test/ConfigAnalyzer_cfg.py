@@ -47,12 +47,12 @@ process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolatio
    PATTauProducer = cms.InputTag('slimmedTausBoostedNoOverLap'),
    Prediscriminants = noPrediscriminants,
    loadMVAfromDB = cms.bool(True),
-   mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1"), # name of the training you want to use RecoTauTag_tauIdMVAIsoDBoldDMdR0p3wLT2017v2
+   mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMdR0p3wLT2017v2"), # name of the training you want to use 
    mvaOpt = cms.string("DBoldDMwLT"), # option you want to use for your training (i.e., which variables are used to compute the BDT score)DBoldDMwLTwGJ
    requireDecayMode = cms.bool(True),
    verbosity = cms.int32(0),
-   srcChargedIsoPtSum = cms.string('chargedIsoPtSumdR03'),
-   srcNeutralIsoPtSum = cms.string('neutralIsoPtSumdR03'),
+   srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
+   srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
 )
 
 #0028 patDiscriminationByIsolationMVArun2v1VLoose = patTauDiscriminantCutMultiplexer.clone()

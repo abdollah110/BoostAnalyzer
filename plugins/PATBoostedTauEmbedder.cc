@@ -134,44 +134,67 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         // clearing the pat isolation which is not used by taus
         //    tau.isolations_.clear();
         //    tau.isoDeposits_.clear();
-        
-//        tau.setisolationPFChargedHadrCandsPtSum(100);
-        
-        //   if (linkToPackedPF_) {
+                
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;
-        reco::CandidatePtrVector isoCandidateOverLap;
+        reco::CandidatePtrVector OverLappedIsoCand;
         
+        
+        
+        //############################################################################
         // Store all of the signal Candidates
-        // sig candidates
+        //############################################################################
+        // All signal
         for (const reco::CandidatePtr &p : tau.signalCands()) {
             signalPtrs.push_back(p);
         }
         
+        // signalCharged
         for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
             signalChHPtrs.push_back(p);
         }
         tau.setSignalChargedHadrCands(signalChHPtrs);
         
+        // signalNeutr
         for (const reco::CandidatePtr &p : tau.signalNeutrHadrCands()) {
             signalNHPtrs.push_back(p);
         }
         tau.setSignalNeutralHadrCands(signalNHPtrs);
         
+        // signalGamma
         for (const reco::CandidatePtr &p : tau.signalGammaCands()) {
             signalGammaPtrs.push_back(p);
         }
         tau.setSignalGammaCands(signalGammaPtrs);
         
         
-        
-        
-        // iso candidates
+        //############################################################################
+        // leadChargedHadrCand
+        //############################################################################
+
+    const pat::PackedCandidate* packedLeadChCand = dynamic_cast<const pat::PackedCandidate*>(tau.leadChargedHadrCand().get());
+    
+        float minDz = 99;
+        int tauVertexIdx = 0;
+        int idx = 0;
+        for (const auto& vertex : *vertices) {//vertices is handle to vertices
+          float dz = std::abs(packedLeadChCand->dz(vertex.position()));
+          if (dz < minDz) {
+            minDz = dz;
+            tauVertexIdx = idx;
+          }
+          idx++;
+         }
+         
+         
+        //############################################################################
+        // leadChargedHadrCand
+        //############################################################################
+        // All Isolation
         for (const reco::CandidatePtr &p : tau.isolationCands()) {
             isolationPtrs.push_back(p);
         }
-        
-        
+                
         if (removeOverLap_){
             
             for (const reco::CandidatePtr &p : tau.isolationCands()) {
@@ -192,27 +215,58 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     for (const reco::CandidatePtr &p2 : tau2.signalCands()) {
                         if (ROOT::Math::VectorUtil::DeltaR(p->p4(), p2->p4()) < 1e-4)
-                            isoCandidateOverLap.push_back(p);
+                            OverLappedIsoCand.push_back(p);
                     }
                 }
             }// end of filling the new collection
-            
-            for (const reco::CandidatePtr &p : tau.isolationChargedHadrCands()) {
+            //############################################################################
+            // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
+            //############################################################################
+            for (const reco::CandidatePtr &charged : tau.isolationChargedHadrCands()) {
                 
                 bool hasOverLap=false;
-                for (const reco::CandidatePtr &q : isoCandidateOverLap) {
-                    if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
+                for (const reco::CandidatePtr &q : OverLappedIsoCand) {
+                    if (ROOT::Math::VectorUtil::DeltaR(charged->p4(), q->p4()) < 1e-4){
                         hasOverLap=true;
                     }
                 }
-                if (! hasOverLap)
-                    isolationChHPtrs.push_back(p);
+                if (! hasOverLap){
+                    isolationChHPtrs.push_back(charged);
+                    
+                    // here we want to make chargedPtIsoSum ,  neutralPtIsoSum03 , chargedPUPtIsoSum
+
+
+                    //q-cuts
+                    if (charged->pt() <= 0.5) continue;
+                    if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
+                    reco::Track *track = charged->bestTrack();
+                    if (track == nullptr) continue;
+                    if (track->normChi2() >= 100) continue;
+                    if (track->numberOfHits() < 3) continue;
+                    double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
+                    double dR = deltaR(charged->p4(), theTau.p4());
+                    if (dz < 0.2) {//from tau vertex
+                      //iso cone
+                      if (dR < 0.5)
+                        chargedPtIsoSum += charged->pt();
+                      if (dR < 0.3)
+                        chargedPtIsoSum03 += charged->pt();
+                    } else {//not from tau vertex
+                      //iso cone
+                      if (dR < 0.8)
+                        chargedPUPtIsoSum += charged->pt();
+                    }
+                    }
             }
             tau.setIsolationChargedHadrCands(isolationChHPtrs);
+            //############################################################################
+            // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
+            //############################################################################
+
             
             for (const reco::CandidatePtr &p : tau.isolationNeutrHadrCands()) {
                 bool hasOverLap=false;
-                for (const reco::CandidatePtr &q : isoCandidateOverLap) {
+                for (const reco::CandidatePtr &q : OverLappedIsoCand) {
                     if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
                         hasOverLap=true;
                     }
@@ -222,18 +276,36 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             }
             tau.setIsolationNeutralHadrCands(isolationNHPtrs);
             
-            for (const reco::CandidatePtr &p : tau.isolationGammaCands()) {
+            
+            //############################################################################
+            // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
+            //############################################################################
+            
+            for (const reco::CandidatePtr &gamma : tau.isolationGammaCands()) {
                 bool hasOverLap=false;
-                for (const reco::CandidatePtr &q : isoCandidateOverLap) {
-                    if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
+                for (const reco::CandidatePtr &q : OverLappedIsoCand) {
+                    if (ROOT::Math::VectorUtil::DeltaR(gamma->p4(), q->p4()) < 1e-4){
                         hasOverLap=true;
                     }
                 }
-                if (! hasOverLap)
-                    isolationGammaPtrs.push_back(p);
-            }
-            tau.setIsolationGammaCands(isolationGammaPtrs);        
+                if (! hasOverLap){
+                    isolationGammaPtrs.push_back(gamma);
+                    
+                    // Fill neutralPtIsoSum03 and neutralPtIsoSum
+                     //q-cuts
+                     if (gamma->pt() <= 1.) continue;
+                     //iso cone
+                     double dR = deltaR(gamma->p4(), theTau.p4());
+                     if (dR < 0.5)
+                       neutralPtIsoSum += gamma->pt();
+                     if (dR < 0.3)
+                       neutralPtIsoSum03 += gamma->pt();
+                    
+                    }
+                }
+            tau.setIsolationGammaCands(isolationGammaPtrs);
             
+        //############################################################################
         }
     }
 

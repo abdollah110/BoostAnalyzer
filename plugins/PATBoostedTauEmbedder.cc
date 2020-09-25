@@ -45,6 +45,7 @@ private:
 //    std::vector<NameTag> tauIDSrcs_;
 //    std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
     //    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
+    edm::EDGetTokenT<reco::VertexCollection> vtxLabel_;
     bool  removeOverLap_;
     
 };
@@ -54,6 +55,7 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
 {
     src_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("src"));
     pf2pc_ = consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
+    vtxLabel_ = consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("vtxLabel"));
     removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
     
 //    // read the different tau ID names
@@ -83,7 +85,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
     evt.getByToken(src_, inputTaus);
     
     edm::Handle<reco::VertexCollection> vertices;
-    evt.getByToken("vtxLabel_", vertices);
+    evt.getByToken(vtxLabel_, vertices);
     
     // This part is to add new Tau Id
     

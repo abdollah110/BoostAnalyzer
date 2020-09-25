@@ -92,7 +92,7 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
   edm::EDGetTokenT<std::vector<pat::Tau> >              NewtauCollection_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollectionNoOverLap_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollectionNoOverLapIDUpdated_;
-  edm::EDGetTokenT<reco::VertexCollection>              vtxLabel_;
+//  edm::EDGetTokenT<reco::VertexCollection>              vtxLabel_;
   
   
 

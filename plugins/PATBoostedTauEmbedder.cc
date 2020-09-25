@@ -131,7 +131,11 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         pat::Tau &tau = out->back();
         
         
-        float chargedPtIsoSum = chargedPtIsoSum03 = neutralPtIsoSum = neutralPtIsoSum03 = chargedPUPtIsoSum = 0;
+        float  chargedPtIsoSum = 0;
+        float  chargedPtIsoSum03 = 0;
+        float  neutralPtIsoSum = 0;
+        float  neutralPtIsoSum03  = 0;
+        float  chargedPUPtIsoSum = 0;
 
         
         

@@ -250,7 +250,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 
                     //q-cuts
                     if (charged->pt() <= 0.5) continue;
-//                    std::cout<<"tauVertexIdx = "<<tauVertexIdx<<"\n";
+                    
+                  if (0)  std::cout<<"tauVertexIdx = "<<tauVertexIdx<<"\n";
 //                    if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();
                     if (track == nullptr) continue;

@@ -250,7 +250,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 
                     //q-cuts
                     if (charged->pt() <= 0.5) continue;
-                    std::cout<<"tauVertexIdx = "<<tauVertexIdx<<"\n";
+//                    std::cout<<"tauVertexIdx = "<<tauVertexIdx<<"\n";
 //                    if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();
                     if (track == nullptr) continue;
@@ -329,16 +329,39 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         // here we have to set Tau Id as well
         
         size_t nTauIds = tau.tauIDs().size();
-        std::vector<pat::Tau::IdPair> tauIds(nTauIds+2);
+        std::vector<pat::Tau::IdPair> tauIds(nTauIds+5);
+    
+    float  chargedPtIsoSum = 0;
+    float  chargedPtIsoSum03 = 0;
+    float  neutralPtIsoSum = 0;
+    float  neutralPtIsoSum03  = 0;
+    float  chargedPUPtIsoSum = 0;
+
+
+    
     
         for(size_t q = 0; q < nTauIds; ++q){
           tauIds[q] = tau.tauIDs().at(q);
         }
-        tauIds[nTauIds].first="chargedIsoPtSumNoOverLap";
-        tauIds[nTauIds].second= chargedPtIsoSum;
+        tauIds[q].first="chargedIsoPtSumNoOverLap";
+        tauIds[q].second= chargedPtIsoSum;
+         q=q++;
 
-        tauIds[nTauIds+1].first="neutralIsoPtSumNoOverLap";
-        tauIds[nTauIds+1].second= neutralPtIsoSum;
+        tauIds[q].first="chargedIsoPtSum03NoOverLap";
+        tauIds[q].second= chargedPtIsoSum03;
+         q=q++;
+
+        tauIds[q].first="neutralIsoPtSumNoOverLap";
+        tauIds[q].second= neutralPtIsoSum;
+         q=q++;
+
+        tauIds[q].first="neutralIsoPtSum03NoOverLap";
+        tauIds[q].second= neutralPtIsoSum03;
+         q=q++;
+
+        tauIds[q].first="chargedPUIsoPtSumNoOverLap";
+        tauIds[q].second= chargedPUPtIsoSum;
+         q=q++;
 
 
     

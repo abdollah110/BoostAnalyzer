@@ -245,24 +245,21 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 if (! hasOverLap){
                     isolationChHPtrs.push_back(charged);
                     
-                    // here we want to make chargedPtIsoSum ,  neutralPtIsoSum03 , chargedPUPtIsoSum
-
 
                     //q-cuts
                     if (charged->pt() <= 0.5) continue;
                     
-                  if (0)  std::cout<<"tauVertexIdx = "<<tauVertexIdx<<"\n";
-//                    if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
+//                  if (0)  std::cout<<"tauVertexIdx = "<<tauVertexIdx<<"\n";
+                    if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();
                     if (track == nullptr) continue;
 //                      if (std::abs(track->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
-//                    if (track->normChi2() >= 100) continue;
+                    if (track->normalizedChi2() >= 100) continue;
 //                    if (track->numberOfHits() < 3) continue;
                     if (track->numberOfValidHits() < 3) continue; //????
                     
-//                    double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
+                    double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
 //                    double dz = std::abs(track->dz(*vertices[tauVertexIdx].position()));
-                    double dz = 0.1;
                     double dR = deltaR(charged->p4(), tau.p4());
                     if (dz < 0.2) {//from tau vertex
                       //iso cone
@@ -356,15 +353,6 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         tauIds[q].first="chargedPUIsoPtSumNoOverLap";
         tauIds[q].second= chargedPUPtIsoSum;
          q=q+1;
-
-
-    
-//        edm::Handle<pat::PATTauDiscriminator> tauDiscr;
-//        for(size_t i = 0; i < tauIDSrcs_.size(); ++i){
-//          evt.getByToken(patTauIDTokens_[i], tauDiscr);
-//          tauIds[nTauIds+i].first = tauIDSrcs_[i].first;
-//          tauIds[nTauIds+i].second = (*tauDiscr)[inputTauRef];
-//        }
 
         tau.setTauIDs(tauIds);
         

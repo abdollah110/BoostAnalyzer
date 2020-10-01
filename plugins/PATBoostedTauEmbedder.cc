@@ -324,8 +324,35 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             tau.setIsolationGammaCands(isolationGammaPtrs);
             
         //############################################################################
+        }// check if overLap removal is needed
+        
+        // here we have to set Tau Id as well
+        
+        size_t nTauIds = tau->tauIDs().size();
+        std::vector<pat::Tau::IdPair> tauIds(nTauIds);
+    
+        for(size_t q = 0; q < nTauIds; ++q){
+          tauIds[q] = tau->tauIDs().at(q);
         }
-    }
+    
+//        edm::Handle<pat::PATTauDiscriminator> tauDiscr;
+//        for(size_t i = 0; i < tauIDSrcs_.size(); ++i){
+//          evt.getByToken(patTauIDTokens_[i], tauDiscr);
+//          tauIds[nTauIds+i].first = tauIDSrcs_[i].first;
+//          tauIds[nTauIds+i].second = (*tauDiscr)[inputTauRef];
+//        }
+
+        tau.setTauIDs(tauIds);
+        
+        
+    }// iterate over tau is finished
+    
+    evt.put(std::move(out));
+    
+    //This is for Adding new tau Id
+    //  evt.put(std::move(outputTaus));
+}
+
 
 //
 //    boostedTauChargedIsoPtSum_.push_back(itau->tauID("chargedIsoPtSum") );
@@ -417,12 +444,6 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
     
     //  }
     
-    evt.put(std::move(out));
-    
-    //This is for Adding new tau Id
-    //  evt.put(std::move(outputTaus));
-}
-
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 DEFINE_FWK_MODULE(PATBoostedTauEmbedder);

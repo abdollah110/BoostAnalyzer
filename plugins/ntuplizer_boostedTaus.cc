@@ -55,8 +55,10 @@ vector<float> boostedTauZImpact_;
 
 //Tau Ingredients
 vector<float> boostedTauChargedIsoPtSum_;
+vector<float> boostedTauChargedIsoPtSumOver_;
 vector<float> boostedTauNeutralIsoPtSum_;
 vector<float> boostedTauPuCorrPtSum_;
+vector<float> boostedTauPuCorrPtSumOver_;
 vector<int>   boostedTauNumSignalPFChargedHadrCands_;
 vector<int>   boostedTauNumSignalPFNeutrHadrCands_;
 vector<int>   boostedTauNumSignalPFGammaCands_;
@@ -135,8 +137,10 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauLeadChargedHadronPhi"  ,&boostedTauLeadChargedHadronPhi_);
     tree->Branch("boostedTauLeadChargedHadronPt"  ,&boostedTauLeadChargedHadronPt_);
     tree->Branch("boostedTauChargedIsoPtSum"  ,&boostedTauChargedIsoPtSum_);
+    tree->Branch("boostedTauChargedIsoPtSumOver"  ,&boostedTauChargedIsoPtSumOver_);
     tree->Branch("boostedTauNeutralIsoPtSum"  ,&boostedTauNeutralIsoPtSum_);
     tree->Branch("boostedTauPuCorrPtSum"  ,&boostedTauPuCorrPtSum_);
+    tree->Branch("boostedTauPuCorrPtSumOver"  ,&boostedTauPuCorrPtSumOver_);
     tree->Branch("boostedTauNumSignalPFChargedHadrCands"  ,&boostedTauNumSignalPFChargedHadrCands_);
     tree->Branch("boostedTauNumSignalPFNeutrHadrCands"  ,&boostedTauNumSignalPFNeutrHadrCands_);
     tree->Branch("boostedTauNumSignalPFGammaCands"  ,&boostedTauNumSignalPFGammaCands_);
@@ -210,8 +214,10 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauLeadChargedHadronPhi_.clear();
     boostedTauLeadChargedHadronPt_.clear();
     boostedTauChargedIsoPtSum_.clear();
-    boostedTauNeutralIsoPtSum_.clear();
+    boostedTauChargedIsoPtSumOver_.clear();
+    boostedTauNeutralIsoPtSum.clear();
     boostedTauPuCorrPtSum_.clear();
+    boostedTauPuCorrPtSumOver_.clear();
     boostedTauNumSignalPFChargedHadrCands_.clear();
     boostedTauNumSignalPFNeutrHadrCands_.clear();
     boostedTauNumSignalPFGammaCands_.clear();
@@ -303,8 +309,10 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         // Tau Ingredients
         boostedTauDecayMode_.push_back(itau->decayMode());
         boostedTauChargedIsoPtSum_.push_back(itau->tauID("chargedIsoPtSum") );
+        boostedTauChargedIsoPtSumOver_.push_back(itau->tauID("chargedIsoPtSumNoOverLap"));
         boostedTauNeutralIsoPtSum_.push_back(itau->tauID("neutralIsoPtSum")  );
-        boostedTauPuCorrPtSum_.push_back(itau->tauID("puCorrPtSum")  );
+        boostedTauPuCorrPtSum_.push_back(itau->tauID("puCorrPtSum"));
+        boostedTauPuCorrPtSumOver_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
         boostedTauneutralIsoPtSumWeight_.push_back(itau->tauID("neutralIsoPtSumWeight"));
         boostedTaufootprintCorrection_.push_back(itau->tauID("footprintCorrection"));
         boostedTauphotonPtSumOutsideSignalCone_.push_back(itau->tauID("photonPtSumOutsideSignalCone"));

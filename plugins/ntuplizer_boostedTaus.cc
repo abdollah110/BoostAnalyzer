@@ -215,7 +215,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauLeadChargedHadronPt_.clear();
     boostedTauChargedIsoPtSum_.clear();
     boostedTauChargedIsoPtSumOver_.clear();
-    boostedTauNeutralIsoPtSum.clear();
+    boostedTauNeutralIsoPtSum_.clear();
     boostedTauPuCorrPtSum_.clear();
     boostedTauPuCorrPtSumOver_.clear();
     boostedTauNumSignalPFChargedHadrCands_.clear();

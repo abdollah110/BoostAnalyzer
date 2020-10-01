@@ -328,11 +328,11 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         
         // here we have to set Tau Id as well
         
-        size_t nTauIds = tau->tauIDs().size();
+        size_t nTauIds = tau.tauIDs().size();
         std::vector<pat::Tau::IdPair> tauIds(nTauIds);
     
         for(size_t q = 0; q < nTauIds; ++q){
-          tauIds[q] = tau->tauIDs().at(q);
+          tauIds[q] = tau.tauIDs().at(q);
         }
     
 //        edm::Handle<pat::PATTauDiscriminator> tauDiscr;

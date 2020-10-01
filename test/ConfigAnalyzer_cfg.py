@@ -35,6 +35,7 @@ from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
 embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
    src = cms.InputTag('slimmedTausBoosted'),
    pfcands = cms.InputTag('packedPFCandidates'),
+   vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
    removeOverLap = cms.bool(True),
    )
 setattr(process, "slimmedTausBoostedNoOverLap", embedBoostedTau)

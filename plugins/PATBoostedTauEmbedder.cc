@@ -330,16 +330,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         
         size_t nTauIds = tau.tauIDs().size();
         std::vector<pat::Tau::IdPair> tauIds(nTauIds+5);
-    
-    float  chargedPtIsoSum = 0;
-    float  chargedPtIsoSum03 = 0;
-    float  neutralPtIsoSum = 0;
-    float  neutralPtIsoSum03  = 0;
-    float  chargedPUPtIsoSum = 0;
-
-
-    
-    
+        
         for(size_t q = 0; q < nTauIds; ++q){
           tauIds[q] = tau.tauIDs().at(q);
         }

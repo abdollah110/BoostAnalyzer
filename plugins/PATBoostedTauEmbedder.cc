@@ -338,23 +338,23 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         size_t q = nTauIds;
         tauIds[q].first="chargedIsoPtSumNoOverLap";
         tauIds[q].second= chargedPtIsoSum;
-         q=q++;
+         q=q+1;
 
         tauIds[q].first="chargedIsoPtSum03NoOverLap";
         tauIds[q].second= chargedPtIsoSum03;
-         q=q++;
+         q=q+1;
 
         tauIds[q].first="neutralIsoPtSumNoOverLap";
         tauIds[q].second= neutralPtIsoSum;
-         q=q++;
+         q=q+1;
 
         tauIds[q].first="neutralIsoPtSum03NoOverLap";
         tauIds[q].second= neutralPtIsoSum03;
-         q=q++;
+         q=q+1;
 
         tauIds[q].first="chargedPUIsoPtSumNoOverLap";
         tauIds[q].second= chargedPUPtIsoSum;
-         q=q++;
+         q=q+1;
 
 
     

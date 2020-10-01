@@ -253,13 +253,13 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //                    if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();
                     if (track == nullptr) continue;
-                      if (std::abs(track->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
+                      if (std::abs(track->dxy(*(vertices[tauVertexIdx]).position())) >= 0.03) continue;
                     if (track->normalizedChi2() >= 100) continue;
 //                    if (track->numberOfHits() < 3) continue;
                     if (track->numberOfValidHits() < 3) continue; //????
                     
 //                    double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
-                    double dz = std::abs(track->dz(*vertices[tauVertexIdx].position()));
+                    double dz = std::abs(track->dz((*vertices)[tauVertexIdx].position()));
                     double dR = deltaR(charged->p4(), tau.p4());
                     if (dz < 0.2) {//from tau vertex
                       //iso cone

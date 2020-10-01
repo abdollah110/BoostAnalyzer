@@ -329,11 +329,18 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         // here we have to set Tau Id as well
         
         size_t nTauIds = tau.tauIDs().size();
-        std::vector<pat::Tau::IdPair> tauIds(nTauIds);
+        std::vector<pat::Tau::IdPair> tauIds(nTauIds+2);
     
         for(size_t q = 0; q < nTauIds; ++q){
           tauIds[q] = tau.tauIDs().at(q);
         }
+        tauIds[nTauIds].first='chargedIsoPtSumNoOverLap';
+        tauIds[nTauIds].second= chargedPUPtIsoSum;
+
+        tauIds[nTauIds+1].first='neutralIsoPtSumNoOverLap';
+        tauIds[nTauIds+1].second= neutralIsoPtSum;
+
+
     
 //        edm::Handle<pat::PATTauDiscriminator> tauDiscr;
 //        for(size_t i = 0; i < tauIDSrcs_.size(); ++i){

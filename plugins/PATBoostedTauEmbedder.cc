@@ -231,6 +231,13 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                         if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
                             OverLappedIsoCand.push_back(isoCand1);
                     }
+//Removing iso Cand. overlap as well
+                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
+                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
+                            OverLappedIsoCand.push_back(isoCand1);
+                    }
+
+
                 }
             }// end of filling the new collection
             //############################################################################

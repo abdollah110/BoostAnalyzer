@@ -143,8 +143,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 
 
         std::vector<reco::PFCandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
-        for (auto i : pfCands)
-            cout<<i.pt()<<"\t";
+        for (auto &i : pfCands)
+            std::cout<<" "<<"\t";
     //    tau.pfJetRef().pt()
 
 

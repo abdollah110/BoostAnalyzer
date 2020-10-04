@@ -150,6 +150,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;
         reco::CandidatePtrVector OverLappedIsoCand;
+        OverLappedIsoCand.clear();
         
         
         
@@ -203,13 +204,13 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         // leadChargedHadrCand
         //############################################################################
         // All Isolation
-        for (const reco::CandidatePtr &p : tau.isolationCands()) {
-            isolationPtrs.push_back(p);
-        }
+//        for (const reco::CandidatePtr &p : tau.isolationCands()) {
+//            isolationPtrs.push_back(p);
+//        }
                 
         if (removeOverLap_){
             
-            for (const reco::CandidatePtr &p : tau.isolationCands()) {
+            for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
                 
                 auto out2 = std::make_unique<std::vector<pat::Tau>>();
                 out2->reserve(inputTaus->size());
@@ -222,12 +223,13 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     out2->push_back(*it2);
                     pat::Tau &tau2 = out2->back();
                     
-                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+//                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
                     
                     
-                    for (const reco::CandidatePtr &p2 : tau2.signalCands()) {
-                        if (ROOT::Math::VectorUtil::DeltaR(p->p4(), p2->p4()) < 1e-4)
-                            OverLappedIsoCand.push_back(p);
+                    for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
+                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
+                            OverLappedIsoCand.push_back(isoCand1);
                     }
                 }
             }// end of filling the new collection
@@ -237,8 +239,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             for (const reco::CandidatePtr &charged : tau.isolationChargedHadrCands()) {
                 
                 bool hasOverLap=false;
-                for (const reco::CandidatePtr &q : OverLappedIsoCand) {
-                    if (ROOT::Math::VectorUtil::DeltaR(charged->p4(), q->p4()) < 1e-4){
+                for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
+                    if (ROOT::Math::VectorUtil::DeltaR(charged->p4(), overLapCand->p4()) < 1e-4){
                         hasOverLap=true;
                     }
                 }
@@ -280,15 +282,15 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             //############################################################################
 
             
-            for (const reco::CandidatePtr &p : tau.isolationNeutrHadrCands()) {
+            for (const reco::CandidatePtr &neutral : tau.isolationNeutrHadrCands()) {
                 bool hasOverLap=false;
-                for (const reco::CandidatePtr &q : OverLappedIsoCand) {
-                    if (ROOT::Math::VectorUtil::DeltaR(p->p4(), q->p4()) < 1e-4){
+                for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
+                    if (ROOT::Math::VectorUtil::DeltaR(neutral->p4(), overLapCand->p4()) < 1e-4){
                         hasOverLap=true;
                     }
                 }
                 if (! hasOverLap)
-                    isolationNHPtrs.push_back(p);
+                    isolationNHPtrs.push_back(neutral);
             }
             tau.setIsolationNeutralHadrCands(isolationNHPtrs);
             
@@ -299,8 +301,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             
             for (const reco::CandidatePtr &gamma : tau.isolationGammaCands()) {
                 bool hasOverLap=false;
-                for (const reco::CandidatePtr &q : OverLappedIsoCand) {
-                    if (ROOT::Math::VectorUtil::DeltaR(gamma->p4(), q->p4()) < 1e-4){
+                for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
+                    if (ROOT::Math::VectorUtil::DeltaR(gamma->p4(), overLapCand->p4()) < 1e-4){
                         hasOverLap=true;
                     }
                 }

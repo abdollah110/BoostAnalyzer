@@ -141,9 +141,9 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         float  neutralPtIsoSum03  = 0;
         float  chargedPUPtIsoSum = 0;
 
-
 //        std::vector<reco::PFCandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
-        std::vector<reco::CandidatePtr> pfCands = tau.JetRef()->getPFConstituents();
+        std::vector<reco::CandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
+//        std::vector<reco::CandidatePtr> pfCands = tau.JetRef()->getPFConstituents();
         for (auto &i : pfCands)
             std::cout<<" "<<"\t";
     //    tau.pfJetRef().pt()

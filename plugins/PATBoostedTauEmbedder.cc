@@ -141,7 +141,11 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         float  neutralPtIsoSum03  = 0;
         float  chargedPUPtIsoSum = 0;
 
-        
+
+        std::vector<reco::PFCandidatePtr> pfCands = tau.jetRef()->getPFConstituents();
+    //    tau.pfJetRef().pt()
+
+
         
         // clearing the pat isolation which is not used by taus
         //    tau.isolations_.clear();

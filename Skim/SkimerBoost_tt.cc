@@ -156,7 +156,7 @@ void SkimerBoost::Loop(TString OutputFile)
 
             cout<<"test 3\n";
             
-                if (boostedTauPt->at(ibtau) < 30 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
+                if (boostedTauPt->at(ibtau) < 40 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
 //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(ibtau) < 0.5 ) continue;
                 if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(ibtau) < 0.5 ) continue;
                 
@@ -172,7 +172,7 @@ void SkimerBoost::Loop(TString OutputFile)
                     
                     cout<<"test 5\n";
                     
-                    if (boostedTauPt->at(jbtau) < 30 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
+                    if (boostedTauPt->at(jbtau) < 40 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
     //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(jbtau) < 0.5 ) continue;
                     if (boostedTaupfTausDiscriminationByDecayModeFindingNewDMs->at(jbtau) < 0.5 ) continue;
                     
@@ -183,7 +183,7 @@ void SkimerBoost::Loop(TString OutputFile)
                     BoostSubTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(jbtau),boostedTauEta->at(jbtau),boostedTauPhi->at(jbtau),boostedTauMass->at(jbtau));
                                 
 
-                if(BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) > 1.5 || BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) < 0.1) continue;
+//                if(BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) > 1.5 || BoostSubTau4Momtmp.DeltaR(BoostLeadTau4Momtmp) < 0.1) continue;
                 decayMode1 = boostedTauDecayMode->at(ibtau);
                 decayMode2 = boostedTauDecayMode->at(jbtau);
                 numTauTau++;

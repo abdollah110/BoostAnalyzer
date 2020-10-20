@@ -8,6 +8,8 @@
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "FWCore/Utilities/interface/transform.h"
 #include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
+#include "DataFormats/PatCandidates/interface/TauPFSpecific.h"
+#include "DataFormats/JetReco/interface/Jet.h"
 #include <Math/VectorUtil.h>
 
 class PATBoostedTauEmbedder : public edm::stream::EDProducer<>
@@ -141,7 +143,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         float  neutralPtIsoSum03  = 0;
         float  chargedPUPtIsoSum = 0;
 
-        std::vector<reco::PFCandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
+//        std::vector<reco::PFCandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
 //        std::vector<reco::CandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
 //        std::vector<reco::CandidatePtr> pfCands = tau.JetRef()->getPFConstituents();
 //        for (auto &i : pfCands)
@@ -230,19 +232,19 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     out2->push_back(*it2);
                     pat::Tau &tau2 = out2->back();
                     
-//                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+//                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
                     
                     
                     for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
                         if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
                             OverLappedIsoCand.push_back(isoCand1);
                     }
-//Removing iso Cand. overlap as well
-                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
-                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
-                            OverLappedIsoCand.push_back(isoCand1);
-                    }
+//Removing iso Cand. overlap as well  %%%%%%% no need to remove otherIsoCandidates
+//                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
+//                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
+//                            OverLappedIsoCand.push_back(isoCand1);
+//                    }
 
 
                 }
@@ -263,8 +265,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     
 
                     //q-cuts
-//                    if (charged->pt() <= 0.5) continue;
-                    if (charged->pt() <= 1.0) continue;
+                    if (charged->pt() <= 0.5) continue;
+//                    if (charged->pt() <= 1.0) continue;
                     
 //                    if (std::abs(tau.dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();

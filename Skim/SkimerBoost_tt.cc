@@ -150,11 +150,11 @@ void SkimerBoost::Loop(TString OutputFile)
         bool foundApair= false;
         
 
-            if (nBoostedTau > 0) cout<<"  numBoostedTau "<<nBoostedTau <<"\n";
+//            if (nBoostedTau > 0) cout<<"  numBoostedTau "<<nBoostedTau <<"\n";
             
             for (int ibtau = 0; ibtau < nBoostedTau; ++ibtau){
 
-            cout<<"test 3\n";
+//            cout<<"test 3\n";
             
                 if (boostedTauPt->at(ibtau) < 40 || fabs(boostedTauEta->at(ibtau)) > 2.3 ) continue;
 //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(ibtau) < 0.5 ) continue;
@@ -165,12 +165,12 @@ void SkimerBoost::Loop(TString OutputFile)
 //                if (boostedTauByIsolationMVArun2v1DBnewDMwLTraw->at(ibtau) < 0) continue;
                 
                 BoostLeadTau4Momtmp.SetPtEtaPhiM(boostedTauPt->at(ibtau),boostedTauEta->at(ibtau),boostedTauPhi->at(ibtau),boostedTauMass->at(ibtau));
-                cout<<"test 4\n";
+//                cout<<"test 4\n";
                 
                 
                 for (int jbtau = ibtau+1; jbtau < nBoostedTau; ++jbtau){
                     
-                    cout<<"test 5\n";
+//                    cout<<"test 5\n";
                     
                     if (boostedTauPt->at(jbtau) < 40 || fabs(boostedTauEta->at(jbtau)) > 2.3 ) continue;
     //                if (boostedTaupfTausDiscriminationByDecayModeFinding->at(jbtau) < 0.5 ) continue;

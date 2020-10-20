@@ -14,9 +14,7 @@
 
 // Header file for the classes stored in the TTree if any.
 #include "vector"
-#include "vector"
-#include "vector"
-#include "vector"
+using namespace std;
 
 class SkimerBoost {
 public :
@@ -295,7 +293,8 @@ public :
 #endif
 
 #ifdef SkimerBoost_cxx
-SkimerBoost::SkimerBoost(TTree *tree) : fChain(0)
+//SkimerBoost::SkimerBoost(TTree *tree) : fChain(0)
+SkimerBoost::SkimerBoost(TString fileName) : fChain(0)
 {
     // if parameter tree is not specified (or zero), connect the file
     // used to generate this class and read the Tree.

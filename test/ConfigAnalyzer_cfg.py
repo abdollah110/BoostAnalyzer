@@ -63,8 +63,11 @@ process.rerunDiscriminationByIsolationMVArun2v1raw = patDiscriminationByIsolatio
 process.rerunDiscriminationByIsolationMVArun2v1VLoose = patDiscriminationByIsolationMVArun2v1VLoose.clone(
    PATTauProducer = cms.InputTag('slimmedTausBoostedNoOverLap'),
    Prediscriminants = noPrediscriminants,
-   toMultiplex = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
-   key = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw:category'),
+   toMultiplex = cms.InputTag('MybyIsolationMVArun2v1DBoldDMwLTrawNew'),
+   key = cms.InputTag('MybyIsolationMVArun2v1DBoldDMwLTrawNew:category'),
+#  toMultiplex = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
+#  key = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw:category'),
+
    loadMVAfromDB = cms.bool(True),
    mvaOutput_normalization = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1_mvaOutput_normalization"), # normalization fo the training you want to use
    mapping = cms.VPSet(

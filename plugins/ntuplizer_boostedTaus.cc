@@ -35,12 +35,21 @@ vector<bool>   boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_;
 
 
 vector<float>  boostedTauByIsolationMVArun2v1DBnewDMwLTraw_;
+vector<bool>   boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_;
+vector<bool>   boostedTauByTightIsolationMVArun2v1DBnewDMwLT_;
+
+
 vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTraw_;
 vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_;
-vector<bool>   boostedTauByTightIsolationMVArun2v1DBnewDMwLT_;
+
+
 vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_;
-vector<bool>   boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_;
+
+vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLT_;
+vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_;
+
+
 vector<bool>   MyNewPtSum_;
 
 

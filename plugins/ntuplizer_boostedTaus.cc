@@ -513,12 +513,12 @@ auto CollName = iJet-> subjetCollectionNames();
 
 std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
 
-for (int i = 0 ; i < CollName->size(); i++){
+for (int i = 0 ; i < CollName.size(); i++){
 
 std::cout<<i <<"  "<< CollName[i]<<"\n";
 }
 
-std::cout<< <<"size of getJetConstituents " << iJet->getJetConstituents().size() <<"\n";
+std::cout<<"size of getJetConstituents " << iJet->getJetConstituents().size() <<"\n";
 
 //
 //

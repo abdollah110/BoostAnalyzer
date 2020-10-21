@@ -36,6 +36,7 @@
  #include "DataFormats/TrackReco/interface/TrackFwd.h"
  #include "DataFormats/TrackReco/interface/DeDxHitInfo.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
+#include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/Common/interface/RefToPtr.h"
 #include "DataFormats/Common/interface/Association.h"
 #include "DataFormats/PatCandidates/interface/PackedCandidate.h"
@@ -92,6 +93,7 @@ class BoostAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
   edm::EDGetTokenT<std::vector<pat::Tau> >              NewtauCollection_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollectionNoOverLap_;
   edm::EDGetTokenT<std::vector<pat::Tau> >              boostedTauCollectionNoOverLapIDUpdated_;
+  edm::EDGetTokenT<std::vector<pat::Jet> >              jetsAK8Label_;
 //  edm::EDGetTokenT<reco::VertexCollection>              vtxLabel_;
   
   

@@ -22,7 +22,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
                              tauSrcNew                 = cms.InputTag("slimmedTausNewID"),
                              boostedTauNoOverLapSrc    = cms.InputTag("slimmedTausBoostedNoOverLap"),
                              boostedTauNoOverLapIDUpdatedSrc    = cms.InputTag("slimmedTausBoostedNoOverLapIDUpdated"),
-                             
+                             ak8JetSrc                 = cms.InputTag("slimmedJetsAK8"),
                               )
                               
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants

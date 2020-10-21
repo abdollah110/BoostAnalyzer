@@ -241,10 +241,10 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                             OverLappedIsoCand.push_back(isoCand1);
                     }
 //Removing iso Cand. overlap as well  %%%%%%% no need to remove otherIsoCandidates
-//                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
-//                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
-//                            OverLappedIsoCand.push_back(isoCand1);
-//                    }
+                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
+                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
+                            OverLappedIsoCand.push_back(isoCand1);
+                    }
 
 
                 }

@@ -505,7 +505,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 
     for (edm::View<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
 
-      if (iJet->pt() < 20) continue;
+      if (iJet->pt() < 170) continue;
 
 
 //std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();

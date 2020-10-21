@@ -34,9 +34,9 @@ vector<bool>   boostedTauByTightCombinedIsolationDeltaBetaCorr3Hits_;
 vector<bool>   boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_;
 
 
-vector<float>  boostedTauByIsolationMVArun2v1DBnewDMwLTraw_;
-vector<bool>   boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_;
-vector<bool>   boostedTauByTightIsolationMVArun2v1DBnewDMwLT_;
+vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_;
+vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_;
+vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_;
 
 
 vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTraw_;
@@ -141,13 +141,13 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig", &boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_);
     tree->Branch("boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig", &boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_);
 
-    tree->Branch("boostedTauByIsolationMVArun2v1DBnewDMwLTraw", &boostedTauByIsolationMVArun2v1DBnewDMwLTraw_);
+    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTraw", &boostedTauByIsolationMVArun2v1DBoldDMwLTraw_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_);
-    tree->Branch("boostedTauByTightIsolationMVArun2v1DBnewDMwLT", &boostedTauByTightIsolationMVArun2v1DBnewDMwLT_);
+    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLT", &boostedTauByTightIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_);
-    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBnewDMwLT", &boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_);
+    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLT", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_);
     tree->Branch("MyNewPtSum", &MyNewPtSum_);
@@ -238,13 +238,13 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_.clear();
     boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_.clear();
 
-    boostedTauByIsolationMVArun2v1DBnewDMwLTraw_.clear();
+    boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_.clear();
-    boostedTauByTightIsolationMVArun2v1DBnewDMwLT_.clear();
+    boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_.clear();
-    boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_.clear();
+    boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_.clear();
     MyNewPtSum_.clear();
@@ -338,6 +338,16 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 //        std::cout<<"itau->tauID('chargedIsoPtSum') " << itau->tauID("chargedIsoPtSum")<< "  itau->pt() = "<<itau->pt()<< " itau->tauID(decayModeFinding) "<<itau->tauID("decayModeFinding")<< "itau->signalCands().size() "<<itau->signalCands().size() <<  "\n";
 
 
+         = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1raw'),
+        MybyVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLoose'),
+         = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Loose'),
+        MybyMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Medium'),
+         = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1Tight'),
+        MybyVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTight'),
+        MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTight'),
+
+
+
         // Tau Id & Isolation
         boostedTaupfTausDiscriminationByDecayModeFinding_.push_back(itau->tauID("decayModeFinding"));
         boostedTaupfTausDiscriminationByDecayModeFindingNewDMs_.push_back(itau->tauID("decayModeFindingNewDMs"));
@@ -353,12 +363,14 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauByTightCombinedIsolationDeltaBetaCorr3Hits_.push_back(itau->tauID("byTightCombinedIsolationDeltaBetaCorr3Hits"));
         boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_.push_back(itau->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
         
-        boostedTauByIsolationMVArun2v1DBnewDMwLTraw_.push_back(itau->tauID("byIsolationMVArun2v1DBnewDMwLTraw"));
-        boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-        boostedTauByLooseIsolationMVArun2v1DBnewDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBnewDMwLT"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBnewDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBnewDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
+        boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
+        boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("MybyIsolationMVArun2v1DBoldDMwLTrawNew"));
+        
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyLooseIsolationMVArun2v1DBoldDMwLTNew"));
+        
+        boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
+        boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyTightIsolationMVArun2v1DBoldDMwLTNew"));
 //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
     
         

@@ -640,12 +640,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         
         
         
-    }
-    
-    
-    
-    
-    
-    
+//    }
     
 }

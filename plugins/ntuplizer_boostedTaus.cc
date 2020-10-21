@@ -508,9 +508,10 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
       if (iJet->pt() < 20) continue;
 
 
-std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
+//std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
+auto CollName = iJet-> subjetCollectionNames();
 
-std::cout<<"size of subjetCollectionNames " << CollName->size()<<"\n";
+std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
 
 for (int i = 0 ; i < CollName->size(); i++){
 

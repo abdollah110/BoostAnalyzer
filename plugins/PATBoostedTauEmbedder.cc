@@ -62,7 +62,7 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
     pf2pc_ = consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
     vtxLabel_ = consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("vtxLabel"));
     removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
-    jetsAK8Label_= consumes<pat::JetCollection>(cfg.getParameter<edm::InputTag>("ak8JetSrc")))
+    jetsAK8Label_= consumes<pat::JetCollection>(cfg.getParameter<edm::InputTag>("ak8JetSrc"));
     
     //    // read the different tau ID names
     //    edm::ParameterSet idps = cfg.getParameter<edm::ParameterSet>("tauIDSources");
@@ -236,8 +236,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
                     
                     if (iJet->pt() < 170) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(iJet.p4(), tau.p4()) > 1.0) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(iJet.p4(), tau.p4()) < 0.02) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 1.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) < 0.02) continue;
                     
                     //        auto const & sdSubjets = iJet->subjets("SoftDrop");
                     auto const & sdSubjets = iJet->subjets("SoftDropPuppi");

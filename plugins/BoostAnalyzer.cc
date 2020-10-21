@@ -41,7 +41,7 @@ BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
  NewtauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcNew"))),
  boostedTauCollectionNoOverLap_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauNoOverLapSrc"))),
 boostedTauCollectionNoOverLapIDUpdated_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauNoOverLapIDUpdatedSrc"))),
-jetsAK8Label_(consumes<View<pat::Jet> >               (iConfig.getParameter<edm::InputTag>("ak8JetSrc")));
+jetsAK8Label_(consumes<std::vector<pat::Jet> >               (iConfig.getParameter<edm::InputTag>("ak8JetSrc")));
 
 {
   edm::Service<TFileService> fs;

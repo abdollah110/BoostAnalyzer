@@ -510,9 +510,9 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 
 std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
 
-std::cout<< <<"size of subjetCollectionNames " << CollName->size()<<"\n";
+std::cout<<"size of subjetCollectionNames " << CollName->size()<<"\n";
 
-for (int i = 0 ; i < CollName->size(); ii++){
+for (int i = 0 ; i < CollName->size(); i++){
 
 std::cout<<i <<"  "<< CollName[i]<<"\n";
 }

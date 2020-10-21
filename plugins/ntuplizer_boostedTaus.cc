@@ -503,48 +503,48 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     } // loop over tau candidates
     
     
-    // JET
-    edm::Handle<vector<pat::Jet> > jetHandle;
-    e.getByToken(jetsAK8Label_, jetHandle);
-    
-    for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
-        
-        if (iJet->pt() < 170) continue;
-        
-        
-        //std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
-        //auto CollName = iJet-> subjetCollectionNames();
-        
-        //std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
-        //
-        //for (unsigned int i = 0 ; i < CollName.size(); i++){
-        //
-        //std::cout<<i <<"  "<< CollName[i]<<"\n";
-        //}
-        
-        //        auto const & sdSubjets = iJet->subjets("SoftDrop");
-        auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
-        
-        for ( auto const & SDSJ : sdSubjets ) {
-            //            nsubjets++;
-            
-            std::cout<<"       SDSJ pt and eta and phi = "<<SDSJ->pt() << "  " << SDSJ->eta() << "  "<<SDSJ->phi()<<"\n";
-            
-            for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
-                
-                const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);
-                
-                std::cout<<"            SDSJ pt and eta and phi = "<<daughter->pt() << "  " << daughter->eta() << "  "<<daughter->phi()<<"\n";
-                
-                //                    if (daughter.isNonnull() && daughter.isAvailable()) {
-                //                        if (daughter->charge() != 0 && daughter->pt() > leadTrkPt) {
-                //                          leadTrkPt  = daughter->pt();
-                //                          leadTrkEta = daughter->eta();
-                //                          leadTrkPhi = daughter->phi();
-                //                        }
-            }
-            
-        }
+//    // JET
+//    edm::Handle<vector<pat::Jet> > jetHandle;
+//    e.getByToken(jetsAK8Label_, jetHandle);
+//    
+//    for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
+//        
+//        if (iJet->pt() < 170) continue;
+//        
+//        
+//        //std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
+//        //auto CollName = iJet-> subjetCollectionNames();
+//        
+//        //std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
+//        //
+//        //for (unsigned int i = 0 ; i < CollName.size(); i++){
+//        //
+//        //std::cout<<i <<"  "<< CollName[i]<<"\n";
+//        //}
+//        
+//        //        auto const & sdSubjets = iJet->subjets("SoftDrop");
+//        auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
+//        
+//        for ( auto const & SDSJ : sdSubjets ) {
+//            //            nsubjets++;
+//            
+//            std::cout<<"       SDSJ pt and eta and phi = "<<SDSJ->pt() << "  " << SDSJ->eta() << "  "<<SDSJ->phi()<<"\n";
+//            
+//            for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
+//                
+//                const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);
+//                
+//                std::cout<<"            SDSJ pt and eta and phi = "<<daughter->pt() << "  " << daughter->eta() << "  "<<daughter->phi()<<"\n";
+//                
+//                //                    if (daughter.isNonnull() && daughter.isAvailable()) {
+//                //                        if (daughter->charge() != 0 && daughter->pt() > leadTrkPt) {
+//                //                          leadTrkPt  = daughter->pt();
+//                //                          leadTrkEta = daughter->eta();
+//                //                          leadTrkPhi = daughter->phi();
+//                //                        }
+//            }
+//            
+//        }
         
         
         

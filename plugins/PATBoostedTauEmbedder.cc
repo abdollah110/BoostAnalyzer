@@ -43,9 +43,9 @@ private:
     edm::EDGetTokenT<pat::TauCollection> src_;
     //    edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
     edm::EDGetTokenT<pat::PackedCandidateCollection> pf2pc_;
-//    typedef std::pair<std::string, edm::InputTag> NameTag;
-//    std::vector<NameTag> tauIDSrcs_;
-//    std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
+    //    typedef std::pair<std::string, edm::InputTag> NameTag;
+    //    std::vector<NameTag> tauIDSrcs_;
+    //    std::vector<edm::EDGetTokenT<pat::PATTauDiscriminator> > patTauIDTokens_;
     //    reco::CandidatePtrVector signalChargedHadrCandPtrs_;
     edm::EDGetTokenT<reco::VertexCollection> vtxLabel_;
     bool  removeOverLap_;
@@ -60,19 +60,19 @@ PATBoostedTauEmbedder::PATBoostedTauEmbedder(const edm::ParameterSet& cfg)
     vtxLabel_ = consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("vtxLabel"));
     removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
     
-//    // read the different tau ID names
-//    edm::ParameterSet idps = cfg.getParameter<edm::ParameterSet>("tauIDSources");
-//    std::vector<std::string> names = idps.getParameterNamesForType<edm::InputTag>();
-//    for (std::vector<std::string>::const_iterator it = names.begin(), ed = names.end(); it != ed; ++it) {
-//        tauIDSrcs_.push_back(NameTag(*it, idps.getParameter<edm::InputTag>(*it)));
-//    }
-//    // but in any case at least once
-//    if (tauIDSrcs_.empty()) throw cms::Exception("Configuration") <<
-//        "PATTauProducer: id addTauID is true, you must specify:\n" <<
-//        "\tPSet tauIDSources = { \n" <<
-//        "\t\tInputTag <someName> = <someTag>   // as many as you want \n " <<
-//        "\t}\n";
-//    patTauIDTokens_ = edm::vector_transform(tauIDSrcs_, [this](NameTag const & tag){return mayConsume<pat::PATTauDiscriminator>(tag.second);});
+    //    // read the different tau ID names
+    //    edm::ParameterSet idps = cfg.getParameter<edm::ParameterSet>("tauIDSources");
+    //    std::vector<std::string> names = idps.getParameterNamesForType<edm::InputTag>();
+    //    for (std::vector<std::string>::const_iterator it = names.begin(), ed = names.end(); it != ed; ++it) {
+    //        tauIDSrcs_.push_back(NameTag(*it, idps.getParameter<edm::InputTag>(*it)));
+    //    }
+    //    // but in any case at least once
+    //    if (tauIDSrcs_.empty()) throw cms::Exception("Configuration") <<
+    //        "PATTauProducer: id addTauID is true, you must specify:\n" <<
+    //        "\tPSet tauIDSources = { \n" <<
+    //        "\t\tInputTag <someName> = <someTag>   // as many as you want \n " <<
+    //        "\t}\n";
+    //    patTauIDTokens_ = edm::vector_transform(tauIDSrcs_, [this](NameTag const & tag){return mayConsume<pat::PATTauDiscriminator>(tag.second);});
     
     produces<std::vector<pat::Tau> >();
 }
@@ -142,20 +142,20 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         float  neutralPtIsoSum = 0;
         float  neutralPtIsoSum03  = 0;
         float  chargedPUPtIsoSum = 0;
-
-//        std::vector<reco::PFCandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
-//        std::vector<reco::CandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
-//        std::vector<reco::CandidatePtr> pfCands = tau.JetRef()->getPFConstituents();
-//        for (auto &i : pfCands)
-//            std::cout<<" "<<"\t";
-    //    tau.pfJetRef().pt()
-
-
+        
+        //        std::vector<reco::PFCandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
+        //        std::vector<reco::CandidatePtr> pfCands = tau.pfJetRef()->getPFConstituents();
+        //        std::vector<reco::CandidatePtr> pfCands = tau.JetRef()->getPFConstituents();
+        //        for (auto &i : pfCands)
+        //            std::cout<<" "<<"\t";
+        //    tau.pfJetRef().pt()
+        
+        
         
         // clearing the pat isolation which is not used by taus
         //    tau.isolations_.clear();
         //    tau.isoDeposits_.clear();
-                
+        
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;
         reco::CandidatePtrVector OverLappedIsoCand;
@@ -193,30 +193,30 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         //############################################################################
         // leadChargedHadrCand
         //############################################################################
-
-    const pat::PackedCandidate* packedLeadChCand = dynamic_cast<const pat::PackedCandidate*>(tau.leadChargedHadrCand().get());
-    
+        
+        const pat::PackedCandidate* packedLeadChCand = dynamic_cast<const pat::PackedCandidate*>(tau.leadChargedHadrCand().get());
+        
         float minDz = 99;
         int tauVertexIdx = 0;
         int idx = 0;
         for (const auto& vertex : *vertices) {//vertices is handle to vertices
-          float dz = std::abs(packedLeadChCand->dz(vertex.position()));
-          if (dz < minDz) {
-            minDz = dz;
-            tauVertexIdx = idx;
-          }
-          idx++;
-         }
-         
-         
+            float dz = std::abs(packedLeadChCand->dz(vertex.position()));
+            if (dz < minDz) {
+                minDz = dz;
+                tauVertexIdx = idx;
+            }
+            idx++;
+        }
+        
+        
         //############################################################################
         // leadChargedHadrCand
         //############################################################################
         // All Isolation
-//        for (const reco::CandidatePtr &p : tau.isolationCands()) {
-//            isolationPtrs.push_back(p);
-//        }
-                
+        //        for (const reco::CandidatePtr &p : tau.isolationCands()) {
+        //            isolationPtrs.push_back(p);
+        //        }
+        
         if (removeOverLap_){
             
             for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
@@ -225,30 +225,62 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 out2->reserve(inputTaus->size());
                 
                 
-                for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
+                // JET
+                edm::Handle<vector<pat::Jet> > jetHandle;
+                e.getByToken(jetsAK8Label_, jetHandle);
+                
+                for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
                     
-                    if (it2 == it) continue;
+                    if (iJet->pt() < 170) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(jetHandle.p4(), tau.p4()) > 1.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(jetHandle.p4(), tau.p4()) < 0.02) continue;
                     
-                    out2->push_back(*it2);
-                    pat::Tau &tau2 = out2->back();
+                    //        auto const & sdSubjets = iJet->subjets("SoftDrop");
+                    auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
                     
-                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
-//                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
-                    
-                    
-                    for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
-                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
-                            OverLappedIsoCand.push_back(isoCand1);
+                    for ( auto const & SDSJ : sdSubjets ) {
+                        for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
+                            
+                            const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);
+                            
+                            if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), daughter->p4()) < 1e-4)
+                                OverLappedIsoCand.push_back(isoCand1);
+                        }
                     }
-//Removing iso Cand. overlap as well  %%%%%%% no need to remove otherIsoCandidates
-                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
-                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
-                            OverLappedIsoCand.push_back(isoCand1);
-                    }
-
-
                 }
             }// end of filling the new collection
+                
+                
+                
+                
+                
+                
+                //                for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
+                //
+                //                    if (it2 == it) continue;
+                //
+                //                    out2->push_back(*it2);
+                //                    pat::Tau &tau2 = out2->back();
+                //
+                //                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+                ////                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
+                //
+                //
+                //                    for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
+                //                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
+                //                            OverLappedIsoCand.push_back(isoCand1);
+                //                    }
+                ////Removing iso Cand. overlap as well  %%%%%%% no need to remove otherIsoCandidates
+                //                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
+                //                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
+                //                            OverLappedIsoCand.push_back(isoCand1);
+                //                    }
+                //                }
+                
+                
+                
+                
+//            }// end of filling the new collection
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################
@@ -263,40 +295,40 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 if (! hasOverLap){
                     isolationChHPtrs.push_back(charged);
                     
-
+                    
                     //q-cuts
                     if (charged->pt() <= 0.5) continue;
-//                    if (charged->pt() <= 1.0) continue;
+                    //                    if (charged->pt() <= 1.0) continue;
                     
-//                    if (std::abs(tau.dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
+                    //                    if (std::abs(tau.dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();
                     if (track == nullptr) continue;
-                      if (std::abs(track->dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
+                    if (std::abs(track->dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
                     if (track->normalizedChi2() >= 100) continue;
-//                    if (track->numberOfHits() < 3) continue;
+                    //                    if (track->numberOfHits() < 3) continue;
                     if (track->numberOfValidHits() < 3) continue; //????
                     
-//                    double dz = std::abs(tau.dz((*vertices)[tauVertexIdx].position()));
+                    //                    double dz = std::abs(tau.dz((*vertices)[tauVertexIdx].position()));
                     double dz = std::abs(track->dz((*vertices)[tauVertexIdx].position()));
                     double dR = deltaR(charged->p4(), tau.p4());
                     if (dz < 0.2) {//from tau vertex
-                      //iso cone
-                      if (dR < 0.5)
-                        chargedPtIsoSum += charged->pt();
-                      if (dR < 0.3)
-                        chargedPtIsoSum03 += charged->pt();
+                        //iso cone
+                        if (dR < 0.5)
+                            chargedPtIsoSum += charged->pt();
+                        if (dR < 0.3)
+                            chargedPtIsoSum03 += charged->pt();
                     } else {//not from tau vertex
-                      //iso cone
-                      if (dR < 0.8)
-                        chargedPUPtIsoSum += charged->pt();
+                        //iso cone
+                        if (dR < 0.8)
+                            chargedPUPtIsoSum += charged->pt();
                     }
-                    }
+                }
             }
             tau.setIsolationChargedHadrCands(isolationChHPtrs);
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################
-
+            
             
             for (const reco::CandidatePtr &neutral : tau.isolationNeutrHadrCands()) {
                 bool hasOverLap=false;
@@ -326,20 +358,20 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     isolationGammaPtrs.push_back(gamma);
                     
                     // Fill neutralPtIsoSum03 and neutralPtIsoSum
-                     //q-cuts
-                     if (gamma->pt() <= 1.) continue;
-                     //iso cone
-                     double dR = deltaR(gamma->p4(), tau.p4());
-                     if (dR < 0.5)
-                       neutralPtIsoSum += gamma->pt();
-                     if (dR < 0.3)
-                       neutralPtIsoSum03 += gamma->pt();
+                    //q-cuts
+                    if (gamma->pt() <= 1.) continue;
+                    //iso cone
+                    double dR = deltaR(gamma->p4(), tau.p4());
+                    if (dR < 0.5)
+                        neutralPtIsoSum += gamma->pt();
+                    if (dR < 0.3)
+                        neutralPtIsoSum03 += gamma->pt();
                     
-                    }
                 }
+            }
             tau.setIsolationGammaCands(isolationGammaPtrs);
             
-        //############################################################################
+            //############################################################################
         }// check if overLap removal is needed
         
         // here we have to set Tau Id as well
@@ -349,29 +381,29 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         
         
         for(size_t q = 0; q < nTauIds; ++q){
-          tauIds[q] = tau.tauIDs().at(q);
+            tauIds[q] = tau.tauIDs().at(q);
         }
         size_t q = nTauIds;
         tauIds[q].first="chargedIsoPtSumNoOverLap";
         tauIds[q].second= chargedPtIsoSum;
-         q=q+1;
-
+        q=q+1;
+        
         tauIds[q].first="chargedIsoPtSum03NoOverLap";
         tauIds[q].second= chargedPtIsoSum03;
-         q=q+1;
-
+        q=q+1;
+        
         tauIds[q].first="neutralIsoPtSumNoOverLap";
         tauIds[q].second= neutralPtIsoSum;
-         q=q+1;
-
+        q=q+1;
+        
         tauIds[q].first="neutralIsoPtSum03NoOverLap";
         tauIds[q].second= neutralPtIsoSum03;
-         q=q+1;
-
+        q=q+1;
+        
         tauIds[q].first="chargedPUIsoPtSumNoOverLap";
         tauIds[q].second= chargedPUPtIsoSum;
-         q=q+1;
-
+        q=q+1;
+        
         tau.setTauIDs(tauIds);
         
         
@@ -457,23 +489,23 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 //    0031     ),
 //
 //
-    
-    //      }
-    
-    
-    //    }
-    //    if (dropPiZeroRefs_) {
-    //      tau.pfSpecific_[0].signalPiZeroCandidates_.clear();
-    //      tau.pfSpecific_[0].isolationPiZeroCandidates_.clear();
-    //    }
-    //    if (dropTauChargedHadronRefs_) {
-    //      tau.pfSpecific_[0].signalTauChargedHadronCandidates_.clear();
-    //      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
-    //    }
-    //  }
-    
-    //  }
-    
+
+//      }
+
+
+//    }
+//    if (dropPiZeroRefs_) {
+//      tau.pfSpecific_[0].signalPiZeroCandidates_.clear();
+//      tau.pfSpecific_[0].isolationPiZeroCandidates_.clear();
+//    }
+//    if (dropTauChargedHadronRefs_) {
+//      tau.pfSpecific_[0].signalTauChargedHadronCandidates_.clear();
+//      tau.pfSpecific_[0].isolationTauChargedHadronCandidates_.clear();
+//    }
+//  }
+
+//  }
+
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 DEFINE_FWK_MODULE(PATBoostedTauEmbedder);

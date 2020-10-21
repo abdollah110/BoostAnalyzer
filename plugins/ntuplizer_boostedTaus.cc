@@ -364,6 +364,8 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
     
         
+        std::cout<<"tau pt and eta and phi = "<<itau->pt() << "  " << itau->eta() << "  "<<itau->phi()<<"\n";
+        
         //Tau Kinematics
         boostedTauEta_.push_back(itau->eta());
         boostedTauPhi_.push_back(itau->phi());
@@ -503,20 +505,32 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
 
     for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
 
-      if (iJet->pt() < 200) continue;
+      if (iJet->pt() < 170) continue;
 
 
 //std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
-auto CollName = iJet-> subjetCollectionNames();
+//auto CollName = iJet-> subjetCollectionNames();
 
-std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
+//std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
+//
+//for (unsigned int i = 0 ; i < CollName.size(); i++){
+//
+//std::cout<<i <<"  "<< CollName[i]<<"\n";
+//}
 
-for (unsigned int i = 0 ; i < CollName.size(); i++){
+//        auto const & sdSubjets = iJet->subjets("SoftDrop");
+        auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
+        
+        for ( auto const & SDSJ : sdSubjets ) {
+//            nsubjets++;
+            
+            std::cout<<"       SDSJ pt and eta and phi = "<<SDSJ->pt() << "  " << SDSJ->eta() << "  "<<SDSJ->phi()<<"\n";
+            
+        }
+        
+        
 
-std::cout<<i <<"  "<< CollName[i]<<"\n";
-}
-
-std::cout<<"size of getJetConstituents " << iJet->getJetConstituents().size() <<"\n";
+//std::cout<<"size of getJetConstituents " << iJet->getJetConstituents().size() <<"\n";
 
 //
 //

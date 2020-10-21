@@ -364,7 +364,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
         
         
-        std::cout<<"tau pt and eta and phi = "<<itau->pt() << "  " << itau->eta() << "  "<<itau->phi()<<"\n";
+//        std::cout<<"tau pt and eta and phi = "<<itau->pt() << "  " << itau->eta() << "  "<<itau->phi()<<"\n";
         
         //Tau Kinematics
         boostedTauEta_.push_back(itau->eta());
@@ -423,7 +423,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         vector<float> isoCharged;
         isoCharged.clear();
         for (auto& cand : itau->isolationChargedHadrCands()) {
-            std::cout<<"  IsoCand pt and eta and phi = "<<cand->pt() << "  " << cand->eta() << "  "<<cand->phi()<<"\n";
+//            std::cout<<"  IsoCand pt and eta and phi = "<<cand->pt() << "  " << cand->eta() << "  "<<cand->phi()<<"\n";
             isoCharged.push_back(cand->pt());
         }
         boostedTauIsolationPFCands_.push_back(isoCharged);
@@ -431,7 +431,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         vector<float> isoGamma;
         isoGamma.clear();
         for (auto& cand : itau->isolationGammaCands()) {
-            std::cout<<"  IsoGamm pt and eta and phi = "<<cand->pt() << "  " << cand->eta() << "  "<<cand->phi()<<"\n";
+//            std::cout<<"  IsoGamm pt and eta and phi = "<<cand->pt() << "  " << cand->eta() << "  "<<cand->phi()<<"\n";
             isoGamma.push_back(cand->pt());
         }
         boostedTauIsolationPFGammaCands_.push_back(isoGamma);

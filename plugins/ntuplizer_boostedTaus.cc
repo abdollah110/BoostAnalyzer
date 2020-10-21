@@ -498,10 +498,8 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
             
         } // loop over tau candidates
         
-        edm::Handle<edm::View<pat::Jet> > jetHandle;
-        e.getByToken(jetsAK8Label_, jetHandle);
-
-
+    edm::Handle<vector<pat::Jet> > jetHandle;
+    e.getByToken(jetsAK8Label_, jetHandle);
 
     for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
 

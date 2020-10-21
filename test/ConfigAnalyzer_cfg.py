@@ -37,6 +37,7 @@ embedBoostedTau = cms.EDProducer("PATBoostedTauEmbedder",
    pfcands = cms.InputTag('packedPFCandidates'),
    vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
    removeOverLap = cms.bool(True),
+   ak8JetSrc = cms.InputTag('slimmedJetsAK8')
    )
 setattr(process, "slimmedTausBoostedNoOverLap", embedBoostedTau)
 

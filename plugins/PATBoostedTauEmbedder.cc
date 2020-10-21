@@ -12,6 +12,8 @@
 #include "DataFormats/JetReco/interface/Jet.h"
 #include <Math/VectorUtil.h>
 
+using namespace std;
+
 class PATBoostedTauEmbedder : public edm::stream::EDProducer<>
 {
 public:

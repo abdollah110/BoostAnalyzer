@@ -513,7 +513,7 @@ auto CollName = iJet-> subjetCollectionNames();
 
 std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
 
-for (int i = 0 ; i < CollName.size(); i++){
+for (auto i = 0 ; i < CollName.size(); i++){
 
 std::cout<<i <<"  "<< CollName[i]<<"\n";
 }

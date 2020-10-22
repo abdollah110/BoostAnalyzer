@@ -34,9 +34,9 @@ vector<bool>   boostedTauByTightCombinedIsolationDeltaBetaCorr3Hits_;
 vector<bool>   boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_;
 
 
-vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_;
-vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_;
-vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_;
+vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_;
+vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_;
+vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_;
 
 
 vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTraw_;
@@ -142,13 +142,13 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig", &boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_);
     tree->Branch("boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig", &boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_);
     
-    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_);
+    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTraw", &boostedTauByIsolationMVArun2v1DBoldDMwLTraw_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_);
-    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_);
+    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLT", &boostedTauByTightIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_);
-    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_);
+    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLT", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_);
     tree->Branch("MyNewPtSum", &MyNewPtSum_);
@@ -240,13 +240,13 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_.clear();
     boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_.clear();
     
-    boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_.clear();
+    boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_.clear();
-    boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_.clear();
+    boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_.clear();
-    boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_.clear();
+    boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_.clear();
     MyNewPtSum_.clear();
@@ -327,16 +327,16 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         return;
     }
     
-    edm::Handle<vector<pat::Tau> >  boostedTauHandle;
-    e.getByToken(boostedTauCollectionNoOverLapIDUpdated_, boostedTauHandle);
+    edm::Handle<vector<pat::Tau> >  boostedTauHandleNoOverLap;
+    e.getByToken(boostedTauCollectionNoOverLapIDUpdated_, boostedTauHandleNoOverLap);
     
-    if (!boostedTauHandle.isValid()) {
-        edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event boostedTauHandle";
+    if (!boostedTauHandleNoOverLap.isValid()) {
+        edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event boostedTauHandleNoOverLap";
         return;
     }
     
     
-    for(vector<pat::Tau>::const_iterator itau = boostedTauHandle->begin(); itau != boostedTauHandle->end(); ++itau) {
+    for(vector<pat::Tau>::const_iterator itau = boostedTauHandleNoOverLap->begin(); itau != boostedTauHandleNoOverLap->end(); ++itau) {
         
         //        std::cout<<"itau->tauID('chargedIsoPtSum') " << itau->tauID("chargedIsoPtSum")<< "  itau->pt() = "<<itau->pt()<< " itau->tauID(decayModeFinding) "<<itau->tauID("decayModeFinding")<< "itau->signalCands().size() "<<itau->signalCands().size() <<  "\n";
         
@@ -356,15 +356,15 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauByTightCombinedIsolationDeltaBetaCorr3Hits_.push_back(itau->tauID("byTightCombinedIsolationDeltaBetaCorr3Hits"));
         boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_.push_back(itau->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
         
-        boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-//        boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("MybyIsolationMVArun2v1DBoldDMwLTrawNew"));
+        boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
+        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("MybyIsolationMVArun2v1DBoldDMwLTrawNew"));
         
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-//        boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyLooseIsolationMVArun2v1DBoldDMwLTNew"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("MybyLooseIsolationMVArun2v1DBoldDMwLTNew"));
         
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-//        boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyTightIsolationMVArun2v1DBoldDMwLTNew"));
-        //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
+        boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
+        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("MybyTightIsolationMVArun2v1DBoldDMwLTNew"));
+        //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSuxm"));
         
         
 //        std::cout<<"tau pt and eta and phi = "<<itau->pt() << "  " << itau->eta() << "  "<<itau->phi()<<"\n";
@@ -389,11 +389,11 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         // Tau Ingredients
         boostedTauDecayMode_.push_back(itau->decayMode());
         boostedTauChargedIsoPtSum_.push_back(itau->tauID("chargedIsoPtSum") );
-//        boostedTauChargedIsoPtSumOver_.push_back(itau->tauID("chargedIsoPtSumNoOverLap"));
+        boostedTauChargedIsoPtSumOver_.push_back(itau->tauID("chargedIsoPtSumNoOverLap"));
         boostedTauNeutralIsoPtSum_.push_back(itau->tauID("neutralIsoPtSum")  );
-//        boostedTauNeutralIsoPtSumOver_.push_back(itau->tauID("neutralIsoPtSumNoOverLap")  );
+        boostedTauNeutralIsoPtSumOver_.push_back(itau->tauID("neutralIsoPtSumNoOverLap")  );
         boostedTauPuCorrPtSum_.push_back(itau->tauID("puCorrPtSum"));
-//        boostedTauPuCorrPtSumOver_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
+        boostedTauPuCorrPtSumOver_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
         boostedTauneutralIsoPtSumWeight_.push_back(itau->tauID("neutralIsoPtSumWeight"));
         boostedTaufootprintCorrection_.push_back(itau->tauID("footprintCorrection"));
         boostedTauphotonPtSumOutsideSignalCone_.push_back(itau->tauID("photonPtSumOutsideSignalCone"));

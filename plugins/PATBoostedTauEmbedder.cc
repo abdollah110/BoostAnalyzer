@@ -43,7 +43,6 @@ private:
     
     //--- configuration parameters
     edm::EDGetTokenT<pat::TauCollection> src_;
-    //    edm::EDGetTokenT<edm::Association<pat::PackedCandidateCollection> > pf2pc_;
     edm::EDGetTokenT<pat::PackedCandidateCollection> pf2pc_;
     //    typedef std::pair<std::string, edm::InputTag> NameTag;
     //    std::vector<NameTag> tauIDSrcs_;
@@ -225,8 +224,8 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             
             for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
                 
-                auto out2 = std::make_unique<std::vector<pat::Tau>>();
-                out2->reserve(inputTaus->size());
+//                auto out2 = std::make_unique<std::vector<pat::Tau>>();
+//                out2->reserve(inputTaus->size());
                 
                 
                 // JET
@@ -247,7 +246,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 1.0) continue;
 //                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) < 0.02) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.1) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
 
 
                         for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
@@ -301,6 +300,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
                     if (ROOT::Math::VectorUtil::DeltaR(charged->p4(), overLapCand->p4()) < 1e-4){
                         hasOverLap=true;
+                        break;
                     }
                 }
                 if (! hasOverLap){
@@ -346,6 +346,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
                     if (ROOT::Math::VectorUtil::DeltaR(neutral->p4(), overLapCand->p4()) < 1e-4){
                         hasOverLap=true;
+                        break;
                     }
                 }
                 if (! hasOverLap)
@@ -363,6 +364,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                 for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
                     if (ROOT::Math::VectorUtil::DeltaR(gamma->p4(), overLapCand->p4()) < 1e-4){
                         hasOverLap=true;
+                        break;
                     }
                 }
                 if (! hasOverLap){

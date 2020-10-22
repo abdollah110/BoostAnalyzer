@@ -236,7 +236,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     if (iJet->pt() < 170) continue;
                     
-                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 1.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 2.0) continue;
                     
                     //        auto const & sdSubjets = iJet->subjets("SoftDrop");
                     auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
@@ -244,9 +244,9 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     for ( auto const & SDSJ : sdSubjets ) {
                     
                     
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 1.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 2.0) continue;
 //                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) < 0.02) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.1) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.02) continue;
 
 
                         for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {

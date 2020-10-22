@@ -126,7 +126,8 @@ setattr(process, "slimmedTausBoostedNoOverLapIDUpdated", embedBoostedTauID)
 ########################################################################################
 # A new Tau collection is made here
 ########################################################################################
-updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
+#updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
+updatedTauName = "slimmedTausBoostedNoOverLapIDUpdated" # New one with updated Id
 import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
 tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
                     updatedTauName = updatedTauName,

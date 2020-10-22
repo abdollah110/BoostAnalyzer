@@ -76,6 +76,7 @@ vector<float> boostedTauChargedIsoPtSumOrig_;
 vector<float> boostedTauChargedIsoPtSumOver_;
 vector<float> boostedTauNeutralIsoPtSum_;
 vector<float> boostedTauNeutralIsoPtSumOrig_;
+vector<float> boostedTauNeutralIsoPtSumOver_;
 vector<float> boostedTauPuCorrPtSum_;
 vector<float> boostedTauPuCorrPtSumOrig_;
 vector<float> boostedTauPuCorrPtSumOver_;
@@ -180,6 +181,7 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauChargedIsoPtSumOver"  ,&boostedTauChargedIsoPtSumOver_);
     tree->Branch("boostedTauNeutralIsoPtSum"  ,&boostedTauNeutralIsoPtSum_);
     tree->Branch("boostedTauNeutralIsoPtSumOrig"  ,&boostedTauNeutralIsoPtSumOrig_);
+    tree->Branch("boostedTauNeutralIsoPtSumOver"  ,&boostedTauNeutralIsoPtSumOver_);
     tree->Branch("boostedTauPuCorrPtSum"  ,&boostedTauPuCorrPtSum_);
     tree->Branch("boostedTauPuCorrPtSumOrig"  ,&boostedTauPuCorrPtSumOrig_);
     tree->Branch("boostedTauPuCorrPtSumOver"  ,&boostedTauPuCorrPtSumOver_);
@@ -277,6 +279,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauChargedIsoPtSumOver_.clear();
     boostedTauNeutralIsoPtSum_.clear();
     boostedTauNeutralIsoPtSumOrig_.clear();
+    boostedTauNeutralIsoPtSumOver_.clear();
     boostedTauPuCorrPtSum_.clear();
     boostedTauPuCorrPtSumOrig_.clear();
     boostedTauPuCorrPtSumOver_.clear();
@@ -388,6 +391,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauChargedIsoPtSum_.push_back(itau->tauID("chargedIsoPtSum") );
         boostedTauChargedIsoPtSumOver_.push_back(itau->tauID("chargedIsoPtSumNoOverLap"));
         boostedTauNeutralIsoPtSum_.push_back(itau->tauID("neutralIsoPtSum")  );
+        boostedTauNeutralIsoPtSumOver_.push_back(itau->tauID("neutralIsoPtSumNoOverLap")  );
         boostedTauPuCorrPtSum_.push_back(itau->tauID("puCorrPtSum"));
         boostedTauPuCorrPtSumOver_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
         boostedTauneutralIsoPtSumWeight_.push_back(itau->tauID("neutralIsoPtSumWeight"));

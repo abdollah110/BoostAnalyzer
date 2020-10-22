@@ -389,11 +389,11 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         // Tau Ingredients
         boostedTauDecayMode_.push_back(itau->decayMode());
         boostedTauChargedIsoPtSum_.push_back(itau->tauID("chargedIsoPtSum") );
-        boostedTauChargedIsoPtSumOver_.push_back(itau->tauID("chargedIsoPtSumNoOverLap"));
+//        boostedTauChargedIsoPtSumOver_.push_back(itau->tauID("chargedIsoPtSumNoOverLap"));
         boostedTauNeutralIsoPtSum_.push_back(itau->tauID("neutralIsoPtSum")  );
-        boostedTauNeutralIsoPtSumOver_.push_back(itau->tauID("neutralIsoPtSumNoOverLap")  );
+//        boostedTauNeutralIsoPtSumOver_.push_back(itau->tauID("neutralIsoPtSumNoOverLap")  );
         boostedTauPuCorrPtSum_.push_back(itau->tauID("puCorrPtSum"));
-        boostedTauPuCorrPtSumOver_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
+//        boostedTauPuCorrPtSumOver_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
         boostedTauneutralIsoPtSumWeight_.push_back(itau->tauID("neutralIsoPtSumWeight"));
         boostedTaufootprintCorrection_.push_back(itau->tauID("footprintCorrection"));
         boostedTauphotonPtSumOutsideSignalCone_.push_back(itau->tauID("photonPtSumOutsideSignalCone"));

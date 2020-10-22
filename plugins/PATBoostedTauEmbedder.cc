@@ -161,8 +161,6 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
         
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;
-        reco::CandidatePtrVector OverLappedIsoCand;
-        OverLappedIsoCand.clear();
         
         
         
@@ -211,24 +209,35 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
             idx++;
         }
         
-        
-        //############################################################################
-        // leadChargedHadrCand
-        //############################################################################
-        // All Isolation
-        //        for (const reco::CandidatePtr &p : tau.isolationCands()) {
-        //            isolationPtrs.push_back(p);
-        //        }
-        
         if (removeOverLap_){
+            
+            //############################################################################
+            // filling a collection of IsoCandidates which overlapped with either other signal candidates or other Jet contitients
+            //############################################################################
+            reco::CandidatePtrVector OverLappedIsoCand;
+            OverLappedIsoCand.clear();
             
             for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
                 
-//                auto out2 = std::make_unique<std::vector<pat::Tau>>();
-//                out2->reserve(inputTaus->size());
+                // Check iso candidate does not overlap with other signal candidates
+                auto out2 = std::make_unique<std::vector<pat::Tau>>();
+                out2->reserve(inputTaus->size());
+                for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
+                    
+                    if (it2 == it) continue;
+                    
+                    out2->push_back(*it2);
+                    pat::Tau &tau2 = out2->back();
+                    
+                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+                    
+                    for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
+                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
+                            OverLappedIsoCand.push_back(isoCand1);
+                    }
+                }
                 
-                
-                // JET
+                // Check iso candidate does not overlap with other subjet constituents
                 edm::Handle<vector<pat::Jet> > jetHandle;
                 evt.getByToken(jetsAK8Label_, jetHandle);
                 
@@ -240,57 +249,53 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     //        auto const & sdSubjets = iJet->subjets("SoftDrop");
                     auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
-
                     for ( auto const & SDSJ : sdSubjets ) {
-                    
-                    
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 2.0) continue;
-//                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) < 0.02) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.02) continue;
-
-
+                        
+                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 2.0) continue;
+                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
+                        
+                        
                         for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
-                            
                             const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);
-                            
                             if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), daughter->p4()) < 1e-4)
                                 OverLappedIsoCand.push_back(isoCand1);
                         }
                     }
                 }
-            }// end of filling the new collection
-                
-                
-                
-                
-                
-                
-                //                for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
-                //
-                //                    if (it2 == it) continue;
-                //
-                //                    out2->push_back(*it2);
-                //                    pat::Tau &tau2 = out2->back();
-                //
-                //                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
-                ////                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
-                //
-                //
-                //                    for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
-                //                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
-                //                            OverLappedIsoCand.push_back(isoCand1);
-                //                    }
-                ////Removing iso Cand. overlap as well  %%%%%%% no need to remove otherIsoCandidates
-                //                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
-                //                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
-                //                            OverLappedIsoCand.push_back(isoCand1);
-                //                    }
-                //                }
-                
-                
-                
-                
-//            }// end of filling the new collection
+            }// end of filling the OverLappedIsoCand collection
+            //############################################################################
+            
+            
+            
+            
+            
+            
+            //                for (std::vector<pat::Tau>::const_iterator it2 = inputTaus->begin(), ed2 = inputTaus->end(); it2 != ed2; ++it2) {
+            //
+            //                    if (it2 == it) continue;
+            //
+            //                    out2->push_back(*it2);
+            //                    pat::Tau &tau2 = out2->back();
+            //
+            //                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 1.0) continue;
+            ////                    if (ROOT::Math::VectorUtil::DeltaR(tau2.p4(), tau.p4()) > 2.0) continue;
+            //
+            //
+            //                    for (const reco::CandidatePtr &sigCand2 : tau2.signalCands()) {
+            //                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), sigCand2->p4()) < 1e-4)
+            //                            OverLappedIsoCand.push_back(isoCand1);
+            //                    }
+            ////Removing iso Cand. overlap as well  %%%%%%% no need to remove otherIsoCandidates
+            //                    for (const reco::CandidatePtr &isoCand2 : tau2.isolationCands()) {
+            //                        if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), isoCand2->p4()) < 1e-4)
+            //                            OverLappedIsoCand.push_back(isoCand1);
+            //                    }
+            //                }
+            
+            
+            
+            
+            //            }// end of filling the new collection
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################

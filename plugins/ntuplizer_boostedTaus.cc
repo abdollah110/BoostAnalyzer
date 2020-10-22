@@ -357,13 +357,13 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_.push_back(itau->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
         
         boostedTauByIsolationMVArun2v1DBoldDMwLTrawOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-        boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("MybyIsolationMVArun2v1DBoldDMwLTrawNew"));
+//        boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("MybyIsolationMVArun2v1DBoldDMwLTrawNew"));
         
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyLooseIsolationMVArun2v1DBoldDMwLTNew"));
+//        boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyLooseIsolationMVArun2v1DBoldDMwLTNew"));
         
         boostedTauByTightIsolationMVArun2v1DBoldDMwLTOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyTightIsolationMVArun2v1DBoldDMwLTNew"));
+//        boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("MybyTightIsolationMVArun2v1DBoldDMwLTNew"));
         //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSum"));
         
         

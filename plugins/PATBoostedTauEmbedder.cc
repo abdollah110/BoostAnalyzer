@@ -246,7 +246,7 @@ void PATBoostedTauEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 1.0) continue;
 //                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) < 0.02) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.1) continue;
 
 
                         for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {

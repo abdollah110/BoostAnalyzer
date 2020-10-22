@@ -61,7 +61,7 @@ BoostAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
     fillBoostedTaus(iEvent);
-    fillTaus(iEvent);
+//    fillTaus(iEvent);
     fillGenPart(iEvent);
 
     tree_->Fill();

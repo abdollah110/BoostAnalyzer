@@ -22,20 +22,7 @@ public:
     
     
 private:
-    
-    
-    
-    //    pfCands    = cms.InputTag("packedPFCandidates"), //In .py config file
-    //    ...
-    //     pfToken_(consumes<pat::PackedCandidateCollection>(iConfig.getParameter<edm::InputTag>("pfCands"))),
-    //    ...
-    //    edm::EDGetTokenT<pat::PackedCandidateCollection> pfToken_;
-    //    ...
-    //    edm::Handle<pat::PackedCandidateCollection> pfs;
-    //    iEvent.getByToken(pfToken_, pfs);
-    
-    
-    
+        
     
     //--- configuration parameters
     edm::EDGetTokenT<pat::TauCollection> src_;
@@ -63,10 +50,6 @@ PATBoostedTauIDEmbedder::PATBoostedTauIDEmbedder(const edm::ParameterSet& cfg)
     
     produces<std::vector<pat::Tau> >();
 }
-
-
-//void PATBoostedTauIDEmbedder::setMySignalChargedHadrCands(const auto &ptrs)
-//        { signalChargedHadrCandPtrs_ = ptrs;}
 
 void PATBoostedTauIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es)
 {

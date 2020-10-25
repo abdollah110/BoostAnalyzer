@@ -39,8 +39,8 @@ BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
  tauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrc"))),
  genParticlesCollection_(consumes<vector<reco::GenParticle> >             (iConfig.getParameter<edm::InputTag>("genParticleSrc"))),
  NewtauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcNew"))),
- boostedTauCollectionNoOverLap_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauNoOverLapSrc"))),
-boostedTauCollectionNoOverLapIDUpdated_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauNoOverLapIDUpdatedSrc"))),
+ boostedTauCollectionNoOverLap_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("cleanedBoostedTauSrc"))),
+boostedTauCollectionNoOverLapIDUpdated_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauIDNoOverLapSrc"))),
 jetsAK8Label_(consumes<std::vector<pat::Jet> >               (iConfig.getParameter<edm::InputTag>("ak8JetSrc")))
 {
   edm::Service<TFileService> fs;

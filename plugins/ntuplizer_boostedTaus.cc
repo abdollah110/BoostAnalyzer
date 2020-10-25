@@ -350,13 +350,13 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_.push_back(itau->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
         
         boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTrawNewNoOverLap"));
+        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTrawNoOverLap"));
         
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLTNewNoOverLap"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLTNoOverLap"));
         
         boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLTNewNoOverLap"));
+        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLTNoOverLap"));
                 
         //Tau Kinematics
         boostedTauEta_.push_back(itau->eta());

@@ -90,13 +90,13 @@ process.rerunMvaIsolation2SeqRun2 = cms.Sequence(
 embedBoostedTauIDNoOverLap = cms.EDProducer("PATBoostedTauIDEmbedder",
    src = cms.InputTag('cleanedSlimmedTausBoosted'),
    tauIDSources = cms.PSet(
-      MybyIsolationMVArun2v1DBoldDMwLTrawNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap'),
-      MybyVLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap'),
-      MybyLooseIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap'),
-      MybyMediumIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap'),
-      MybyTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1TightNoOverLap'),
-      MybyVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap'),
-      MybyVVTightIsolationMVArun2v1DBoldDMwLTNew = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap'),
+      byIsolationMVArun2v1DBoldDMwLTrawNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap'),
+      byVLooseIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap'),
+      byLooseIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap'),
+      byMediumIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap'),
+      byTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1TightNoOverLap'),
+      byVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap'),
+      byVVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap'),
       ),
    )
 setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)

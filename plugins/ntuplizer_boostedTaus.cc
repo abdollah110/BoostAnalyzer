@@ -50,9 +50,6 @@ vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLT_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_;
 
 
-vector<bool>   MyNewPtSum_;
-
-
 //Tau Kinematics
 vector<float> boostedTauEta_;
 vector<float> boostedTauPhi_;
@@ -151,7 +148,6 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLT", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_);
-    tree->Branch("MyNewPtSum", &MyNewPtSum_);
     
     
     //Tau Kinematics
@@ -243,13 +239,13 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_.clear();
+    
     boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_.clear();
-    MyNewPtSum_.clear();
     
     
     //Tau Kinematics
@@ -338,9 +334,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     
     for(vector<pat::Tau>::const_iterator itau = boostedTauHandleNoOverLap->begin(); itau != boostedTauHandleNoOverLap->end(); ++itau) {
         
-        //        std::cout<<"itau->tauID('chargedIsoPtSum') " << itau->tauID("chargedIsoPtSum")<< "  itau->pt() = "<<itau->pt()<< " itau->tauID(decayModeFinding) "<<itau->tauID("decayModeFinding")<< "itau->signalCands().size() "<<itau->signalCands().size() <<  "\n";
-        
-        
         // Tau Id & Isolation
         boostedTaupfTausDiscriminationByDecayModeFinding_.push_back(itau->tauID("decayModeFinding"));
         boostedTaupfTausDiscriminationByDecayModeFindingNewDMs_.push_back(itau->tauID("decayModeFindingNewDMs"));
@@ -357,18 +350,14 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_.push_back(itau->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
         
         boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("MybyIsolationMVArun2v1DBoldDMwLTrawNew"));
+        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTrawNewNoOverLap"));
         
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("MybyLooseIsolationMVArun2v1DBoldDMwLTNew"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLTNewNoOverLap"));
         
         boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("MybyTightIsolationMVArun2v1DBoldDMwLTNew"));
-        //        MyNewPtSum_.push_back(itau->tauID("MyNewPtSuxm"));
-        
-        
-//        std::cout<<"tau pt and eta and phi = "<<itau->pt() << "  " << itau->eta() << "  "<<itau->phi()<<"\n";
-        
+        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLTNewNoOverLap"));
+                
         //Tau Kinematics
         boostedTauEta_.push_back(itau->eta());
         boostedTauPhi_.push_back(itau->phi());
@@ -427,7 +416,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         vector<float> isoCharged;
         isoCharged.clear();
         for (auto& cand : itau->isolationChargedHadrCands()) {
-//            std::cout<<"  IsoCand pt and eta and phi = "<<cand->pt() << "  " << cand->eta() << "  "<<cand->phi()<<"\n";
             isoCharged.push_back(cand->pt());
         }
         boostedTauIsolationPFCands_.push_back(isoCharged);
@@ -435,7 +423,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         vector<float> isoGamma;
         isoGamma.clear();
         for (auto& cand : itau->isolationGammaCands()) {
-//            std::cout<<"  IsoGamm pt and eta and phi = "<<cand->pt() << "  " << cand->eta() << "  "<<cand->phi()<<"\n";
             isoGamma.push_back(cand->pt());
         }
         boostedTauIsolationPFGammaCands_.push_back(isoGamma);
@@ -463,9 +450,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         // Tau Ingredients
         boostedTauChargedIsoPtSumOrig_.push_back(itauOrig->tauID("chargedIsoPtSum") );
         boostedTauNeutralIsoPtSumOrig_.push_back(itauOrig->tauID("neutralIsoPtSum")  );
-        //            boostedTauPuCorrPtSumOrig_.push_back(itauOrig->tauID("puCorrPtSum"));
-        
-        
+                
         boostedTauNumIsolationPFChargedHadrCandsOrig_.push_back(itauOrig->isolationChargedHadrCands().size());
         boostedTauNumIsolationPFNeutrHadrCandsOrig_.push_back(itauOrig->isolationNeutrHadrCands().size());
         boostedTauNumIsolationPFGammaCandsOrig_.push_back(itauOrig->isolationGammaCands().size());
@@ -505,145 +490,4 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         
         
     } // loop over tau candidates
-    
-    
-//    // JET
-//    edm::Handle<vector<pat::Jet> > jetHandle;
-//    e.getByToken(jetsAK8Label_, jetHandle);
-//    
-//    for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
-//        
-//        if (iJet->pt() < 170) continue;
-//        
-//        
-//        //std::vector<std::string> const & CollName = iJet-> subjetCollectionNames();
-//        //auto CollName = iJet-> subjetCollectionNames();
-//        
-//        //std::cout<<"size of subjetCollectionNames " << CollName.size()<<"\n";
-//        //
-//        //for (unsigned int i = 0 ; i < CollName.size(); i++){
-//        //
-//        //std::cout<<i <<"  "<< CollName[i]<<"\n";
-//        //}
-//        
-//        //        auto const & sdSubjets = iJet->subjets("SoftDrop");
-//        auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
-//        
-//        for ( auto const & SDSJ : sdSubjets ) {
-//            //            nsubjets++;
-//            
-//            std::cout<<"       SDSJ pt and eta and phi = "<<SDSJ->pt() << "  " << SDSJ->eta() << "  "<<SDSJ->phi()<<"\n";
-//            
-//            for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
-//                
-//                const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);
-//                
-//                std::cout<<"            SDSJ pt and eta and phi = "<<daughter->pt() << "  " << daughter->eta() << "  "<<daughter->phi()<<"\n";
-//                
-//                //                    if (daughter.isNonnull() && daughter.isAvailable()) {
-//                //                        if (daughter->charge() != 0 && daughter->pt() > leadTrkPt) {
-//                //                          leadTrkPt  = daughter->pt();
-//                //                          leadTrkEta = daughter->eta();
-//                //                          leadTrkPhi = daughter->phi();
-//                //                        }
-//            }
-//            
-//        }
-        
-        
-        
-        //std::cout<<"size of getJetConstituents " << iJet->getJetConstituents().size() <<"\n";
-        
-        //
-        //
-        //      //Searching for leading track and lepton
-        //      float leadTrkPt  = -99;
-        //      float leadTrkEta = -99;
-        //      float leadTrkPhi = -99;
-        //      int   lepTrkPID  = -99;
-        //      float lepTrkPt   = -99;
-        //      float lepTrkEta  = -99;
-        //      float lepTrkPhi  = -99;
-        //
-        //      for (unsigned id = 0; id < iJet->getJetConstituents().size(); id++) {
-        //
-        //        const edm::Ptr<reco::Candidate> daughter = iJet->getJetConstituents().at(id);
-        //
-        //        if (daughter.isNonnull() && daughter.isAvailable()) {
-        //            if (daughter->charge() != 0 && daughter->pt() > leadTrkPt) {
-        //              leadTrkPt  = daughter->pt();
-        //              leadTrkEta = daughter->eta();
-        //              leadTrkPhi = daughter->phi();
-        //            }
-        //
-        //            if (abs(daughter->pdgId()) == 11 || abs(daughter->pdgId()) == 13) {
-        //              if (daughter->pt() > lepTrkPt) {
-        //                lepTrkPID = daughter->pdgId();
-        //                lepTrkPt  = daughter->pt();
-        //                lepTrkEta = daughter->eta();
-        //                lepTrkPhi = daughter->phi();
-        //              }
-        //            }
-        //        }
-        //      }
-        //
-        //      jetLeadTrackPt_ .push_back(leadTrkPt);
-        //      jetLeadTrackEta_.push_back(leadTrkEta);
-        //      jetLeadTrackPhi_.push_back(leadTrkPhi);
-        //      jetLepTrackPID_ .push_back(lepTrkPID);
-        //      jetLepTrackPt_  .push_back(lepTrkPt);
-        //      jetLepTrackEta_ .push_back(lepTrkEta);
-        //      jetLepTrackPhi_ .push_back(lepTrkPhi);
-        //jetVtxPt_       .push_back(sqrt(pow(iJet->userFloat("vtxPx"),2)+pow(iJet->userFloat("vtxPy"),2)));
-        //jetVtxMass_     .push_back(iJet->userFloat("vtxMass"));
-        //jetVtxNtrks_    .push_back(iJet->userFloat("vtxNtracks"));
-        //jetVtx3DVal_    .push_back(iJet->userFloat("vtx3DVal"));
-        //jetVtx3DSig_    .push_back(iJet->userFloat("vtx3DSig"));
-        
-        //b/c-tagging
-        //      jetCSV2BJetTags_    .push_back(iJet->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags"));
-        //      jetDeepCSVTags_b_   .push_back(iJet->bDiscriminator("pfDeepCSVJetTags:probb"));
-        //      jetDeepCSVTags_bb_  .push_back(iJet->bDiscriminator("pfDeepCSVJetTags:probbb"));
-        //      jetDeepCSVTags_c_   .push_back(iJet->bDiscriminator("pfDeepCSVJetTags:probc"));
-        //      jetDeepCSVTags_udsg_.push_back(iJet->bDiscriminator("pfDeepCSVJetTags:probudsg"));
-        //
-        //      //parton id
-        //      jetPartonID_.push_back(iJet->partonFlavour());
-        //      jetHadFlvr_.push_back(iJet->hadronFlavour());
-        //
-        //      //jet PF Loose ID
-        //      double NHF      = iJet->neutralHadronEnergyFraction();
-        //      double NEMF     = iJet->neutralEmEnergyFraction();
-        //      double NumConst = iJet->chargedMultiplicity()+iJet->neutralMultiplicity();
-        //      double CHF      = iJet->chargedHadronEnergyFraction();
-        //      double CHM      = iJet->chargedMultiplicity();
-        //      double CEMF     = iJet->chargedEmEnergyFraction();
-        //      double NNP      = iJet->neutralMultiplicity();
-        
-        //      bool looseJetID = false;
-        //      bool tightJetID = false;
-        //      if (fabs(iJet->eta()) <= 2.7) {
-        //        looseJetID = (NHF<0.99 && NEMF<0.99 && NumConst>1) && ((fabs(iJet->eta())<=2.4 && CHF>0 && CHM>0 && CEMF<0.99) || fabs(iJet->eta())>2.4);
-        //        tightJetID = (NHF<0.90 && NEMF<0.90 && NumConst>1) && ((fabs(iJet->eta())<=2.4 && CHF>0 && CHM>0 && CEMF<0.99) || fabs(iJet->eta())>2.4);
-        //      } else if (fabs(iJet->eta()) <= 3.0) {
-        //        looseJetID = (NEMF>0.01 && NHF<0.98 && NNP>2);
-        //        tightJetID = (NEMF>0.01 && NHF<0.98 && NNP>2);
-        //      } else {
-        //        looseJetID = (NEMF<0.90 && NNP>10);
-        //        tightJetID = (NEMF<0.90 && NNP>10);
-        //      }
-        //      jetPFLooseId_.push_back(looseJetID);
-        //      Int_t jetIDdecision = 0;
-        //      if (looseJetID) jetIDdecision += pow(2, 1);
-        //      if (tightJetID) jetIDdecision += pow(2, 2);
-        //      jetID_.push_back(jetIDdecision);
-        //
-        //      // PUJet ID from slimmedJets
-        //      jetPUID_.push_back(iJet->userFloat("pileupJetId:fullDiscriminant"));
-        //      jetPUFullID_.push_back(iJet->userInt("pileupJetId:fullId"));
-        
-        
-        
-//    }
-    
 }

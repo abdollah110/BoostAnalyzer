@@ -12,6 +12,7 @@
 #include "DataFormats/JetReco/interface/Jet.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include <Math/VectorUtil.h>
+#include "TLorentzVector.h"
 
 using namespace std;
 

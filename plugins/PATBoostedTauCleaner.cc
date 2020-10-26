@@ -162,10 +162,22 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     //        auto const & sdSubjets = iJet->subjets("SoftDrop");
                     auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
+                    
+                    // Find the subjet that seeds taus : closest subjet to tau
+                    float dRClosest=1000;
+                    TLorentzVector TauSeedSubJet;
+                    for ( auto const & SDSJ : sdSubjets ) {
+                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < dRClosest){
+                            dRClosest= ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4());
+                            TauSeedSubJet.SetPtEtaPhiE(SDSJ->pt(),SDSJ->eta(),SDSJ->phi(),SDSJ->E());
+                        }
+                    }
+                    
                     for ( auto const & SDSJ : sdSubjets ) {
                         
                         if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 2.0) continue;
-                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
+                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), TauSeedSubJet.p4()) < 0.0001) continue;
+//                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
                                                 
                         for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
                             const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);

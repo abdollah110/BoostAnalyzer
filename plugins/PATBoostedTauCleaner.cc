@@ -166,18 +166,18 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     // Find the subjet that seeds taus : closest subjet to tau
                     float dRClosest=1000;
-                    TLorentzVector TauSeedSubJet;
+                    float TauSeedSubJetPt;
                     for ( auto const & SDSJ : sdSubjets ) {
                     if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < dRClosest){
                             dRClosest= ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4());
-                            TauSeedSubJet.SetPtEtaPhiE(SDSJ->pt(),SDSJ->eta(),SDSJ->phi(),SDSJ->E());
+                            TauSeedSubJetPt = SDSJ->pt();
                         }
                     }
                     
                     for ( auto const & SDSJ : sdSubjets ) {
                         
                         if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 2.0) continue;
-                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), TauSeedSubJet.p4()) < 0.0001) continue;
+                        if (fabs (TauSeedSubJetPt - SDSJ->pt()) < 0.001) continue;
 //                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
                                                 
                         for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {

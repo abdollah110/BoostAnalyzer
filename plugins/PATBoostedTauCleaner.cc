@@ -159,15 +159,16 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     if (iJet->pt() < 170) continue;
                     
-                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 2.0) continue;
+                    if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 1.0) continue;
                     
-                    //        auto const & sdSubjets = iJet->subjets("SoftDrop");
+                    //        auto const & sdSubjets = iJet->subjets("SoftDrop"); // does not exist
                     auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
                     
                     // Find the subjet that seeds taus : closest subjet to tau
                     float dRClosest=1000;
                     float TauSeedSubJetPt=0;
                     for ( auto const & SDSJ : sdSubjets ) {
+                    if (SDSJ->pt() < 14 || fabs(SDSJ->eta()) > 2.4) continue;
                     if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < dRClosest){
                             dRClosest= ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4());
                             TauSeedSubJetPt = SDSJ->pt();
@@ -176,7 +177,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     
                     for ( auto const & SDSJ : sdSubjets ) {
                         
-                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 2.0) continue;
+                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 1.0) continue;
                         if (fabs (TauSeedSubJetPt - SDSJ->pt()) < 0.001) continue;
 //                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
                                                 
@@ -192,7 +193,13 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################
-            for (const reco::CandidatePtr &charged : tau.isolationChargedHadrCands()) {
+            for (const auto &charged : tau.isolationChargedHadrCands()) {
+//            const pat::PackedCandidate* charged = dynamic_cast<const pat::PackedCandidate*>(charged_->get());
+            
+//            for (const auto  &charged : dynamic_cast<const pat::PackedCandidate&>(tau.isolationChargedHadrCands()))
+                
+//                const pat::PackedCandidate* packedLeadChCand = dynamic_cast<const pat::PackedCandidate*>(tau.leadChargedHadrCand().get());
+                
                 
                 bool hasOverLap=false;
                 for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
@@ -205,7 +212,34 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     isolationChHPtrs.push_back(charged);
                     
                     
-                    //q-cuts
+//from Michal
+//                    for (const auto& charged : theTau.isolationChargedHadrCands()) {
+                     //q-cuts
+//                     if (charged->pt() <= 0.5) continue;
+//                     if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
+//                     reco::Track *track = charged->bestTrack();
+//                     if (track == nullptr) continue;
+//                     if (track->normalizedChi2() >= 100) continue;
+//                     if (track->numberOfHits() < 3) continue;
+//                     double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
+//                     double dR = deltaR(charged->p4(), tau.p4());
+//                     if (dz < 0.2) {//from tau vertex
+//                       //iso cone
+//                       if (dR < 0.5)
+//                         chargedPtIsoSum += charged->pt();
+//                       if (dR < 0.3)
+//                         chargedPtIsoSum03 += charged->pt();
+//                     } else {//not from tau vertex
+//                       //iso cone
+//                       if (dR < 0.8)
+//                         chargedPUPtIsoSum += charged->pt();
+//                     }
+//                    }
+                    
+                    
+                    
+
+                    //q-cuts my selection
                     if (charged->pt() <= 0.5) continue;
                     //                    if (std::abs(tau.dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
                     const reco::Track *track = charged->bestTrack();
@@ -228,8 +262,9 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                         if (dR < 0.8)
                             chargedPUPtIsoSum += charged->pt();
                     }
-                }
-            }
+  
+                }//check has overlap
+            } //loop over all isoCandidates
             tau.setIsolationChargedHadrCands(isolationChHPtrs);
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau

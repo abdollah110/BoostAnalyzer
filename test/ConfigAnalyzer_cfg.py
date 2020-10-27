@@ -12,13 +12,13 @@ process.source = cms.Source("PoolSource",
 #            'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X.root'
 #            'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/miniAOD-prod_PAT.root'
 
-#                    'file:ZprimeToZhToZhadhtata_narrow_M-2000_94X_MiniAODSIM_Orig.root'
+                    'file:ZprimeToZhToZhadhtata_narrow_M-2000_94X_MiniAODSIM_Orig.root'
                     
-                    'file:miniAOD-prod_PAT_1.root',
-                    'file:miniAOD-prod_PAT_2.root',
-                    'file:miniAOD-prod_PAT_3.root',
-                    'file:miniAOD-prod_PAT_4.root',
-                    'file:miniAOD-prod_PAT_5.root'
+#                    'file:miniAOD-prod_PAT_1.root',
+#                    'file:miniAOD-prod_PAT_2.root',
+#                    'file:miniAOD-prod_PAT_3.root',
+#                    'file:miniAOD-prod_PAT_4.root',
+#                    'file:miniAOD-prod_PAT_5.root'
                         )
                 )
 

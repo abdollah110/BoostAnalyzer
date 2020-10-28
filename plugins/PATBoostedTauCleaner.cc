@@ -36,6 +36,8 @@ private:
     edm::EDGetTokenT<reco::VertexCollection> vtxLabel_;
     bool  removeOverLap_;
     edm::EDGetTokenT<pat::JetCollection> jetsAK8Label_;
+    edm::EDGetTokenT<edm::View<reco::Jet>> jetsCA8Label_;
+    
     
 };
 
@@ -46,6 +48,7 @@ PATBoostedTauCleaner::PATBoostedTauCleaner(const edm::ParameterSet& cfg)
     vtxLabel_ = consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("vtxLabel"));
     removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
     jetsAK8Label_= consumes<pat::JetCollection>(cfg.getParameter<edm::InputTag>("ak8JetSrc"));
+    jetsCA8Label_= consumes<edm::View<reco::Jet>>(cfg.getParameter<edm::InputTag>("ca8JetSrc"));
     produces<std::vector<pat::Tau> >();
 }
 
@@ -64,6 +67,15 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
     auto out = std::make_unique<std::vector<pat::Tau>>();
     out->reserve(inputTaus->size());
         
+     // Check ca8 jet
+     edm::Handle<edm::View<reco::Jet> > ca8jetHandle;
+     evt.getByToken(jetsCA8Label_, ca8jetHandle);
+
+     for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
+     
+     cout<<"ca8 jet "<< iJet->pt() <<"\n";
+     }
+                     
     for (std::vector<pat::Tau>::const_iterator it = inputTaus->begin(), ed = inputTaus->end(); it != ed; ++it) {
         out->push_back(*it);
         pat::Tau &tau = out->back();

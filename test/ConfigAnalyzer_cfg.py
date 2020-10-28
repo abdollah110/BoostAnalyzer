@@ -27,6 +27,12 @@ from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
 
+from RecoTauTag.Configuration.boostedHPSPFTaus_cff import ca8PFJetsCHSprunedForBoostedTaus
+process.ca8PFJetsCHSprunedForBoostedTausPAT = ca8PFJetsCHSprunedForBoostedTaus.clone(
+                        src=cms.InputTag("packedPFCandidates"),
+                        jetCollInstanceName = cms.string('subJetsForSeedingBoostedTausPAT')
+                )
+                
 ########################################################################################
 # A new boostedTau collection is made here and the overlap is removed
 ########################################################################################
@@ -36,6 +42,7 @@ cleanedBoostedTau = cms.EDProducer("PATBoostedTauCleaner",
    vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
    removeOverLap = cms.bool(True),
    ak8JetSrc = cms.InputTag('slimmedJetsAK8')
+   ca8JetSrc = cms.InputTag('ca8PFJetsCHSprunedForBoostedTausPAT','subJetsForSeedingBoostedTausPAT')
    )
 setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)
 

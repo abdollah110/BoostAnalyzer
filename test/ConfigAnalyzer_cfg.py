@@ -41,7 +41,7 @@ cleanedBoostedTau = cms.EDProducer("PATBoostedTauCleaner",
    pfcands = cms.InputTag('packedPFCandidates'),
    vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
    removeOverLap = cms.bool(True),
-   ak8JetSrc = cms.InputTag('slimmedJetsAK8')
+   ak8JetSrc = cms.InputTag('slimmedJetsAK8'),
    ca8JetSrc = cms.InputTag('ca8PFJetsCHSprunedForBoostedTausPAT','subJetsForSeedingBoostedTausPAT')
    )
 setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)

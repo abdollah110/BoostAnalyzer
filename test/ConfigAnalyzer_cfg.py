@@ -156,6 +156,7 @@ process.TFileService = cms.Service("TFileService",
 ########################################################################################
 #print process.dumpPython()
 process.p = cms.Path(
+    process.ca8PFJetsCHSprunedForBoostedTausPAT *
      getattr(process, "cleanedSlimmedTausBoosted") *
      process.rerunMvaIsolation2SeqRun2 *
      getattr(process, "slimmedBoostedTausIDNoOverLap") *

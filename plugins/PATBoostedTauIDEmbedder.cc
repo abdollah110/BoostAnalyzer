@@ -79,6 +79,7 @@ void PATBoostedTauIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es
         for(size_t i = 0; i < tauIDSrcs_.size(); ++i){
           evt.getByToken(patTauIDTokens_[i], tauDiscr);
           tauIds[nTauIds+i].first = tauIDSrcs_[i].first;
+          std::cout<<"tauIDSrcs_.size() = "<<tauIDSrcs_.size() << "   tauIDSrcs_[i].first = "<<tauIDSrcs_[i].first<<"\n";
           tauIds[nTauIds+i].second = (*tauDiscr)[inputTauRef];
         }
                 

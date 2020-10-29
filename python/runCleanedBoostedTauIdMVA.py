@@ -713,7 +713,8 @@ class BoostedTauIDEmbedder(object):
             ## Raw
             from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import patTauDiscriminationAgainstElectronMVA6
             self.process.patTauDiscriminationByElectronRejectionMVA62018Raw = patTauDiscriminationAgainstElectronMVA6.clone(
-                PATTauProducer = self.cms.InputTag(self.PATTauProducer),
+#                PATTauProducer = self.cms.InputTag(self.PATTauProducer),
+                PATTauProducer = self.cms.InputTag("cleanedSlimmedTausBoosted"),
                 Prediscriminants = noPrediscriminants, #already selected for MiniAOD
                 vetoEcalCracks = self.cms.bool(False), #keep taus in EB-EE cracks
                 mvaName_NoEleMatch_wGwoGSF_BL = 'RecoTauTag_antiElectron'+antiElectronDiscrMVA6_version+'_gbr_NoEleMatch_wGwoGSF_BL',
@@ -987,7 +988,7 @@ class BoostedTauIDEmbedder(object):
         ##
         print('Embedding new TauIDs into \"'+self.updatedTauName+'\"')
         embedID = self.cms.EDProducer("PATBoostedTauIDEmbedder",
-            src = self.boostedTauSrc,
+            src = self.PATTauProducer,
             tauIDSources = tauIDSources
         )
         setattr(self.process, self.updatedTauName, embedID)

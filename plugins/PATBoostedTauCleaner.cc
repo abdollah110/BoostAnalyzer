@@ -71,10 +71,9 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
      edm::Handle<edm::View<reco::Jet> > ca8jetHandle;
      evt.getByToken(jetsCA8Label_, ca8jetHandle);
 
-     for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
-     
-     cout<<"ca8 jet "<< iJet->pt() <<"\n";
-     }
+//     for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
+////     cout<<"ca8 jet "<< iJet->pt() <<"\n";
+//     }
                      
     for (std::vector<pat::Tau>::const_iterator it = inputTaus->begin(), ed = inputTaus->end(); it != ed; ++it) {
         out->push_back(*it);
@@ -167,34 +166,31 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                 edm::Handle<vector<pat::Jet> > jetHandle;
                 evt.getByToken(jetsAK8Label_, jetHandle);
                 
-                for (vector<pat::Jet>::const_iterator iJet = jetHandle->begin(); iJet != jetHandle->end(); ++iJet) {
-                    
-                    if (iJet->pt() < 170) continue;
+                
+                
+                // Run on CA8 jets
+                for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
                     
                     if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 1.0) continue;
-                    
-                    //        auto const & sdSubjets = iJet->subjets("SoftDrop"); // does not exist
-                    auto const & sdSubjets = iJet->subjets("SoftDropPuppi");
-                    
+                                        
                     // Find the subjet that seeds taus : closest subjet to tau
                     float dRClosest=1000;
                     float TauSeedSubJetPt=0;
-                    for ( auto const & SDSJ : sdSubjets ) {
-                    if (SDSJ->pt() < 14 || fabs(SDSJ->eta()) > 2.4) continue;
-                    if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < dRClosest){
-                            dRClosest= ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4());
-                            TauSeedSubJetPt = SDSJ->pt();
+                    for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
+                        if (iJet->pt() < 14 || fabs(iJet->eta()) > 2.4) continue;
+                        if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) < dRClosest){
+                            dRClosest= ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4());
+                            TauSeedSubJetPt = iJet->pt();
                         }
                     }
                     
-                    for ( auto const & SDSJ : sdSubjets ) {
+                    for (edm::View<reco::Jet>::const_iterator jJet = ca8jetHandle->begin(); jJet != ca8jetHandle->end(); ++jJet) {
                         
-                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) > 1.0) continue;
-                        if (fabs (TauSeedSubJetPt - SDSJ->pt()) < 0.001) continue;
-//                        if (ROOT::Math::VectorUtil::DeltaR(SDSJ->p4(), tau.p4()) < 0.05) continue;
-                                                
-                        for (unsigned id = 0; id < SDSJ->getJetConstituents().size(); id++) {
-                            const edm::Ptr<reco::Candidate> daughter = SDSJ->getJetConstituents().at(id);
+                        if (ROOT::Math::VectorUtil::DeltaR(jJet->p4(), tau.p4()) > 1.0) continue;
+                        if (fabs (TauSeedSubJetPt - jJet->pt()) < 0.001) continue;
+                        
+                        for (unsigned id = 0; id < jJet->getJetConstituents().size(); id++) {
+                            const edm::Ptr<reco::Candidate> daughter = jJet->getJetConstituents().at(id);
                             if (ROOT::Math::VectorUtil::DeltaR(isoCand1->p4(), daughter->p4()) < 1e-4)
                                 OverLappedIsoCand.push_back(isoCand1);
                         }
@@ -206,12 +202,6 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################
             for (const auto &charged : tau.isolationChargedHadrCands()) {
-//            const pat::PackedCandidate* charged = dynamic_cast<const pat::PackedCandidate*>(charged_->get());
-            
-//            for (const auto  &charged : dynamic_cast<const pat::PackedCandidate&>(tau.isolationChargedHadrCands()))
-                
-//                const pat::PackedCandidate* packedLeadChCand = dynamic_cast<const pat::PackedCandidate*>(tau.leadChargedHadrCand().get());
-                
                 
                 bool hasOverLap=false;
                 for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {

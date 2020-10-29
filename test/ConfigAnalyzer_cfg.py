@@ -150,7 +150,7 @@ setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
 ########################################################################################
 updatedTauName = "slimmedBoostedTausNewIDCleaned" #name of pat::Tau collection with new tau-Ids
 #import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
-import Analysis.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
+import BoostTau.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
                     updatedTauName = updatedTauName,
                     PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),

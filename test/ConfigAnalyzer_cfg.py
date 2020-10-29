@@ -190,10 +190,11 @@ process.TFileService = cms.Service("TFileService",
 process.p = cms.Path(
     process.ca8PFJetsCHSprunedForBoostedTausPAT *
      getattr(process, "cleanedSlimmedTausBoosted") *
+     getattr(process,updatedTauName) *
      process.rerunMvaIsolation2SeqRun2 *
      getattr(process, "slimmedBoostedTausIDNoOverLap") *
 #     process.rerunMvaIsolationSequence *
-     getattr(process,updatedTauName) *
+     
      process.demo
 )
 

@@ -986,14 +986,18 @@ class BoostedTauIDEmbedder(object):
                 _againstElectronTauIDSources
             )
             tauIDSources =_tauIDSourcesWithAgainistEle.clone()
+            print "tauIDSources 1 ", tauIDSources.size()
+            
 
         ##
+        print "tauIDSources 2 ", tauIDSources.size()
         print('Embedding new TauIDs into \"'+self.updatedTauName+'\"')
         embedID = self.cms.EDProducer("PATBoostedTauIDEmbedder",
             src = self.PATTauProducer,
             tauIDSources = tauIDSources
         )
         setattr(self.process, self.updatedTauName, embedID)
+        setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
 
 
     def processDeepProducer(self, producer_name, tauIDSources, workingPoints_):

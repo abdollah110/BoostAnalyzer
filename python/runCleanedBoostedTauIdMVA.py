@@ -708,6 +708,7 @@ class BoostedTauIDEmbedder(object):
 #            self.process.rerunMvaIsolationSequence += self.process.dpfTau2016v1
 
         if "againstEle2018" in self.toKeep:
+            print "starting {}".format(self.toKeep)
             antiElectronDiscrMVA6_version = "MVA6v3_noeveto"
             ### Define new anti-e discriminants
             ## Raw
@@ -777,6 +778,7 @@ class BoostedTauIDEmbedder(object):
                     )
                 )
             )
+            print "\n self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018 ", self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018
             # Loose
             self.process.patTauDiscriminationByLooseElectronRejectionMVA62018 = self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018.clone(
                 mapping = self.cms.VPSet(

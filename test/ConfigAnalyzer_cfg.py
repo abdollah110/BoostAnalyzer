@@ -4,7 +4,7 @@ process = cms.Process("Demo")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 
@@ -28,13 +28,16 @@ process.source = cms.Source("PoolSource",
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
+#anti-electron
+#from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
 
 from RecoTauTag.Configuration.boostedHPSPFTaus_cff import ca8PFJetsCHSprunedForBoostedTaus
 process.ca8PFJetsCHSprunedForBoostedTausPAT = ca8PFJetsCHSprunedForBoostedTaus.clone(
                         src=cms.InputTag("packedPFCandidates"),
                         jetCollInstanceName = cms.string('subJetsForSeedingBoostedTausPAT')
                 )
-                
+
+
 ########################################################################################
 # A new boostedTau collection is made here and the overlap is removed
 ########################################################################################
@@ -51,6 +54,11 @@ setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)
 ########################################################################################
 # A new boostedTau tau Id is updated
 ########################################################################################
+#process.rerunPatTauDiscriminationAgainstElectronMVA6=patDiscriminationByIsolationMVArun2v1raw.clone(
+#    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+#)
+
+
 process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap = patDiscriminationByIsolationMVArun2v1raw.clone(
    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
    Prediscriminants = noPrediscriminants,
@@ -114,6 +122,7 @@ embedBoostedTauIDNoOverLap = cms.EDProducer("PATBoostedTauIDEmbedder",
       byTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1TightNoOverLap'),
       byVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap'),
       byVVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap'),
+      
       ),
    )
 setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
@@ -131,7 +140,28 @@ setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
 #                               "DPFTau_2016_v0", #D[eep]PF[low] Tau-Id
 #                               ])
 #tauIdEmbedder.runTauID()
-slimmedTausNewID="slimmedTaus" # tmp
+#slimmedTausNewID="slimmedTaus" # tmp
+
+
+
+
+########################################################################################
+# Anti electron
+########################################################################################
+updatedTauName = "slimmedBoostedTausNewIDCleaned" #name of pat::Tau collection with new tau-Ids
+#import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
+import Analysis.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
+boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
+                    updatedTauName = updatedTauName,
+                    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+                    toKeep = [
+#                                "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids
+#                               "deepTau2017v1", #deepTau Tau-Ids
+#                               "DPFTau_2016_v0", #D[eep]PF[low] Tau-Id
+                                "againstEle2018"
+                               ])
+boostedTauIdEmbedder.runTauID()
+
 
 ########################################################################################
 # Run ntuple Maker
@@ -163,7 +193,7 @@ process.p = cms.Path(
      process.rerunMvaIsolation2SeqRun2 *
      getattr(process, "slimmedBoostedTausIDNoOverLap") *
 #     process.rerunMvaIsolationSequence *
-#     getattr(process,updatedTauName) *
+     getattr(process,updatedTauName) *
      process.demo
 )
 

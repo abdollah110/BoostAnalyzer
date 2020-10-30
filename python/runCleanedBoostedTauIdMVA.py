@@ -11,7 +11,7 @@ class BoostedTauIDEmbedder(object):
         PATTauProducer = "cleanedSlimmedTausBoosted",
         srcChargedIsoPtSum = "chargedIsoPtSumNoOverLap",
         srcNeutralIsoPtSum = "neutralIsoPtSumNoOverLap",
-        toKeep = ["2016v1","2017v2","deepTau2017v1","DPFTau_2016_v0","againstEle2018"],
+        toKeep = ["2016v1","2017v2","deepBoostedTau2017v1","DPFTau_2016_v0","againstEle2018"],
         tauIdDiscrMVA_trainings_run2_2017 = {
             'tauIdMVAIsoDBoldDMwLT2017' : "tauIdMVAIsoDBoldDMwLT2017",
         },
@@ -496,7 +496,7 @@ class BoostedTauIDEmbedder(object):
 #            tauIDSources.byVTightIsolationMVArun2v1DBnewDMwLT2016 = self.cms.InputTag('rerunDiscriminationByIsolationNewDMMVArun2v1VTight')
 #            tauIDSources.byVVTightIsolationMVArun2v1DBnewDMwLT2016 = self.cms.InputTag('rerunDiscriminationByIsolationNewDMMVArun2v1VVTight')
 #
-        if "deepTau2017v1" in self.toKeep:
+        if "deepBoostedTau2017v1" in self.toKeep:
             print "Adding DeepTau IDs"
 
             workingPoints_ = {
@@ -533,18 +533,18 @@ class BoostedTauIDEmbedder(object):
                 }
             }
             file_name = 'RecoTauTag/TrainingFiles/data/DeepTauId/deepTau_2017v1_20L1024N_quantized.pb'
-            self.process.deepTau2017v1 = self.cms.EDProducer("DeepBoostedTauId",
+            self.process.deepBoostedTau2017v1 = self.cms.EDProducer("DeepBoostedTauId",
                 electrons              = self.cms.InputTag('slimmedElectrons'),
                 muons                  = self.cms.InputTag('slimmedMuons'),
-                taus                   = self.boostedTauSrc,
+                taus                   = self.PATTauProducer,
                 graph_file             = self.cms.string(file_name),
                 mem_mapped             = self.cms.bool(False)
             )
 
             self.processDeepProducer('deepBoostedTau2017v1', tauIDSources, workingPoints_)
 
-            self.process.rerunMvaIsolationTask.add(self.process.deepTau2017v1)
-            self.process.rerunMvaIsolationSequence += self.process.deepTau2017v1
+            self.process.rerunMvaIsolationTask.add(self.process.deepBoostedTau2017v1)
+            self.process.rerunMvaIsolationSequence += self.process.deepBoostedTau2017v1
 
 #        if "DPFTau_2016_v0" in self.toKeep:
 #            print "Adding DPFTau isolation (v0)"

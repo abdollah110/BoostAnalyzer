@@ -51,6 +51,10 @@ vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_;
 vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLT_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_;
 
+vector<float> boostedTauByDeepTau2017v1VSjetraw_;
+vector<float> boostedTauByDeepTau2017v1VSeraw_;
+vector<float> boostedTauByDeepTau2017v1VSmuraw_;
+
 
 
 //Tau Kinematics
@@ -112,6 +116,9 @@ vector<vector<float>> boostedTauSignalPFCandsOrig_;
 vector<vector<float>> boostedTauSignalPFGammaCandsOrig_;
 vector<vector<float>> boostedTauIsolationPFCandsOrig_;
 vector<vector<float>> boostedTauIsolationPFGammaCandsOrig_;
+
+
+
 
 
 //vector<vecto<float>>
@@ -217,6 +224,10 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauIsolationPFCandsOrig"  ,&boostedTauIsolationPFCandsOrig_);
     tree->Branch("boostedTauIsolationPFGammaCandsOrig"  ,&boostedTauIsolationPFGammaCandsOrig_);
     
+    tree->Branch("boostedTauByDeepTau2017v1VSjetraw"  ,&boostedTauByDeepTau2017v1VSjetraw_);
+    tree->Branch("boostedTauByDeepTau2017v1VSeraw"  ,&boostedTauByDeepTau2017v1VSeraw_);
+    tree->Branch("boostedTauByDeepTau2017v1VSmuraw"  ,&boostedTauByDeepTau2017v1VSmuraw_);
+    
     
     
 }
@@ -321,6 +332,11 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauIsolationPFGammaCandsOrig_.clear();
     
     
+    boostedTauByDeepTau2017v1VSjetraw_.clear();
+    boostedTauByDeepTau2017v1VSeraw_.clear();
+    boostedTauByDeepTau2017v1VSmuraw_.clear();
+
+
     
     nBoostedTau_ = 0;
     nBoostedTauOrig_ = 0;
@@ -511,6 +527,9 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.push_back(itauOrig->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.push_back(itauOrig->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
 
+        boostedTauByDeepTau2017v1VSjetraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSjetraw"));
+        boostedTauByDeepTau2017v1VSeraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSeraw"));
+        boostedTauByDeepTau2017v1VSmuraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSmuraw"));
 
 }
     

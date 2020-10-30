@@ -41,13 +41,16 @@ vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_;
 
 vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTraw_;
 vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_;
+vector<float>  boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_;
 
 
 vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_;
+vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_;
 
 vector<bool>   boostedTauByTightIsolationMVArun2v1DBoldDMwLT_;
 vector<bool>   boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_;
+
 
 
 //Tau Kinematics
@@ -142,12 +145,16 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTraw", &boostedTauByIsolationMVArun2v1DBoldDMwLTraw_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_);
+    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_);
+    
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLT", &boostedTauByTightIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_);
+    
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLT", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_);
+    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_);
     
     
     //Tau Kinematics
@@ -239,13 +246,16 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.clear();
     boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_.clear();
+    boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.clear();
     
     boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_.clear();
+    
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.clear();
     boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_.clear();
+    boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.clear();
     
     
     //Tau Kinematics
@@ -490,4 +500,22 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         
         
     } // loop over tau candidates
+
+
+    edm::Handle<vector<pat::Tau> >  NewboostedTauHandle;
+    e.getByToken(boostedTauCollectionNoOverLap_, NewboostedTauHandle);
+    
+    for(vector<pat::Tau>::const_iterator itauOrig = NewboostedTauHandle->begin(); itauOrig != NewboostedTauHandle->end(); ++itauOrig) {
+
+
+        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.push_back(itauOrig->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.push_back(itauOrig->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
+
+
+}
+    
+
+
+
+
 }

@@ -194,7 +194,7 @@ setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
 ########################################################################################
 # Anti electron
 ########################################################################################
-updatedTauName = "slimmedBoostedTausNewIDCleaned" #name of pat::Tau collection with new tau-Ids
+updatedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new tau-Ids
 #import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
 import BoostTau.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
@@ -206,7 +206,7 @@ boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = Fa
 #                                "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids
 #                               "deepTau2017v1", #deepTau Tau-Ids
 #                               "DPFTau_2016_v0", #D[eep]PF[low] Tau-Id
-                                "2017v2","againstEle2018"
+                                "2017v2","deepTau2017v1","againstEle2018"
                                ])
 boostedTauIdEmbedder.runTauID()
 
@@ -220,7 +220,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
     tauSrc                    = cms.InputTag("slimmedTaus"),
     genParticleSrc            = cms.InputTag("prunedGenParticles"),
     tauSrcNew                 = cms.InputTag("slimmedTaus"),
-    cleanedBoostedTauSrc    = cms.InputTag("cleanedSlimmedTausBoosted"),
+    cleanedBoostedTauSrc    = cms.InputTag("slimmedBoostedTausNewID"),
     boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausIDNoOverLap"),
 #    boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausNewIDCleaned"),
     ak8JetSrc                 = cms.InputTag("slimmedJetsAK8"),

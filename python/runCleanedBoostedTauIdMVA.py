@@ -9,7 +9,7 @@ class BoostedTauIDEmbedder(object):
     def __init__(self, process, cms, debug = False,
         updatedTauName = "slimmedTausBoostedNewID",
         PATTauProducer = "cleanedSlimmedTausBoosted",
-        srcChargedIsoPtSum = "chargedIsoPtSumNoOverLap"
+        srcChargedIsoPtSum = "chargedIsoPtSumNoOverLap",
         srcNeutralIsoPtSum = "neutralIsoPtSumNoOverLap"
         toKeep = ["2016v1", "2017v2","deepTau2017v1","DPFTau_2016_v0","againstEle2018"],
         tauIdDiscrMVA_trainings_run2_2017 = {

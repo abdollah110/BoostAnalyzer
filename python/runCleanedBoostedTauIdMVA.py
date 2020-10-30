@@ -10,8 +10,8 @@ class BoostedTauIDEmbedder(object):
         updatedTauName = "slimmedTausBoostedNewID",
         PATTauProducer = "cleanedSlimmedTausBoosted",
         srcChargedIsoPtSum = "chargedIsoPtSumNoOverLap",
-        srcNeutralIsoPtSum = "neutralIsoPtSumNoOverLap"
-        toKeep = ["2016v1", "2017v2","deepTau2017v1","DPFTau_2016_v0","againstEle2018"],
+        srcNeutralIsoPtSum = "neutralIsoPtSumNoOverLap",
+        toKeep = ["2016v1","2017v2","deepTau2017v1","DPFTau_2016_v0","againstEle2018"],
         tauIdDiscrMVA_trainings_run2_2017 = {
             'tauIdMVAIsoDBoldDMwLT2017' : "tauIdMVAIsoDBoldDMwLT2017",
         },

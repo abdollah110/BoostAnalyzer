@@ -6,6 +6,26 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
+##process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
+#process.load('Configuration.Geometry.GeometryIdeal_cff')
+##process.load('Configuration.Geometry.GeometryRecoDB_cff')
+##process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+##process.load("Configuration.Geometry.GeometryRecoDB_cff")
+#process.load("Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff")
+#process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff")
+#process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+#process.load("Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff")
+
+## Geometry and Detector Conditions (needed for a few tau reco steps)
+process.load("Configuration.Geometry.GeometryRecoDB_cff")
+process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
+#from Configuration.AlCa.GlobalTag import GlobalTag
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc')
+process.load("Configuration.StandardSequences.MagneticField_cff")
+
+from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc')
+process.GlobalTag = GlobalTag(process.GlobalTag, '94X_mc2017_realistic_v17')
 
 
 process.source = cms.Source("PoolSource",
@@ -29,7 +49,7 @@ from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
 #anti-electron
-#from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
+from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
 
 from RecoTauTag.Configuration.boostedHPSPFTaus_cff import ca8PFJetsCHSprunedForBoostedTaus
 process.ca8PFJetsCHSprunedForBoostedTausPAT = ca8PFJetsCHSprunedForBoostedTaus.clone(
@@ -54,10 +74,6 @@ setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)
 ########################################################################################
 # A new boostedTau tau Id is updated
 ########################################################################################
-#process.rerunPatTauDiscriminationAgainstElectronMVA6=patDiscriminationByIsolationMVArun2v1raw.clone(
-#    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
-#)
-
 
 process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap = patDiscriminationByIsolationMVArun2v1raw.clone(
    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
@@ -100,6 +116,35 @@ process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap.mapping[0].cut = 
 process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
 process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff40")
 
+#
+#process.rerunDiscriminationAgainstElectronMVA6 = patTauDiscriminationAgainstElectronMVA6.clone(
+#    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+#    Prediscriminants = noPrediscriminants,
+#    #Prediscriminants = requireLeadTrack,
+#    loadMVAfromDB = cms.bool(True),
+#    returnMVA = cms.bool(True),
+#    method = cms.string("BDTG"),
+#    mvaName_NoEleMatch_woGwoGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_woGwoGSF_BL"),
+#    mvaName_NoEleMatch_wGwoGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_wGwoGSF_BL"),
+#    mvaName_woGwGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_woGwGSF_BL"),
+#    mvaName_wGwGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_wGwGSF_BL"),
+#    mvaName_NoEleMatch_woGwoGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_woGwoGSF_EC"),
+#    mvaName_NoEleMatch_wGwoGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_wGwoGSF_EC"),
+#    mvaName_woGwGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_woGwGSF_EC"),
+#    mvaName_wGwGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_wGwGSF_EC"),
+#    minMVANoEleMatchWOgWOgsfBL = cms.double(0.0),
+#    minMVANoEleMatchWgWOgsfBL  = cms.double(0.0),
+#    minMVAWOgWgsfBL            = cms.double(0.0),
+#    minMVAWgWgsfBL             = cms.double(0.0),
+#    minMVANoEleMatchWOgWOgsfEC = cms.double(0.0),
+#    minMVANoEleMatchWgWOgsfEC  = cms.double(0.0),
+#    minMVAWOgWgsfEC            = cms.double(0.0),
+#    minMVAWgWgsfEC             = cms.double(0.0),
+#    srcElectrons = cms.InputTag('slimmedElectrons'),
+#    usePhiAtEcalEntranceExtrapolation = cms.bool(True)
+#)
+
+
 # this sequence has to be included in your cms.Path() before your analyzer which accesses the new variables is called.
 process.rerunMvaIsolation2SeqRun2 = cms.Sequence(
    process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap
@@ -122,7 +167,8 @@ embedBoostedTauIDNoOverLap = cms.EDProducer("PATBoostedTauIDEmbedder",
       byTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1TightNoOverLap'),
       byVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap'),
       byVVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap'),
-      
+#      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
+
       ),
    )
 setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
@@ -174,6 +220,7 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
     tauSrcNew                 = cms.InputTag("slimmedTaus"),
     cleanedBoostedTauSrc    = cms.InputTag("cleanedSlimmedTausBoosted"),
     boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausIDNoOverLap"),
+#    boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausNewIDCleaned"),
     ak8JetSrc                 = cms.InputTag("slimmedJetsAK8"),
  )
 
@@ -190,7 +237,9 @@ process.TFileService = cms.Service("TFileService",
 process.p = cms.Path(
     process.ca8PFJetsCHSprunedForBoostedTausPAT *
      getattr(process, "cleanedSlimmedTausBoosted") *
+     process.rerunMvaIsolationSequence *
      getattr(process,updatedTauName) *
+#     process.rerunDiscriminationAgainstElectronMVA6 *
      process.rerunMvaIsolation2SeqRun2 *
      getattr(process, "slimmedBoostedTausIDNoOverLap") *
 #     process.rerunMvaIsolationSequence *

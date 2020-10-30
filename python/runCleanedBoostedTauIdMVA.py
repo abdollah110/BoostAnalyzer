@@ -709,15 +709,38 @@ class BoostedTauIDEmbedder(object):
 
         if "againstEle2018" in self.toKeep:
             print "starting {}".format(self.toKeep)
-            antiElectronDiscrMVA6_version = "MVA6v3_noeveto"
+            antiElectronDiscrMVA6_version = "MVA6v1"
+#            antiElectronDiscrMVA6_version = "MVA6v3_noeveto"
             ### Define new anti-e discriminants
             ## Raw
             from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import patTauDiscriminationAgainstElectronMVA6
             self.process.patTauDiscriminationByElectronRejectionMVA62018Raw = patTauDiscriminationAgainstElectronMVA6.clone(
-#                PATTauProducer = self.cms.InputTag(self.PATTauProducer),
-                PATTauProducer = self.cms.InputTag("cleanedSlimmedTausBoosted"),
-                Prediscriminants = noPrediscriminants, #already selected for MiniAOD
-                vetoEcalCracks = self.cms.bool(False), #keep taus in EB-EE cracks
+                PATTauProducer = self.cms.InputTag('cleanedSlimmedTausBoosted'),
+                Prediscriminants = noPrediscriminants,
+                #Prediscriminants = requireLeadTrack,
+                loadMVAfromDB = True,
+                returnMVA = True,
+                method = "BDTG",
+#                mvaName_NoEleMatch_woGwoGSF_BL = 'RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_woGwoGSF_BL',
+#                mvaName_NoEleMatch_wGwoGSF_BL = 'RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_wGwoGSF_BL',
+#                mvaName_woGwGSF_BL = 'RecoTauTag_antiElectronMVA6v1_gbr_woGwGSF_BL',
+#                mvaName_wGwGSF_BL = 'RecoTauTag_antiElectronMVA6v1_gbr_wGwGSF_BL',
+#                mvaName_NoEleMatch_woGwoGSF_EC = 'RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_woGwoGSF_EC',
+#                mvaName_NoEleMatch_wGwoGSF_EC = 'RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_wGwoGSF_EC',
+#                mvaName_woGwGSF_EC = 'RecoTauTag_antiElectronMVA6v1_gbr_woGwGSF_EC',
+#                mvaName_wGwGSF_EC = 'RecoTauTag_antiElectronMVA6v1_gbr_wGwGSF_EC',
+                minMVANoEleMatchWOgWOgsfBL = 0,
+                minMVANoEleMatchWgWOgsfBL  = 0,
+                minMVAWOgWgsfBL            = 0,
+                minMVAWgWgsfBL             = 0,
+                minMVANoEleMatchWOgWOgsfEC = 0,
+                minMVANoEleMatchWgWOgsfEC  = 0,
+                minMVAWOgWgsfEC            = 0,
+                minMVAWgWgsfEC             = 0,
+                srcElectrons = 'slimmedElectrons',
+                usePhiAtEcalEntranceExtrapolation = True
+
+
                 mvaName_NoEleMatch_wGwoGSF_BL = 'RecoTauTag_antiElectron'+antiElectronDiscrMVA6_version+'_gbr_NoEleMatch_wGwoGSF_BL',
                 mvaName_NoEleMatch_wGwoGSF_EC = 'RecoTauTag_antiElectron'+antiElectronDiscrMVA6_version+'_gbr_NoEleMatch_wGwoGSF_EC',
                 mvaName_NoEleMatch_woGwoGSF_BL = 'RecoTauTag_antiElectron'+antiElectronDiscrMVA6_version+'_gbr_NoEleMatch_woGwoGSF_BL',
@@ -729,6 +752,7 @@ class BoostedTauIDEmbedder(object):
             )
             ## WPs
             from RecoTauTag.RecoTau.PATTauDiscriminantCutMultiplexer_cfi import patTauDiscriminantCutMultiplexer
+            
             # VLoose
             self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018 = patTauDiscriminantCutMultiplexer.clone(
                 PATTauProducer = self.process.patTauDiscriminationByElectronRejectionMVA62018Raw.PATTauProducer,
@@ -778,7 +802,7 @@ class BoostedTauIDEmbedder(object):
                     )
                 )
             )
-            print "\n self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018 ", self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018
+
             # Loose
             self.process.patTauDiscriminationByLooseElectronRejectionMVA62018 = self.process.patTauDiscriminationByVLooseElectronRejectionMVA62018.clone(
                 mapping = self.cms.VPSet(
@@ -986,19 +1010,15 @@ class BoostedTauIDEmbedder(object):
                 _againstElectronTauIDSources
             )
             tauIDSources =_tauIDSourcesWithAgainistEle.clone()
-            print "tauIDSources 1 ", tauIDSources
             
 
         ##
-        print "tauIDSources 2 ", tauIDSources
         print('Embedding new TauIDs into \"'+self.updatedTauName+'\"')
         embedID = self.cms.EDProducer("PATBoostedTauIDEmbedder",
             src = self.PATTauProducer,
             tauIDSources = tauIDSources
         )
         setattr(self.process, self.updatedTauName, embedID)
-        setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
-
 
     def processDeepProducer(self, producer_name, tauIDSources, workingPoints_):
         for target,points in workingPoints_.iteritems():

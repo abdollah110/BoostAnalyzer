@@ -287,7 +287,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         q=q+1;
         
         tauIds[q].first="chargedIsoPtSum";
-        tauIds[q].second= chargedPUPtIsoSum;
+        tauIds[q].second= chargedPtIsoSum;
         q=q+1;
         
         tau.setTauIDs(tauIds);

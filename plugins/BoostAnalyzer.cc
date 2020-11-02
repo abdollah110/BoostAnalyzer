@@ -38,10 +38,10 @@ BoostAnalyzer::BoostAnalyzer(const edm::ParameterSet& iConfig)
  boostedTauCollection_(consumes<std::vector<pat::Tau> >                   (iConfig.getParameter<edm::InputTag>("boostedTauSrc"))),
  tauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrc"))),
  genParticlesCollection_(consumes<vector<reco::GenParticle> >             (iConfig.getParameter<edm::InputTag>("genParticleSrc"))),
- NewtauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcNew"))),
+// NewtauCollection_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("tauSrcNew"))),
  boostedTauCollectionNoOverLap_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("cleanedBoostedTauSrc"))),
-boostedTauCollectionNoOverLapIDUpdated_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauIDNoOverLapSrc"))),
-jetsAK8Label_(consumes<std::vector<pat::Jet> >               (iConfig.getParameter<edm::InputTag>("ak8JetSrc")))
+//boostedTauCollectionNoOverLapIDUpdated_(consumes<std::vector<pat::Tau> >                          (iConfig.getParameter<edm::InputTag>("boostedTauIDNoOverLapSrc"))),
+//jetsAK8Label_(consumes<std::vector<pat::Jet> >               (iConfig.getParameter<edm::InputTag>("ak8JetSrc")))
 {
   edm::Service<TFileService> fs;
   boostPt = fs->make<TH1F>("pt" , "pt" , 100 , 0 , 1000 );
@@ -61,7 +61,6 @@ BoostAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
     fillBoostedTaus(iEvent);
-//    fillTaus(iEvent);
     fillGenPart(iEvent);
 
     tree_->Fill();

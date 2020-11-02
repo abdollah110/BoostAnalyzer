@@ -24,20 +24,15 @@ public:
     ~PATBoostedTauCleaner(){};
     
     void produce(edm::Event&, const edm::EventSetup&);
-    void setMySignalChargedHadrCands(const auto &ptrs);
-    
     
 private:
-    
     
     //--- configuration parameters
     edm::EDGetTokenT<pat::TauCollection> src_;
     edm::EDGetTokenT<pat::PackedCandidateCollection> pf2pc_;
     edm::EDGetTokenT<reco::VertexCollection> vtxLabel_;
-    bool  removeOverLap_;
-    edm::EDGetTokenT<pat::JetCollection> jetsAK8Label_;
     edm::EDGetTokenT<edm::View<reco::Jet>> jetsCA8Label_;
-    
+    bool  removeOverLap_;
     
 };
 
@@ -46,9 +41,8 @@ PATBoostedTauCleaner::PATBoostedTauCleaner(const edm::ParameterSet& cfg)
     src_ = consumes<pat::TauCollection>(cfg.getParameter<edm::InputTag>("src"));
     pf2pc_ = consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("pfcands"));
     vtxLabel_ = consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("vtxLabel"));
-    removeOverLap_ = cfg.getParameter<bool>( "removeOverLap" );
-    jetsAK8Label_= consumes<pat::JetCollection>(cfg.getParameter<edm::InputTag>("ak8JetSrc"));
     jetsCA8Label_= consumes<edm::View<reco::Jet>>(cfg.getParameter<edm::InputTag>("ca8JetSrc"));
+    removeOverLap_ = cfg.getParameter<bool>("removeOverLap");
     produces<std::vector<pat::Tau> >();
 }
 
@@ -58,41 +52,31 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
     edm::Handle<pat::TauCollection> inputTaus;
     evt.getByToken(src_, inputTaus);
     
-    edm::Handle<reco::VertexCollection> vertices;
-    evt.getByToken(vtxLabel_, vertices);
-    
     edm::Handle<pat::PackedCandidateCollection> pf2pc;
     evt.getByToken(pf2pc_, pf2pc);
     
+    edm::Handle<reco::VertexCollection> vertices;
+    evt.getByToken(vtxLabel_, vertices);
+    
+    edm::Handle<edm::View<reco::Jet> > ca8jetHandle;
+    evt.getByToken(jetsCA8Label_, ca8jetHandle);
+    
     auto out = std::make_unique<std::vector<pat::Tau>>();
     out->reserve(inputTaus->size());
-        
-     // Check ca8 jet
-     edm::Handle<edm::View<reco::Jet> > ca8jetHandle;
-     evt.getByToken(jetsCA8Label_, ca8jetHandle);
-
-//     for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
-////     cout<<"ca8 jet "<< iJet->pt() <<"\n";
-//     }
-                     
+    
     for (std::vector<pat::Tau>::const_iterator it = inputTaus->begin(), ed = inputTaus->end(); it != ed; ++it) {
         out->push_back(*it);
         pat::Tau &tau = out->back();
-        
         
         float  chargedPtIsoSum = it->tauID("chargedIsoPtSum");
         float  chargedPtIsoSum03 = it->tauID("chargedIsoPtSumdR03");
         float  neutralPtIsoSum = it->tauID("neutralIsoPtSum");
         float  neutralPtIsoSum03  = it->tauID("neutralIsoPtSumdR03");
-//        float  chargedPUPtIsoSum = it->tauID("puCorrPtSum");
         
-        reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
-        isolationGammaPtrs, signalPtrs, isolationPtrs;
-                
-        //############################################################################
-        // leadChargedHadrCand
-        //############################################################################
+        reco::CandidatePtrVector  isolationChHPtrs, isolationNHPtrs, isolationGammaPtrs;
         
+        
+        // Tau vertex
         const pat::PackedCandidate* packedLeadChCand = dynamic_cast<const pat::PackedCandidate*>(tau.leadChargedHadrCand().get());
         
         float minDz = 99;
@@ -106,21 +90,20 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
             }
             idx++;
         }
-
-            //############################################################################
-            // filling a collection of IsoCandidates which overlapped with either other signal candidates or other Jet contitients
-            //############################################################################
-            if (removeOverLap_){
-
+        
+        //############################################################################
+        // filling a collection of IsoCandidates which either overlappes with other tau's signal candidates or other subJet contitients
+        //############################################################################
+        if (removeOverLap_){
+            
             reco::CandidatePtrVector OverLappedIsoCand;
             OverLappedIsoCand.clear();
             
-          chargedPtIsoSum = 0;
-          chargedPtIsoSum03 = 0;
-          neutralPtIsoSum = 0;
-          neutralPtIsoSum03  = 0;
-//          chargedPUPtIsoSum = 0;
-
+            chargedPtIsoSum = 0;
+            chargedPtIsoSum03 = 0;
+            neutralPtIsoSum = 0;
+            neutralPtIsoSum03  = 0;
+            
             for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
                 
                 // Check iso candidate does not overlap with other signal candidates
@@ -141,17 +124,11 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     }
                 }
                 
-                // Check iso candidate does not overlap with other subjet constituents
-                edm::Handle<vector<pat::Jet> > jetHandle;
-                evt.getByToken(jetsAK8Label_, jetHandle);
-                
-                
-                
                 // Run on CA8 jets
                 for (edm::View<reco::Jet>::const_iterator iJet = ca8jetHandle->begin(); iJet != ca8jetHandle->end(); ++iJet) {
                     
                     if (ROOT::Math::VectorUtil::DeltaR(iJet->p4(), tau.p4()) > 1.0) continue;
-                                        
+                    
                     // Find the subjet that seeds taus : closest subjet to tau
                     float dRClosest=1000;
                     float TauSeedSubJetPt=0;
@@ -177,8 +154,9 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                 }
             }// end of filling the OverLappedIsoCand collection
             //############################################################################
-            // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
+            // Setting IsolationChargedHadrCands and recalculating ChargedIsoPtSums
             //############################################################################
+            
             for (const auto &charged : tau.isolationChargedHadrCands()) {
                 
                 bool hasOverLap=false;
@@ -190,7 +168,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                 }
                 if (! hasOverLap){
                     isolationChHPtrs.push_back(charged);
-
+                    
                     //q-cuts my selection
                     if (charged->pt() <= 0.5) continue;
                     //                    if (std::abs(tau.dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
@@ -198,8 +176,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     if (track == nullptr) continue;
                     if (std::abs(track->dxy((*vertices)[tauVertexIdx].position())) >= 0.03) continue;
                     if (track->normalizedChi2() >= 100) continue;
-                    //                    if (track->numberOfHits() < 3) continue;
-                    if (track->numberOfValidHits() < 3) continue; //????
+                    if (track->numberOfValidHits() < 3) continue;
                     //                    double dz = std::abs(tau.dz((*vertices)[tauVertexIdx].position()));
                     double dz = std::abs(track->dz((*vertices)[tauVertexIdx].position()));
                     double dR = deltaR(charged->p4(), tau.p4());
@@ -210,14 +187,15 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                         if (dR < 0.3)
                             chargedPtIsoSum03 += charged->pt();
                     }
-  
+                    
                 }//check has overlap
             } //loop over all isoCandidates
             tau.setIsolationChargedHadrCands(isolationChHPtrs);
+            
             //############################################################################
-            // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
+            // Setting IsolationNeutralHadrCands
             //############################################################################
-                        
+            
             for (const reco::CandidatePtr &neutral : tau.isolationNeutrHadrCands()) {
                 bool hasOverLap=false;
                 for (const reco::CandidatePtr &overLapCand : OverLappedIsoCand) {
@@ -230,9 +208,9 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     isolationNHPtrs.push_back(neutral);
             }
             tau.setIsolationNeutralHadrCands(isolationNHPtrs);
-                        
+            
             //############################################################################
-            // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
+            // Setting IsolationGammaCands and recalculating neutralIsoPtSum
             //############################################################################
             
             for (const reco::CandidatePtr &gamma : tau.isolationGammaCands()) {
@@ -258,13 +236,14 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                 }
             }
             tau.setIsolationGammaCands(isolationGammaPtrs);
-        }// check if overLap removal is needed
+            
             //############################################################################
+        }// check if overLap removal is needed
+        //############################################################################
         
-                
+        size_t newTauIds = 4;
         size_t nTauIds = tau.tauIDs().size();
-        std::vector<pat::Tau::IdPair> tauIds(nTauIds+5);
-        
+        std::vector<pat::Tau::IdPair> tauIds(nTauIds+newTauIds);
         
         for(size_t q = 0; q < nTauIds; ++q){
             tauIds[q] = tau.tauIDs().at(q);
@@ -284,10 +263,6 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         
         tauIds[q].first="neutralIsoPtSum03NoOverLap";
         tauIds[q].second= neutralPtIsoSum03;
-        q=q+1;
-        
-        tauIds[q].first="chargedIsoPtSum";
-        tauIds[q].second= chargedPtIsoSum;
         q=q+1;
         
         tau.setTauIDs(tauIds);

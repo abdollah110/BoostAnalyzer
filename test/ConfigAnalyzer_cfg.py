@@ -45,133 +45,114 @@ process.source = cms.Source("PoolSource",
                 )
 
                               
+
+
+
+########################################################################################
+# A new boostedTau collection is made here and the overlap is removed
+########################################################################################
+from RecoTauTag.Configuration.boostedHPSPFTaus_cff import ca8PFJetsCHSprunedForBoostedTaus
+process.ca8PFJetsCHSprunedForBoostedTausPAT = ca8PFJetsCHSprunedForBoostedTaus.clone(
+                        src=cms.InputTag("packedPFCandidates"),
+                        jetCollInstanceName = cms.string('subJetsForSeedingBoostedTausPAT')
+                )
+cleanedBoostedTau = cms.EDProducer("PATBoostedTauCleaner",
+   src = cms.InputTag('slimmedTausBoosted'),
+   pfcands = cms.InputTag('packedPFCandidates'),
+   vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
+   ca8JetSrc = cms.InputTag('ca8PFJetsCHSprunedForBoostedTausPAT','subJetsForSeedingBoostedTausPAT')
+   removeOverLap = cms.bool(True),
+   )
+setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)
+
+#########################################################################################
+## A new boostedTau tau Id is updated
+#########################################################################################
+#
+#process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap = patDiscriminationByIsolationMVArun2v1raw.clone(
+#   PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+#   Prediscriminants = noPrediscriminants,
+#   loadMVAfromDB = cms.bool(True),
+#   mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2"), # name of the training you want to use
+#   mvaOpt = cms.string("DBoldDMwLTwGJ"), # option you want to use for your training (i.e., which variables are used to compute the BDT score)DBoldDMwLTwGJ
+#   requireDecayMode = cms.bool(True),
+#   verbosity = cms.int32(0),
+#   srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
+#   srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
+#)
+#
+#process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap = patDiscriminationByIsolationMVArun2v1VLoose.clone(
+#   PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+#   Prediscriminants = noPrediscriminants,
+#   toMultiplex = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap'),
+#   key = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap:category'),
+#   loadMVAfromDB = cms.bool(True),
+##   mvaOutput_normalization = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1_mvaOutput_normalization"), # normalization fo the
+#   mvaOutput_normalization = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_mvaOutput_normalization"), # normalization fo the training you want to use
+#   mapping = cms.VPSet(
+#      cms.PSet(
+#         category = cms.uint32(0),
+#         cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff90"), # this is the name of the working point you want to use
+#         variable = cms.string("pt"),
+#      )
+#   )
+#)
+#
+## here we produce all the other working points for the training
+#process.rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
+#process.rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff80")
+#process.rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
+#process.rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff70")
+#process.rerunDiscriminationByIsolationMVArun2v1TightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
+#process.rerunDiscriminationByIsolationMVArun2v1TightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff60")
+#process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
+#process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff50")
+#process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
+#process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff40")
+#
+#
+## this sequence has to be included in your cms.Path() before your analyzer which accesses the new variables is called.
+#process.rerunMvaIsolation2SeqRun2 = cms.Sequence(
+#   process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap
+#   *process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap
+#   *process.rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap
+#   *process.rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap
+#   *process.rerunDiscriminationByIsolationMVArun2v1TightNoOverLap
+#   *process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap
+#   *process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap
+#)
+#
+## embed new id's into new tau collection
+#embedBoostedTauIDNoOverLap = cms.EDProducer("PATBoostedTauIDEmbedder",
+#   src = cms.InputTag('cleanedSlimmedTausBoosted'),
+#   tauIDSources = cms.PSet(
+#      byIsolationMVArun2v1DBoldDMwLTrawNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap'),
+#      byVLooseIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap'),
+#      byLooseIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap'),
+#      byMediumIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap'),
+#      byTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1TightNoOverLap'),
+#      byVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap'),
+#      byVVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap'),
+##      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
+#
+#      ),
+#   )
+#setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
+
+########################################################################################
+# Anti electron
+########################################################################################
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
 #anti-electron
 from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
 
-from RecoTauTag.Configuration.boostedHPSPFTaus_cff import ca8PFJetsCHSprunedForBoostedTaus
-process.ca8PFJetsCHSprunedForBoostedTausPAT = ca8PFJetsCHSprunedForBoostedTaus.clone(
-                        src=cms.InputTag("packedPFCandidates"),
-                        jetCollInstanceName = cms.string('subJetsForSeedingBoostedTausPAT')
-                )
-
-
-########################################################################################
-# A new boostedTau collection is made here and the overlap is removed
-########################################################################################
-cleanedBoostedTau = cms.EDProducer("PATBoostedTauCleaner",
-   src = cms.InputTag('slimmedTausBoosted'),
-   pfcands = cms.InputTag('packedPFCandidates'),
-   vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
-   removeOverLap = cms.bool(True),
-#   removeOverLap = cms.bool(False),
-   ak8JetSrc = cms.InputTag('slimmedJetsAK8'),
-   ca8JetSrc = cms.InputTag('ca8PFJetsCHSprunedForBoostedTausPAT','subJetsForSeedingBoostedTausPAT')
-   )
-setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)
-
-########################################################################################
-# A new boostedTau tau Id is updated
-########################################################################################
-
-process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap = patDiscriminationByIsolationMVArun2v1raw.clone(
-   PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
-   Prediscriminants = noPrediscriminants,
-   loadMVAfromDB = cms.bool(True),
-   mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2"), # name of the training you want to use
-   mvaOpt = cms.string("DBoldDMwLTwGJ"), # option you want to use for your training (i.e., which variables are used to compute the BDT score)DBoldDMwLTwGJ
-   requireDecayMode = cms.bool(True),
-   verbosity = cms.int32(0),
-   srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
-   srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
-)
-
-process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap = patDiscriminationByIsolationMVArun2v1VLoose.clone(
-   PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
-   Prediscriminants = noPrediscriminants,
-   toMultiplex = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap'),
-   key = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap:category'),
-   loadMVAfromDB = cms.bool(True),
-#   mvaOutput_normalization = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1_mvaOutput_normalization"), # normalization fo the
-   mvaOutput_normalization = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_mvaOutput_normalization"), # normalization fo the training you want to use
-   mapping = cms.VPSet(
-      cms.PSet(
-         category = cms.uint32(0),
-         cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff90"), # this is the name of the working point you want to use
-         variable = cms.string("pt"),
-      )
-   )
-)
-
-# here we produce all the other working points for the training
-process.rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
-process.rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff80")
-process.rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
-process.rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff70")
-process.rerunDiscriminationByIsolationMVArun2v1TightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
-process.rerunDiscriminationByIsolationMVArun2v1TightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff60")
-process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
-process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff50")
-process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
-process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff40")
-
-
-# this sequence has to be included in your cms.Path() before your analyzer which accesses the new variables is called.
-process.rerunMvaIsolation2SeqRun2 = cms.Sequence(
-   process.rerunDiscriminationByIsolationMVArun2v1rawNoOverLap
-   *process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap
-   *process.rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap
-   *process.rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap
-   *process.rerunDiscriminationByIsolationMVArun2v1TightNoOverLap
-   *process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap
-   *process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap
-)
-
-# embed new id's into new tau collection
-embedBoostedTauIDNoOverLap = cms.EDProducer("PATBoostedTauIDEmbedder",
-   src = cms.InputTag('cleanedSlimmedTausBoosted'),
-   tauIDSources = cms.PSet(
-      byIsolationMVArun2v1DBoldDMwLTrawNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1rawNoOverLap'),
-      byVLooseIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap'),
-      byLooseIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1LooseNoOverLap'),
-      byMediumIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1MediumNoOverLap'),
-      byTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1TightNoOverLap'),
-      byVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap'),
-      byVVTightIsolationMVArun2v1DBoldDMwLTNoOverLap = cms.InputTag('rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap'),
-#      againstElectronMVA6RawNew = cms.InputTag('rerunDiscriminationAgainstElectronMVA6')
-
-      ),
-   )
-setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
-
-
-########################################################################################
-# A new Tau collection is made here
-########################################################################################
-#updatedTauName = "slimmedTausNewID" #name of pat::Tau collection with new tau-Ids
-#import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
-#tauIdEmbedder = tauIdConfig.TauIDEmbedder(process, cms, debug = False,
-#                    updatedTauName = updatedTauName,
-#                    toKeep = [ "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids
-#                               "deepTau2017v1", #deepTau Tau-Ids
-#                               "DPFTau_2016_v0", #D[eep]PF[low] Tau-Id
-#                               ])
-#tauIdEmbedder.runTauID()
-#slimmedTausNewID="slimmedTaus" # tmp
-
-
-
-
-########################################################################################
-# Anti electron
-########################################################################################
-updatedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new tau-Ids
+updatedBoostedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new tau-Ids
 #import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
 import BoostTau.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
-                    updatedTauName = updatedTauName,
+                    updatedTauName = updatedBoostedTauName,
                     PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
                     srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
                     srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
@@ -192,9 +173,9 @@ process.demo = cms.EDAnalyzer('BoostAnalyzer',
     boostedTauSrc             = cms.InputTag("slimmedTausBoosted"),
     tauSrc                    = cms.InputTag("slimmedTaus"),
     genParticleSrc            = cms.InputTag("prunedGenParticles"),
-    tauSrcNew                 = cms.InputTag("slimmedTaus"),
+#    tauSrcNew                 = cms.InputTag("slimmedTaus"),
     cleanedBoostedTauSrc    = cms.InputTag("slimmedBoostedTausNewID"),
-    boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausIDNoOverLap"),
+#    boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausIDNoOverLap"),
 #    boostedTauIDNoOverLapSrc    = cms.InputTag("slimmedBoostedTausNewIDCleaned"),
     ak8JetSrc                 = cms.InputTag("slimmedJetsAK8"),
  )
@@ -212,11 +193,11 @@ process.TFileService = cms.Service("TFileService",
 process.p = cms.Path(
     process.ca8PFJetsCHSprunedForBoostedTausPAT *
      getattr(process, "cleanedSlimmedTausBoosted") *
-     process.rerunMvaIsolationSequence *
-     getattr(process,updatedTauName) *
+     process.rerunMvaIsolationBoostSequence *
+     getattr(process,updatedBoostedTauName) *
 #     process.rerunDiscriminationAgainstElectronMVA6 *
-     process.rerunMvaIsolation2SeqRun2 *
-     getattr(process, "slimmedBoostedTausIDNoOverLap") *
+#     process.rerunMvaIsolation2SeqRun2 *
+#     getattr(process, "slimmedBoostedTausIDNoOverLap") *
 #     process.rerunMvaIsolationSequence *
      
      process.demo

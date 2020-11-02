@@ -148,18 +148,18 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig", &boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_);
     tree->Branch("boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig", &boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_);
     
-    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_);
+//    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTraw", &boostedTauByIsolationMVArun2v1DBoldDMwLTraw_);
-    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_);
+//    tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_);
     tree->Branch("boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew", &boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_);
     
-    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_);
+//    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLT", &boostedTauByTightIsolationMVArun2v1DBoldDMwLT_);
-    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_);
+//    tree->Branch("boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_);
     
-    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_);
+//    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLT", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_);
-    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_);
+//    tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_);
     tree->Branch("boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew", &boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_);
     
     
@@ -186,13 +186,13 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauLeadChargedHadronPhi"  ,&boostedTauLeadChargedHadronPhi_);
     tree->Branch("boostedTauLeadChargedHadronPt"  ,&boostedTauLeadChargedHadronPt_);
     tree->Branch("boostedTauChargedIsoPtSum"  ,&boostedTauChargedIsoPtSum_);
-    tree->Branch("boostedTauChargedIsoPtSumOrig"  ,&boostedTauChargedIsoPtSumOrig_);
+//    tree->Branch("boostedTauChargedIsoPtSumOrig"  ,&boostedTauChargedIsoPtSumOrig_);
     tree->Branch("boostedTauChargedIsoPtSumNoOverLap"  ,&boostedTauChargedIsoPtSumNoOverLap_);
     tree->Branch("boostedTauNeutralIsoPtSum"  ,&boostedTauNeutralIsoPtSum_);
-    tree->Branch("boostedTauNeutralIsoPtSumOrig"  ,&boostedTauNeutralIsoPtSumOrig_);
+//    tree->Branch("boostedTauNeutralIsoPtSumOrig"  ,&boostedTauNeutralIsoPtSumOrig_);
     tree->Branch("boostedTauNeutralIsoPtSumNoOverLap"  ,&boostedTauNeutralIsoPtSumNoOverLap_);
     tree->Branch("boostedTauPuCorrPtSum"  ,&boostedTauPuCorrPtSum_);
-    tree->Branch("boostedTauPuCorrPtSumOrig"  ,&boostedTauPuCorrPtSumOrig_);
+//    tree->Branch("boostedTauPuCorrPtSumOrig"  ,&boostedTauPuCorrPtSumOrig_);
     tree->Branch("boostedTauNumSignalPFChargedHadrCands"  ,&boostedTauNumSignalPFChargedHadrCands_);
     tree->Branch("boostedTauNumSignalPFNeutrHadrCands"  ,&boostedTauNumSignalPFNeutrHadrCands_);
     tree->Branch("boostedTauNumSignalPFGammaCands"  ,&boostedTauNumSignalPFGammaCands_);
@@ -201,10 +201,10 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauNumIsolationPFNeutrHadrCands"  ,&boostedTauNumIsolationPFNeutrHadrCands_);
     tree->Branch("boostedTauNumIsolationPFGammaCands"  ,&boostedTauNumIsolationPFGammaCands_);
     tree->Branch("boostedTauNumIsolationPFCands"  ,&boostedTauNumIsolationPFCands_);
-    tree->Branch("boostedTauNumIsolationPFChargedHadrCandsOrig"  ,&boostedTauNumIsolationPFChargedHadrCandsOrig_);
-    tree->Branch("boostedTauNumIsolationPFNeutrHadrCandsOrig"  ,&boostedTauNumIsolationPFNeutrHadrCandsOrig_);
-    tree->Branch("boostedTauNumIsolationPFGammaCandsOrig"  ,&boostedTauNumIsolationPFGammaCandsOrig_);
-    tree->Branch("boostedTauNumIsolationPFCandsOrig"  ,&boostedTauNumIsolationPFCandsOrig_);
+//    tree->Branch("boostedTauNumIsolationPFChargedHadrCandsOrig"  ,&boostedTauNumIsolationPFChargedHadrCandsOrig_);
+//    tree->Branch("boostedTauNumIsolationPFNeutrHadrCandsOrig"  ,&boostedTauNumIsolationPFNeutrHadrCandsOrig_);
+//    tree->Branch("boostedTauNumIsolationPFGammaCandsOrig"  ,&boostedTauNumIsolationPFGammaCandsOrig_);
+//    tree->Branch("boostedTauNumIsolationPFCandsOrig"  ,&boostedTauNumIsolationPFCandsOrig_);
     
     
     tree->Branch("boostedTaufootprintCorrection"  ,&boostedTaufootprintCorrection_);
@@ -217,10 +217,10 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauIsolationPFCands"  ,&boostedTauIsolationPFCands_);
     tree->Branch("boostedTauIsolationPFGammaCands"  ,&boostedTauIsolationPFGammaCands_);
     
-    tree->Branch("boostedTauSignalPFCandsOrig"  ,&boostedTauSignalPFCandsOrig_);
-    tree->Branch("boostedTauSignalPFGammaCandsOrig"  ,&boostedTauSignalPFGammaCandsOrig_);
-    tree->Branch("boostedTauIsolationPFCandsOrig"  ,&boostedTauIsolationPFCandsOrig_);
-    tree->Branch("boostedTauIsolationPFGammaCandsOrig"  ,&boostedTauIsolationPFGammaCandsOrig_);
+//    tree->Branch("boostedTauSignalPFCandsOrig"  ,&boostedTauSignalPFCandsOrig_);
+//    tree->Branch("boostedTauSignalPFGammaCandsOrig"  ,&boostedTauSignalPFGammaCandsOrig_);
+//    tree->Branch("boostedTauIsolationPFCandsOrig"  ,&boostedTauIsolationPFCandsOrig_);
+//    tree->Branch("boostedTauIsolationPFGammaCandsOrig"  ,&boostedTauIsolationPFGammaCandsOrig_);
     
     tree->Branch("boostedTauByDeepTau2017v1VSjetraw"  ,&boostedTauByDeepTau2017v1VSjetraw_);
     tree->Branch("boostedTauByDeepTau2017v1VSeraw"  ,&boostedTauByDeepTau2017v1VSeraw_);
@@ -347,7 +347,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     }
     
     edm::Handle<vector<pat::Tau> >  boostedTauHandleNoOverLap;
-    e.getByToken(boostedTauCollectionNoOverLapIDUpdated_, boostedTauHandleNoOverLap);
+    e.getByToken(boostedTauHandleNoOverLap_, boostedTauHandleNoOverLap);
     
     if (!boostedTauHandleNoOverLap.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event boostedTauHandleNoOverLap";
@@ -373,13 +373,13 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauCombinedIsolationDeltaBetaCorrRaw3Hits_.push_back(itau->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
         
         boostedTauByIsolationMVArun2v1DBoldDMwLTraw_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTrawNoOverLap"));
+//        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNoOverLap_.push_back(itau->tauID("byIsolationMVArun2v1DBoldDMwLTrawNoOverLap"));
         
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLTNoOverLap"));
+//        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byLooseIsolationMVArun2v1DBoldDMwLTNoOverLap"));
         
         boostedTauByTightIsolationMVArun2v1DBoldDMwLT_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLTNoOverLap"));
+//        boostedTauByTightIsolationMVArun2v1DBoldDMwLTNoOverLap_.push_back(itau->tauID("byTightIsolationMVArun2v1DBoldDMwLTNoOverLap"));
                 
         //Tau Kinematics
         boostedTauEta_.push_back(itau->eta());
@@ -420,6 +420,15 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauNumIsolationPFCands_.push_back(itau->isolationCands().size());
         
         
+        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.push_back(itauOrig->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
+        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.push_back(itauOrig->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
+
+        boostedTauByDeepTau2017v1VSjetraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSjetraw"));
+        boostedTauByDeepTau2017v1VSeraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSeraw"));
+        boostedTauByDeepTau2017v1VSmuraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSmuraw"));
+
+
+
         vector<float> sigCharged;
         sigCharged.clear();
         for (auto& cand : itau->signalChargedHadrCands()) {
@@ -455,79 +464,79 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     } // loop over tau candidates
     
     
-    
-    
-    
-    for(vector<pat::Tau>::const_iterator itauOrig = boostedTauHandleOrig->begin(); itauOrig != boostedTauHandleOrig->end(); ++itauOrig) {
-        
-        boostedTauByLooseCombinedIsolationDeltaBetaCorr3HitsOrig_.push_back(itauOrig->tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits"));
-        boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_.push_back(itauOrig->tauID("byTightCombinedIsolationDeltaBetaCorr3Hits"));
-        boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_.push_back(itauOrig->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
-        
-        boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_.push_back(itauOrig->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_.push_back(itauOrig->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
-        boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_.push_back(itauOrig->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
-        
-        
-        // Tau Ingredients
-        boostedTauChargedIsoPtSumOrig_.push_back(itauOrig->tauID("chargedIsoPtSum") );
-        boostedTauNeutralIsoPtSumOrig_.push_back(itauOrig->tauID("neutralIsoPtSum")  );
-                
-        boostedTauNumIsolationPFChargedHadrCandsOrig_.push_back(itauOrig->isolationChargedHadrCands().size());
-        boostedTauNumIsolationPFNeutrHadrCandsOrig_.push_back(itauOrig->isolationNeutrHadrCands().size());
-        boostedTauNumIsolationPFGammaCandsOrig_.push_back(itauOrig->isolationGammaCands().size());
-        boostedTauNumIsolationPFCandsOrig_.push_back(itauOrig->isolationCands().size());
-        
-        
-        vector<float> sigCharged;
-        sigCharged.clear();
-        for (auto& cand : itauOrig->signalChargedHadrCands()) {
-            sigCharged.push_back(cand->pt());
-        }
-        boostedTauSignalPFCandsOrig_.push_back(sigCharged);
-        
-        vector<float> sigGamma;
-        sigGamma.clear();
-        for (auto& cand : itauOrig->signalGammaCands()) {
-            sigGamma.push_back(cand->pt());
-        }
-        boostedTauSignalPFGammaCandsOrig_.push_back(sigGamma);
-        
-        
-        vector<float> isoCharged;
-        isoCharged.clear();
-        for (auto& cand : itauOrig->isolationChargedHadrCands()) {
-            isoCharged.push_back(cand->pt());
-        }
-        boostedTauIsolationPFCandsOrig_.push_back(isoCharged);
-        
-        vector<float> isoGamma;
-        isoGamma.clear();
-        for (auto& cand : itauOrig->isolationGammaCands()) {
-            isoGamma.push_back(cand->pt());
-        }
-        boostedTauIsolationPFGammaCandsOrig_.push_back(isoGamma);
-        
-        ++nBoostedTauOrig_;
-        
-        
-    } // loop over tau candidates
-
-
-    edm::Handle<vector<pat::Tau> >  NewboostedTauHandle;
-    e.getByToken(boostedTauCollectionNoOverLap_, NewboostedTauHandle);
-    
-    for(vector<pat::Tau>::const_iterator itauOrig = NewboostedTauHandle->begin(); itauOrig != NewboostedTauHandle->end(); ++itauOrig) {
-
-
-        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.push_back(itauOrig->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
-        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.push_back(itauOrig->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
-
-        boostedTauByDeepTau2017v1VSjetraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSjetraw"));
-        boostedTauByDeepTau2017v1VSeraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSeraw"));
-        boostedTauByDeepTau2017v1VSmuraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSmuraw"));
-
-}
+//
+//
+//
+//    for(vector<pat::Tau>::const_iterator itauOrig = boostedTauHandleOrig->begin(); itauOrig != boostedTauHandleOrig->end(); ++itauOrig) {
+//
+//        boostedTauByLooseCombinedIsolationDeltaBetaCorr3HitsOrig_.push_back(itauOrig->tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits"));
+//        boostedTauByTightCombinedIsolationDeltaBetaCorr3HitsOrig_.push_back(itauOrig->tauID("byTightCombinedIsolationDeltaBetaCorr3Hits"));
+//        boostedTauCombinedIsolationDeltaBetaCorrRaw3HitsOrig_.push_back(itauOrig->tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"));
+//
+//        boostedTauByIsolationMVArun2v1DBoldDMwLTrawOrig_.push_back(itauOrig->tauID("byIsolationMVArun2v1DBoldDMwLTraw"));
+//        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTOrig_.push_back(itauOrig->tauID("byLooseIsolationMVArun2v1DBoldDMwLT"));
+//        boostedTauByTightIsolationMVArun2v1DBoldDMwLTOrig_.push_back(itauOrig->tauID("byTightIsolationMVArun2v1DBoldDMwLT"));
+//
+//
+//        // Tau Ingredients
+//        boostedTauChargedIsoPtSumOrig_.push_back(itauOrig->tauID("chargedIsoPtSum") );
+//        boostedTauNeutralIsoPtSumOrig_.push_back(itauOrig->tauID("neutralIsoPtSum")  );
+//
+//        boostedTauNumIsolationPFChargedHadrCandsOrig_.push_back(itauOrig->isolationChargedHadrCands().size());
+//        boostedTauNumIsolationPFNeutrHadrCandsOrig_.push_back(itauOrig->isolationNeutrHadrCands().size());
+//        boostedTauNumIsolationPFGammaCandsOrig_.push_back(itauOrig->isolationGammaCands().size());
+//        boostedTauNumIsolationPFCandsOrig_.push_back(itauOrig->isolationCands().size());
+//
+//
+//        vector<float> sigCharged;
+//        sigCharged.clear();
+//        for (auto& cand : itauOrig->signalChargedHadrCands()) {
+//            sigCharged.push_back(cand->pt());
+//        }
+//        boostedTauSignalPFCandsOrig_.push_back(sigCharged);
+//
+//        vector<float> sigGamma;
+//        sigGamma.clear();
+//        for (auto& cand : itauOrig->signalGammaCands()) {
+//            sigGamma.push_back(cand->pt());
+//        }
+//        boostedTauSignalPFGammaCandsOrig_.push_back(sigGamma);
+//
+//
+//        vector<float> isoCharged;
+//        isoCharged.clear();
+//        for (auto& cand : itauOrig->isolationChargedHadrCands()) {
+//            isoCharged.push_back(cand->pt());
+//        }
+//        boostedTauIsolationPFCandsOrig_.push_back(isoCharged);
+//
+//        vector<float> isoGamma;
+//        isoGamma.clear();
+//        for (auto& cand : itauOrig->isolationGammaCands()) {
+//            isoGamma.push_back(cand->pt());
+//        }
+//        boostedTauIsolationPFGammaCandsOrig_.push_back(isoGamma);
+//
+//        ++nBoostedTauOrig_;
+//
+//
+//    } // loop over tau candidates
+//
+//
+//    edm::Handle<vector<pat::Tau> >  NewboostedTauHandle;
+//    e.getByToken(boostedTauCollectionNoOverLap_, NewboostedTauHandle);
+//
+//    for(vector<pat::Tau>::const_iterator itauOrig = NewboostedTauHandle->begin(); itauOrig != NewboostedTauHandle->end(); ++itauOrig) {
+//
+//
+//        boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.push_back(itauOrig->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
+//        boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.push_back(itauOrig->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
+//
+//        boostedTauByDeepTau2017v1VSjetraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSjetraw"));
+//        boostedTauByDeepTau2017v1VSeraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSeraw"));
+//        boostedTauByDeepTau2017v1VSmuraw_.push_back(itauOrig->tauID("byDeepBoostedTau2017v1VSmuraw"));
+//
+//}
     
 
 

@@ -4,7 +4,7 @@ process = cms.Process("Demo")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 ##process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 #process.load('Configuration.Geometry.GeometryIdeal_cff')
@@ -34,13 +34,13 @@ process.source = cms.Source("PoolSource",
 #            'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X.root'
 #            'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/miniAOD-prod_PAT.root'
 
-    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X_MiniAODSIM_Orig.root'
+#    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X_MiniAODSIM_Orig.root'
                     
-#                    'file:miniAOD-prod_PAT_1.root',
-#                    'file:miniAOD-prod_PAT_2.root',
-#                    'file:miniAOD-prod_PAT_3.root',
-#                    'file:miniAOD-prod_PAT_4.root',
-#                    'file:miniAOD-prod_PAT_5.root'
+                    'file:miniAOD-prod_PAT_1.root',
+                    'file:miniAOD-prod_PAT_2.root',
+                    'file:miniAOD-prod_PAT_3.root',
+                    'file:miniAOD-prod_PAT_4.root',
+                    'file:miniAOD-prod_PAT_5.root'
                         )
                 )
 
@@ -65,7 +65,8 @@ cleanedBoostedTau = cms.EDProducer("PATBoostedTauCleaner",
    src = cms.InputTag('slimmedTausBoosted'),
    pfcands = cms.InputTag('packedPFCandidates'),
    vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
-   removeOverLap = cms.bool(True),
+#   removeOverLap = cms.bool(True),
+   removeOverLap = cms.bool(False),
    ak8JetSrc = cms.InputTag('slimmedJetsAK8'),
    ca8JetSrc = cms.InputTag('ca8PFJetsCHSprunedForBoostedTausPAT','subJetsForSeedingBoostedTausPAT')
    )
@@ -199,9 +200,13 @@ updatedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new
 import BoostTau.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
                     updatedTauName = updatedTauName,
-                    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
-                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
-                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
+#                    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+#                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
+#                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
+                    PATTauProducer = cms.InputTag('slimmedTausBoosted'),
+#                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
+#                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
+
                     toKeep = [
 #                                "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids
 #                               "deepTau2017v1", #deepTau Tau-Ids

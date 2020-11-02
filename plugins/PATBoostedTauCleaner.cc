@@ -81,10 +81,10 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         
         
         float  chargedPtIsoSum = it->tauID("chargedIsoPtSum");
-        float  chargedPtIsoSum03 = it->tauID("chargedPtIsoSum03");
-        float  neutralPtIsoSum = it->tauID("neutralPtIsoSum");
-        float  neutralPtIsoSum03  = it->tauID("neutralPtIsoSum03");
-        float  chargedPUPtIsoSum = it->tauID("chargedPUPtIsoSum");
+        float  chargedPtIsoSum03 = it->tauID("chargedIsoPtSum03");
+        float  neutralPtIsoSum = it->tauID("neutralIsoPtSum");
+        float  neutralPtIsoSum03  = it->tauID("neutralIsoPtSum03");
+        float  chargedPUPtIsoSum = it->tauID("puCorrPtSum");
         
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;

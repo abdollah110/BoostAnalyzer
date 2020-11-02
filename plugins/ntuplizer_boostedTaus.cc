@@ -347,7 +347,7 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     }
     
     edm::Handle<vector<pat::Tau> >  boostedTauHandleNoOverLap;
-    e.getByToken(boostedTauHandleNoOverLap_, boostedTauHandleNoOverLap);
+    e.getByToken(boostedTauCollectionNoOverLap_, boostedTauHandleNoOverLap);
     
     if (!boostedTauHandleNoOverLap.isValid()) {
         edm::LogWarning("BoostAnalyzer") << "no pat::Tau in event boostedTauHandleNoOverLap";

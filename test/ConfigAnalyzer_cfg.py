@@ -150,7 +150,7 @@ from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
 
 updatedBoostedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new tau-Ids
 #import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
-import BoostTau.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
+import BoostTau.BoostAnalyzer.runBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
                     updatedTauName = updatedBoostedTauName,
                     PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),

@@ -200,13 +200,9 @@ updatedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new
 import BoostTau.BoostAnalyzer.runCleanedBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
                     updatedTauName = updatedTauName,
-#                    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
-#                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
-#                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
-                    PATTauProducer = cms.InputTag('slimmedTausBoosted'),
-                    srcChargedIsoPtSum = cms.string('chargedIsoPtSum'),
-                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSum'),
-
+                    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
+                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
+                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
                     toKeep = [
 #                                "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids
 #                               "deepTau2017v1", #deepTau Tau-Ids

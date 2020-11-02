@@ -80,40 +80,40 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         pat::Tau &tau = out->back();
         
         
-        float  chargedPtIsoSum = 0;
-        float  chargedPtIsoSum03 = 0;
-        float  neutralPtIsoSum = 0;
-        float  neutralPtIsoSum03  = 0;
-        float  chargedPUPtIsoSum = 0;
+        float  chargedPtIsoSum = it->tauID("chargedIsoPtSum");
+        float  chargedPtIsoSum03 = it->tauID("chargedPtIsoSum03");
+        float  neutralPtIsoSum = it->tauID("neutralPtIsoSum");
+        float  neutralPtIsoSum03  = it->tauID("neutralPtIsoSum03");
+        float  chargedPUPtIsoSum = it->tauID("chargedPUPtIsoSum");
         
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;
 
-        //############################################################################
-        // Store all of the signal Candidates
-        //############################################################################
-        // All signal
-        for (const reco::CandidatePtr &p : tau.signalCands()) {
-            signalPtrs.push_back(p);
-        }
-        
-        // signalCharged
-        for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
-            signalChHPtrs.push_back(p);
-        }
-        tau.setSignalChargedHadrCands(signalChHPtrs);
-        
-        // signalNeutral
-        for (const reco::CandidatePtr &p : tau.signalNeutrHadrCands()) {
-            signalNHPtrs.push_back(p);
-        }
-        tau.setSignalNeutralHadrCands(signalNHPtrs);
-        
-        // signalGamma
-        for (const reco::CandidatePtr &p : tau.signalGammaCands()) {
-            signalGammaPtrs.push_back(p);
-        }
-        tau.setSignalGammaCands(signalGammaPtrs);
+//        //############################################################################
+//        // Store all of the signal Candidates
+//        //############################################################################
+//        // All signal
+//        for (const reco::CandidatePtr &p : tau.signalCands()) {
+//            signalPtrs.push_back(p);
+//        }
+//
+//        // signalCharged
+//        for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
+//            signalChHPtrs.push_back(p);
+//        }
+//        tau.setSignalChargedHadrCands(signalChHPtrs);
+//
+//        // signalNeutral
+//        for (const reco::CandidatePtr &p : tau.signalNeutrHadrCands()) {
+//            signalNHPtrs.push_back(p);
+//        }
+//        tau.setSignalNeutralHadrCands(signalNHPtrs);
+//
+//        // signalGamma
+//        for (const reco::CandidatePtr &p : tau.signalGammaCands()) {
+//            signalGammaPtrs.push_back(p);
+//        }
+//        tau.setSignalGammaCands(signalGammaPtrs);
         
         
         //############################################################################
@@ -133,15 +133,21 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
             }
             idx++;
         }
-        
-        if (removeOverLap_){
-            
+
             //############################################################################
             // filling a collection of IsoCandidates which overlapped with either other signal candidates or other Jet contitients
             //############################################################################
+            if (removeOverLap_){
+
             reco::CandidatePtrVector OverLappedIsoCand;
             OverLappedIsoCand.clear();
             
+          chargedPtIsoSum = 0;
+          chargedPtIsoSum03 = 0;
+          neutralPtIsoSum = 0;
+          neutralPtIsoSum03  = 0;
+          chargedPUPtIsoSum = 0;
+
             for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
                 
                 // Check iso candidate does not overlap with other signal candidates
@@ -197,7 +203,6 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     }
                 }
             }// end of filling the OverLappedIsoCand collection
-        }// check if overLap removal is needed
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################
@@ -284,7 +289,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                 }
             }
             tau.setIsolationGammaCands(isolationGammaPtrs);
-            
+        }// check if overLap removal is needed
             //############################################################################
         
                 

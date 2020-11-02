@@ -204,8 +204,8 @@ boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = Fa
 #                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
 #                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
                     PATTauProducer = cms.InputTag('slimmedTausBoosted'),
-#                    srcChargedIsoPtSum = cms.string('chargedIsoPtSumNoOverLap'),
-#                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSumNoOverLap'),
+                    srcChargedIsoPtSum = cms.string('chargedIsoPtSum'),
+                    srcNeutralIsoPtSum = cms.string('neutralIsoPtSum'),
 
                     toKeep = [
 #                                "2017v2", "dR0p32017v2", "newDM2017v2", #classic MVAIso tau-Ids

@@ -197,7 +197,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                     }
                 }
             }// end of filling the OverLappedIsoCand collection
-
+        }// check if overLap removal is needed
             //############################################################################
             // looping over Iso Cand to see if ther overlap with sig cand of a close-by tau
             //############################################################################
@@ -212,34 +212,6 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                 }
                 if (! hasOverLap){
                     isolationChHPtrs.push_back(charged);
-                    
-                    
-//from Michal
-//                    for (const auto& charged : theTau.isolationChargedHadrCands()) {
-                     //q-cuts
-//                     if (charged->pt() <= 0.5) continue;
-//                     if (std::abs(charged->dxy(*vertices[tauVertexIdx].position())) >= 0.03) continue;
-//                     reco::Track *track = charged->bestTrack();
-//                     if (track == nullptr) continue;
-//                     if (track->normalizedChi2() >= 100) continue;
-//                     if (track->numberOfHits() < 3) continue;
-//                     double dz = std::abs(charged->dz(*vertices[tauVertexIdx].position()));
-//                     double dR = deltaR(charged->p4(), tau.p4());
-//                     if (dz < 0.2) {//from tau vertex
-//                       //iso cone
-//                       if (dR < 0.5)
-//                         chargedPtIsoSum += charged->pt();
-//                       if (dR < 0.3)
-//                         chargedPtIsoSum03 += charged->pt();
-//                     } else {//not from tau vertex
-//                       //iso cone
-//                       if (dR < 0.8)
-//                         chargedPUPtIsoSum += charged->pt();
-//                     }
-//                    }
-                    
-                    
-                    
 
                     //q-cuts my selection
                     if (charged->pt() <= 0.5) continue;
@@ -314,7 +286,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
             tau.setIsolationGammaCands(isolationGammaPtrs);
             
             //############################################################################
-        }// check if overLap removal is needed
+        
                 
         size_t nTauIds = tau.tauIDs().size();
         std::vector<pat::Tau::IdPair> tauIds(nTauIds+5);

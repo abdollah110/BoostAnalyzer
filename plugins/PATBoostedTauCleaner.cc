@@ -84,38 +84,11 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         float  chargedPtIsoSum03 = it->tauID("chargedIsoPtSumdR03");
         float  neutralPtIsoSum = it->tauID("neutralIsoPtSum");
         float  neutralPtIsoSum03  = it->tauID("neutralIsoPtSumdR03");
-        float  chargedPUPtIsoSum = it->tauID("puCorrPtSum");
+//        float  chargedPUPtIsoSum = it->tauID("puCorrPtSum");
         
         reco::CandidatePtrVector signalChHPtrs, signalNHPtrs, signalGammaPtrs, isolationChHPtrs, isolationNHPtrs,
         isolationGammaPtrs, signalPtrs, isolationPtrs;
-
-//        //############################################################################
-//        // Store all of the signal Candidates
-//        //############################################################################
-//        // All signal
-//        for (const reco::CandidatePtr &p : tau.signalCands()) {
-//            signalPtrs.push_back(p);
-//        }
-//
-//        // signalCharged
-//        for (const reco::CandidatePtr &p : tau.signalChargedHadrCands()) {
-//            signalChHPtrs.push_back(p);
-//        }
-//        tau.setSignalChargedHadrCands(signalChHPtrs);
-//
-//        // signalNeutral
-//        for (const reco::CandidatePtr &p : tau.signalNeutrHadrCands()) {
-//            signalNHPtrs.push_back(p);
-//        }
-//        tau.setSignalNeutralHadrCands(signalNHPtrs);
-//
-//        // signalGamma
-//        for (const reco::CandidatePtr &p : tau.signalGammaCands()) {
-//            signalGammaPtrs.push_back(p);
-//        }
-//        tau.setSignalGammaCands(signalGammaPtrs);
-        
-        
+                
         //############################################################################
         // leadChargedHadrCand
         //############################################################################
@@ -146,7 +119,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
           chargedPtIsoSum03 = 0;
           neutralPtIsoSum = 0;
           neutralPtIsoSum03  = 0;
-          chargedPUPtIsoSum = 0;
+//          chargedPUPtIsoSum = 0;
 
             for (const reco::CandidatePtr &isoCand1 : tau.isolationCands()) {
                 
@@ -236,10 +209,6 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
                             chargedPtIsoSum += charged->pt();
                         if (dR < 0.3)
                             chargedPtIsoSum03 += charged->pt();
-                    } else {//not from tau vertex
-                        //iso cone
-                        if (dR < 0.8)
-                            chargedPUPtIsoSum += charged->pt();
                     }
   
                 }//check has overlap
@@ -317,7 +286,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         tauIds[q].second= neutralPtIsoSum03;
         q=q+1;
         
-        tauIds[q].first="chargedPUIsoPtSumNoOverLap";
+        tauIds[q].first="chargedIsoPtSum";
         tauIds[q].second= chargedPUPtIsoSum;
         q=q+1;
         

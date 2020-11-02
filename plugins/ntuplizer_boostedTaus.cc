@@ -83,7 +83,6 @@ vector<float> boostedTauNeutralIsoPtSumOrig_;
 vector<float> boostedTauNeutralIsoPtSumNoOverLap_;
 vector<float> boostedTauPuCorrPtSum_;
 vector<float> boostedTauPuCorrPtSumOrig_;
-vector<float> boostedTauPuCorrPtSumNoOverLap_;
 vector<int>   boostedTauNumSignalPFChargedHadrCands_;
 vector<int>   boostedTauNumSignalPFNeutrHadrCands_;
 vector<int>   boostedTauNumSignalPFGammaCands_;
@@ -194,7 +193,6 @@ void BoostAnalyzer::branchesBoostedTaus(TTree* tree)
     tree->Branch("boostedTauNeutralIsoPtSumNoOverLap"  ,&boostedTauNeutralIsoPtSumNoOverLap_);
     tree->Branch("boostedTauPuCorrPtSum"  ,&boostedTauPuCorrPtSum_);
     tree->Branch("boostedTauPuCorrPtSumOrig"  ,&boostedTauPuCorrPtSumOrig_);
-    tree->Branch("boostedTauPuCorrPtSumNoOverLap"  ,&boostedTauPuCorrPtSumNoOverLap_);
     tree->Branch("boostedTauNumSignalPFChargedHadrCands"  ,&boostedTauNumSignalPFChargedHadrCands_);
     tree->Branch("boostedTauNumSignalPFNeutrHadrCands"  ,&boostedTauNumSignalPFNeutrHadrCands_);
     tree->Branch("boostedTauNumSignalPFGammaCands"  ,&boostedTauNumSignalPFGammaCands_);
@@ -299,7 +297,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
     boostedTauNeutralIsoPtSumNoOverLap_.clear();
     boostedTauPuCorrPtSum_.clear();
     boostedTauPuCorrPtSumOrig_.clear();
-    boostedTauPuCorrPtSumNoOverLap_.clear();
     boostedTauNumSignalPFChargedHadrCands_.clear();
     boostedTauNumSignalPFNeutrHadrCands_.clear();
     boostedTauNumSignalPFGammaCands_.clear();
@@ -408,7 +405,6 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauNeutralIsoPtSum_.push_back(itau->tauID("neutralIsoPtSum")  );
         boostedTauNeutralIsoPtSumNoOverLap_.push_back(itau->tauID("neutralIsoPtSumNoOverLap")  );
         boostedTauPuCorrPtSum_.push_back(itau->tauID("puCorrPtSum"));
-        boostedTauPuCorrPtSumNoOverLap_.push_back(itau->tauID("chargedPUIsoPtSumNoOverLap"));
         boostedTauneutralIsoPtSumWeight_.push_back(itau->tauID("neutralIsoPtSumWeight"));
         boostedTaufootprintCorrection_.push_back(itau->tauID("footprintCorrection"));
         boostedTauphotonPtSumOutsideSignalCone_.push_back(itau->tauID("photonPtSumOutsideSignalCone"));

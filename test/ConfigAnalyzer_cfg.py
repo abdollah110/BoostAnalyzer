@@ -34,13 +34,13 @@ process.source = cms.Source("PoolSource",
 #            'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X.root'
 #            'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_16/src/miniAOD-prod_PAT.root'
 
-#    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X_MiniAODSIM_Orig.root'
+    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/ZprimeToZhToZhadhtata_narrow_M-2000_94X_MiniAODSIM_Orig.root'
                     
-                    'file:miniAOD-prod_PAT_1.root',
-                    'file:miniAOD-prod_PAT_2.root',
-                    'file:miniAOD-prod_PAT_3.root',
-                    'file:miniAOD-prod_PAT_4.root',
-                    'file:miniAOD-prod_PAT_5.root'
+#                    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/miniAOD-prod_PAT_1.root',
+#                    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/miniAOD-prod_PAT_2.root',
+#                    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/miniAOD-prod_PAT_3.root',
+#                    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/miniAOD-prod_PAT_4.root',
+#                    'file:/uscms_data/d3/abdollah/Analysis/ValidationBoostedTau/CMSSW_9_4_15/src/BoostTau/BoostAnalyzer/test/miniAOD-prod_PAT_5.root'
                         )
                 )
 
@@ -65,8 +65,8 @@ cleanedBoostedTau = cms.EDProducer("PATBoostedTauCleaner",
    src = cms.InputTag('slimmedTausBoosted'),
    pfcands = cms.InputTag('packedPFCandidates'),
    vtxLabel= cms.InputTag('offlineSlimmedPrimaryVertices'),
-#   removeOverLap = cms.bool(True),
-   removeOverLap = cms.bool(False),
+   removeOverLap = cms.bool(True),
+#   removeOverLap = cms.bool(False),
    ak8JetSrc = cms.InputTag('slimmedJetsAK8'),
    ca8JetSrc = cms.InputTag('ca8PFJetsCHSprunedForBoostedTausPAT','subJetsForSeedingBoostedTausPAT')
    )
@@ -116,34 +116,6 @@ process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap = process.rerunDi
 process.rerunDiscriminationByIsolationMVArun2v1VTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff50")
 process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap = process.rerunDiscriminationByIsolationMVArun2v1VLooseNoOverLap.clone()
 process.rerunDiscriminationByIsolationMVArun2v1VVTightNoOverLap.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v2_WPEff40")
-
-#
-#process.rerunDiscriminationAgainstElectronMVA6 = patTauDiscriminationAgainstElectronMVA6.clone(
-#    PATTauProducer = cms.InputTag('cleanedSlimmedTausBoosted'),
-#    Prediscriminants = noPrediscriminants,
-#    #Prediscriminants = requireLeadTrack,
-#    loadMVAfromDB = cms.bool(True),
-#    returnMVA = cms.bool(True),
-#    method = cms.string("BDTG"),
-#    mvaName_NoEleMatch_woGwoGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_woGwoGSF_BL"),
-#    mvaName_NoEleMatch_wGwoGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_wGwoGSF_BL"),
-#    mvaName_woGwGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_woGwGSF_BL"),
-#    mvaName_wGwGSF_BL = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_wGwGSF_BL"),
-#    mvaName_NoEleMatch_woGwoGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_woGwoGSF_EC"),
-#    mvaName_NoEleMatch_wGwoGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_NoEleMatch_wGwoGSF_EC"),
-#    mvaName_woGwGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_woGwGSF_EC"),
-#    mvaName_wGwGSF_EC = cms.string("RecoTauTag_antiElectronMVA6v1_gbr_wGwGSF_EC"),
-#    minMVANoEleMatchWOgWOgsfBL = cms.double(0.0),
-#    minMVANoEleMatchWgWOgsfBL  = cms.double(0.0),
-#    minMVAWOgWgsfBL            = cms.double(0.0),
-#    minMVAWgWgsfBL             = cms.double(0.0),
-#    minMVANoEleMatchWOgWOgsfEC = cms.double(0.0),
-#    minMVANoEleMatchWgWOgsfEC  = cms.double(0.0),
-#    minMVAWOgWgsfEC            = cms.double(0.0),
-#    minMVAWgWgsfEC             = cms.double(0.0),
-#    srcElectrons = cms.InputTag('slimmedElectrons'),
-#    usePhiAtEcalEntranceExtrapolation = cms.bool(True)
-#)
 
 
 # this sequence has to be included in your cms.Path() before your analyzer which accesses the new variables is called.

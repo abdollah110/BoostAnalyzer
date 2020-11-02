@@ -140,7 +140,7 @@ setattr(process, "cleanedSlimmedTausBoosted", cleanedBoostedTau)
 #setattr(process, "slimmedBoostedTausIDNoOverLap", embedBoostedTauIDNoOverLap)
 
 ########################################################################################
-# Anti electron
+# Rerun boostedTau Id
 ########################################################################################
 from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 process.load('RecoTauTag.Configuration.loadRecoTauTagMVAsFromPrepDB_cfi')

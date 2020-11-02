@@ -7,7 +7,6 @@
 #include "DataFormats/PatCandidates/interface/PATTauDiscriminator.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "FWCore/Utilities/interface/transform.h"
-#include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
 #include <Math/VectorUtil.h>
 
 class PATBoostedTauIDEmbedder : public edm::stream::EDProducer<>

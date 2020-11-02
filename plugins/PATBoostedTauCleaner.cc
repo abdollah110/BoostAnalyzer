@@ -260,7 +260,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         tauIds[q].second= chargedPtIsoSum;
         q=q+1;
         
-        tauIds[q].first="chargedIsoPtSum03NoOverLap";
+        tauIds[q].first="chargedIsoPtSumdR03NoOverLap";
         tauIds[q].second= chargedPtIsoSum03;
         q=q+1;
         
@@ -268,7 +268,7 @@ void PATBoostedTauCleaner::produce(edm::Event& evt, const edm::EventSetup& es)
         tauIds[q].second= neutralPtIsoSum;
         q=q+1;
         
-        tauIds[q].first="neutralIsoPtSum03NoOverLap";
+        tauIds[q].first="neutralIsoPtSumdR03NoOverLap";
         tauIds[q].second= neutralPtIsoSum03;
         q=q+1;
         

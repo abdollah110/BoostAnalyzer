@@ -149,7 +149,7 @@ from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import *
 from RecoTauTag.RecoTau.PATTauDiscriminationAgainstElectronMVA6_cfi import *
 
 updatedBoostedTauName = "slimmedBoostedTausNewID" #name of pat::Tau collection with new tau-Ids
-#import RecoTauTag.RecoTau.tools.runTauIdMVA as tauIdConfig
+#import RecoTauTag.RecoTau.tools.runBoostedTauIdMVA as tauIdConfig
 import BoostTau.BoostAnalyzer.runBoostedTauIdMVA as tauIdConfig
 boostedTauIdEmbedder = tauIdConfig.BoostedTauIDEmbedder(process, cms, debug = False,
                     updatedTauName = updatedBoostedTauName,
@@ -203,3 +203,10 @@ process.p = cms.Path(
      process.demo
 )
 
+
+
+
+#RecoTauTag/RecoTau/plugins/DeepBoostedTauId.cc
+#RecoTauTag/RecoTau/python/tools/runBoostedTauIdMVA.py
+#PhysicsTools/PatAlgos/plugins/PATBoostedTauIDEmbedder.cc
+#PhysicsTools/PatAlgos/plugins/PATBoostedTauCleaner.cc

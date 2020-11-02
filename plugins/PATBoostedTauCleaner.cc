@@ -7,10 +7,17 @@
 #include "DataFormats/PatCandidates/interface/PATTauDiscriminator.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "FWCore/Utilities/interface/transform.h"
-#include "BoostTau/BoostAnalyzer/interface/BoostAnalyzer.h"
 #include "DataFormats/PatCandidates/interface/TauPFSpecific.h"
 #include "DataFormats/JetReco/interface/Jet.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
+#include "DataFormats/VertexReco/interface/Vertex.h"
+#include "DataFormats/TrackReco/interface/Track.h"
+#include "DataFormats/TrackReco/interface/TrackFwd.h"
+#include "DataFormats/TrackReco/interface/DeDxHitInfo.h"
+#include "DataFormats/PatCandidates/interface/Jet.h"
+#include "DataFormats/Common/interface/RefToPtr.h"
+#include "DataFormats/Common/interface/Association.h"
+#include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 #include <Math/VectorUtil.h>
 #include "TLorentzVector.h"
 

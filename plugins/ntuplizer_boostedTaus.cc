@@ -423,9 +423,9 @@ void BoostAnalyzer::fillBoostedTaus(const edm::Event& e)
         boostedTauByIsolationMVArun2v1DBoldDMwLTrawNew_.push_back(itau->tauID("byIsolationMVArun2017v2DBoldDMwLTraw2017"));
         boostedTauByLooseIsolationMVArun2v1DBoldDMwLTNew_.push_back(itau->tauID("byLooseIsolationMVArun2017v2DBoldDMwLT2017"));
 
-        boostedTauByDeepTau2017v1VSjetraw_.push_back(itau->tauID("byDeepBoostedTau2017v1VSjetraw"));
-        boostedTauByDeepTau2017v1VSeraw_.push_back(itau->tauID("byDeepBoostedTau2017v1VSeraw"));
-        boostedTauByDeepTau2017v1VSmuraw_.push_back(itau->tauID("byDeepBoostedTau2017v1VSmuraw"));
+        boostedTauByDeepTau2017v1VSjetraw_.push_back(itau->tauID("byDeepTau2017v1VSjetraw"));
+        boostedTauByDeepTau2017v1VSeraw_.push_back(itau->tauID("byDeepTau2017v1VSeraw"));
+        boostedTauByDeepTau2017v1VSmuraw_.push_back(itau->tauID("byDeepTau2017v1VSmuraw"));
 
 
 

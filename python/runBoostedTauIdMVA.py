@@ -11,7 +11,7 @@ class BoostedTauIDEmbedder(object):
         PATTauProducer = "cleanedSlimmedTausBoosted",
         srcChargedIsoPtSum = "chargedIsoPtSumNoOverLap",
         srcNeutralIsoPtSum = "neutralIsoPtSumNoOverLap",
-        toKeep = ["2016v1","2017v2","deepBoostedTau2017v1","DPFTau_2016_v0","againstEle2018"],
+        toKeep = ["2016v1","2017v2","deepTau2017v1","DPFTau_2016_v0","againstEle2018"],
         tauIdDiscrMVA_trainings_run2_2017 = {
             'tauIdMVAIsoDBoldDMwLT2017' : "tauIdMVAIsoDBoldDMwLT2017",
         },
@@ -212,7 +212,7 @@ class BoostedTauIDEmbedder(object):
             tauIDSources.byVVTightIsolationMVArun2017v2DBoldDMwLT2017 = self.cms.InputTag('rerunDiscriminationByIsolationOldDMMVArun2017v2VVTight')
 
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        if "deepBoostedTau2017v1" in self.toKeep:
+        if "deepTau2017v1" in self.toKeep:
             print "Adding DeepTau IDs"
 
             workingPoints_ = {
@@ -249,7 +249,7 @@ class BoostedTauIDEmbedder(object):
                 }
             }
             file_name = 'RecoTauTag/TrainingFiles/data/DeepTauId/deepTau_2017v1_20L1024N_quantized.pb'
-            self.process.deepBoostedTau2017v1 = self.cms.EDProducer("DeepBoostedTauId",
+            self.process.deepTau2017v1 = self.cms.EDProducer("DeepBoostedTauId",
                 electrons              = self.cms.InputTag('slimmedElectrons'),
                 muons                  = self.cms.InputTag('slimmedMuons'),
                 taus                   = self.PATTauProducer,
@@ -257,10 +257,10 @@ class BoostedTauIDEmbedder(object):
                 mem_mapped             = self.cms.bool(False)
             )
 
-            self.processDeepProducer('deepBoostedTau2017v1', tauIDSources, workingPoints_)
+            self.processDeepProducer('deepTau2017v1', tauIDSources, workingPoints_)
 
-            self.process.rerunMvaIsolationBoostTask.add(self.process.deepBoostedTau2017v1)
-            self.process.rerunMvaIsolationBoostSequence += self.process.deepBoostedTau2017v1
+            self.process.rerunMvaIsolationBoostTask.add(self.process.deepTau2017v1)
+            self.process.rerunMvaIsolationBoostSequence += self.process.deepTau2017v1
 
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if "againstEle2018" in self.toKeep:
@@ -560,7 +560,7 @@ class BoostedTauIDEmbedder(object):
 
         ##
         print('Embedding new TauIDs into \"'+self.updatedTauName+'\"')
-        embedID = self.cms.EDProducer("PATBoostedTauIDEmbedder",
+        embedID = self.cms.EDProducer("PATTauIDEmbedder",
             src = self.PATTauProducer,
             tauIDSources = tauIDSources
         )

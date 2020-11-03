@@ -17,11 +17,10 @@ public:
     ~PATBoostedTauIDEmbedder(){};
     
     void produce(edm::Event&, const edm::EventSetup&);
-    void setMySignalChargedHadrCands(const auto &ptrs);
     
     
 private:
-        
+    
     
     //--- configuration parameters
     edm::EDGetTokenT<pat::TauCollection> src_;
@@ -56,38 +55,36 @@ void PATBoostedTauIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es
     evt.getByToken(src_, inputTaus);
     
     
-//     This part is to add new Tau Id
+    //     This part is to add new Tau Id
     
-      auto outputTaus = std::make_unique<std::vector<pat::Tau> >();
-      outputTaus->reserve(inputTaus->size());
+    auto outputTaus = std::make_unique<std::vector<pat::Tau> >();
+    outputTaus->reserve(inputTaus->size());
     
-      int tau_idx = 0;
-      for(pat::TauCollection::const_iterator inputTau = inputTaus->begin(); inputTau != inputTaus->end(); ++inputTau, ++tau_idx){
-    
+    int tau_idx = 0;
+    for(pat::TauCollection::const_iterator inputTau = inputTaus->begin(); inputTau != inputTaus->end(); ++inputTau, ++tau_idx){
         pat::Tau outputTau(*inputTau);
         pat::TauRef inputTauRef(inputTaus, tau_idx);
-    
         size_t nTauIds = inputTau->tauIDs().size();
         std::vector<pat::Tau::IdPair> tauIds(nTauIds+tauIDSrcs_.size());
-    
+        
         for(size_t i = 0; i < nTauIds; ++i){
-          tauIds[i] = inputTau->tauIDs().at(i);
+            tauIds[i] = inputTau->tauIDs().at(i);
         }
-    
+        
         edm::Handle<pat::PATTauDiscriminator> tauDiscr;
         for(size_t i = 0; i < tauIDSrcs_.size(); ++i){
-          evt.getByToken(patTauIDTokens_[i], tauDiscr);
-          tauIds[nTauIds+i].first = tauIDSrcs_[i].first;
-          tauIds[nTauIds+i].second = (*tauDiscr)[inputTauRef];
+            evt.getByToken(patTauIDTokens_[i], tauDiscr);
+            tauIds[nTauIds+i].first = tauIDSrcs_[i].first;
+            tauIds[nTauIds+i].second = (*tauDiscr)[inputTauRef];
         }
-                
+        
         outputTau.setTauIDs(tauIds);
         outputTaus->push_back(outputTau);
-      }
+    }
     
-
-//    This is for Adding new tau Id
-      evt.put(std::move(outputTaus));
+    
+    //    This is for Adding new tau Id
+    evt.put(std::move(outputTaus));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"
